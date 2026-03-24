@@ -682,11 +682,13 @@
                         class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105">
                         範例一：罰寫進化 (Emoji)
                     </button>
-                    <button id="btn-ex-2" onclick="switchAiExample(2)"
-                        class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
+                    <button id="btn-ex-2" onclick="switchAiExample(2)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
                         範例二：成績分析 (Logic)
                     </button>
-                </div>
+                    <button id="btn-ex-3" onclick="switchAiExample(3)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
+                        範例三：樂透生成 (Scratch)
+                    </button>
+                    </div>
 
                 <!-- AI Magic Interaction Area -->
                 <div class="grid lg:grid-cols-2 gap-8 items-start">
@@ -1133,15 +1135,17 @@
             currentAiEx = exNum;
             const btn1 = document.getElementById('btn-ex-1');
             const btn2 = document.getElementById('btn-ex-2');
+            const btn3 = document.getElementById('btn-ex-3');
 
-            // Reset UI
-            if (exNum === 1) {
-                btn1.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
-                btn2.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
-            } else {
-                btn2.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
-                btn1.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
-            }
+            // Reset all to inactive style
+            [btn1, btn2, btn3].forEach(btn => {
+                if(btn) btn.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
+            });
+
+            // Set active style
+            const activeBtn = document.getElementById('btn-ex-' + exNum);
+            if(activeBtn) activeBtn.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
+            
             resetAiSimulation();
         }
 
@@ -1170,7 +1174,7 @@
                     <div class="pl-8 text-indigo-300">}</div>
                     <div class="pl-4 text-slate-500">}</div>
                     <div class="text-slate-500">}</div>`;
-            } else {
+            } else if (currentAiEx === 2) {
                 editorDisplay.innerHTML = `
                     <div class="text-slate-500">public class Main {</div>
                     <div class="pl-4 text-slate-500">public static void main(String[] args) {</div>
@@ -1178,6 +1182,14 @@
                     <div class="pl-8 text-indigo-300">for (int i = 0; i < scores.length; i++) {</div>
                     <div class="pl-12 text-indigo-300">System.out.println("學生 " + (i+1) + " 分數: " + scores[i]);</div>
                     <div class="pl-8 text-indigo-300">}</div>
+                    <div class="pl-4 text-slate-500">}</div>
+                    <div class="text-slate-500">}</div>`;
+            } else {
+                editorDisplay.innerHTML = `
+                    <div class="text-slate-600 italic">// 準備從零開始寫新程式...</div>
+                    <div class="text-slate-500">public class Main {</div>
+                    <div class="pl-4 text-slate-500">public static void main(String[] args) {</div>
+                    <div class="pl-8 text-slate-400">|</div>
                     <div class="pl-4 text-slate-500">}</div>
                     <div class="text-slate-500">}</div>`;
             }
@@ -1201,7 +1213,8 @@
             // Define Content based on Example
             const prompts = [
                 "(Role) 你是一位幽默的 Java 教練。\n(Context) 我是剛學會 for 迴圈的初學者。\n(Task) 幫我修改這段程式碼，讓它每次印出的句子後面都隨機加上 Emoji！",
-                "(Role) 你是一位嚴謹但溫暖的資深軟體架構師。\n(Context) 我剛學會用 int[] 陣列存放 5 位學生的分數並用迴圈印出。\n(Task) 請進化這段代碼：1. 判斷及格(60分)並印出 🎓 或 ❌。 2. 計算平均分數。"
+                "(Role) 你是一位嚴謹但溫暖的資深軟體架構師。\n(Context) 我剛學會用 int[] 陣列存放 5 位學生的分數並用迴圈印出。\n(Task) 請進化這段代碼：1. 判斷及格(60分)並印出 🎓 或 ❌。 2. 計算平均分數。",
+                "(Role) 資深遊戲工程師。\n(Context) 我正在開發樂透遊戲。\n(Task) 從頭幫我寫一個 Java 程式，自動生成 6 個 1~49 之間不重複的樂透號碼，排序後印出結果。"
             ];
 
             const aiResponses = [
@@ -1215,7 +1228,6 @@
                 <div class="pl-8 text-slate-300">}</div>
                 <div class="pl-4 text-slate-300">}</div>
                 <div class="text-slate-300">}</div>`,
-
                 `<div class="text-slate-300">public class Main {</div>
                 <div class="pl-4 text-slate-300">public static void main(String[] args) {</div>
                 <div class="pl-8 text-emerald-400">int[] scores = {85, 42, 93, 60, 77};</div>
@@ -1227,9 +1239,19 @@
                 <div class="pl-8 text-slate-300">}</div>
                 <div class="pl-8 text-indigo-200">System.out.println("平均分數: " + (sum/5));</div>
                 <div class="pl-4 text-slate-300">}</div>
+                <div class="text-slate-300">}</div>`,
+                `<div class="text-emerald-400">import java.util.*;</div>
+                <div class="text-slate-300">public class Lottery {</div>
+                <div class="pl-4 text-slate-300">public static void main(String[] args) {</div>
+                <div class="pl-8 text-emerald-400">Set<Integer> nums = new TreeSet<>();</div>
+                <div class="pl-8 text-emerald-400">Random rand = new Random();</div>
+                <div class="pl-8 text-slate-300">while (nums.size() < 6) {</div>
+                <div class="pl-12 text-slate-300">nums.add(rand.nextInt(49) + 1);</div>
+                <div class="pl-8 text-slate-300">}</div>
+                <div class="pl-8 text-indigo-200 font-bold">System.out.println("中獎號碼: " + nums);</div>
+                <div class="pl-4 text-slate-300">}</div>
                 <div class="text-slate-300">}</div>`
             ];
-
             // Step 1: Typing Prompt
             const promptText = prompts[currentAiEx - 1];
             for (let i = 0; i < promptText.length; i++) {
@@ -1255,26 +1277,50 @@
             // Step 5: Execute
             outputStatus.innerText = 'Running...';
             outputStatus.className = 'px-2 py-0.5 bg-yellow-100 text-yellow-600 rounded-full text-[10px] font-bold italic animate-pulse';
-            await new Promise(r => setTimeout(r, 1000));
-            outputStatus.innerText = 'Execute Success';
-            outputStatus.className = 'px-2 py-0.5 bg-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold italic';
-            outputArea.innerHTML = '';
-            outputArea.className = 'code-font text-[11px] space-y-1 text-slate-600 text-left px-4';
 
-            if (currentAiEx === 1) {
-                const ems = ["(^_^)", "(T_T)", "(>_<)", "(O_O)"];
-                for (let i = 1; i <= 10; i++) {
-                    outputArea.innerHTML += `<div>第 ${i} 次: 我以後會用 AI 寫程式 ${ems[Math.floor(Math.random() * 4)]}</div>`;
-                    await new Promise(r => setTimeout(r, 100));
+            if (currentAiEx === 3) {
+                // Special Lottery Animation
+                outputArea.innerHTML = '<div class="flex gap-2 justify-center py-4" id="rolling-balls"></div>';
+                outputArea.className = 'code-font text-[11px] space-y-1 text-slate-600 text-center px-4';
+                const ballsCont = document.getElementById('rolling-balls');
+                for (let b = 0; b < 6; b++) {
+                    const bEl = document.createElement('div');
+                    bEl.className = "w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-400 animate-bounce";
+                    bEl.innerText = "?";
+                    ballsCont.appendChild(bEl);
+                    await new Promise(r => setTimeout(r, 300));
+                }
+                await new Promise(r => setTimeout(r, 1000));
+                const lucky = [8, 12, 25, 33, 41, 49];
+                ballsCont.innerHTML = '';
+                for (let n of lucky) {
+                    const bEl = document.createElement('div');
+                    bEl.className = "w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold shadow-lg transform scale-110 transition-all duration-500";
+                    bEl.innerText = n;
+                    ballsCont.appendChild(bEl);
+                    await new Promise(r => setTimeout(r, 400));
                 }
             } else {
-                const lines = ["學生 1: 85 [及格 🎓]", "學生 2: 42 [不及格 ❌]", "學生 3: 93 [及格 🎓]", "學生 4: 60 [及格 🎓]", "學生 5: 77 [及格 🎓]", "---", "平均分數: 71.4"];
-                for (let line of lines) {
-                    outputArea.innerHTML += `<div>${line}</div>`;
-                    await new Promise(r => setTimeout(r, 200));
+                await new Promise(r => setTimeout(r, 1000));
+                outputArea.innerHTML = '';
+                outputArea.className = 'code-font text-[11px] space-y-1 text-slate-600 text-left px-4';
+                if (currentAiEx === 1) {
+                    const ems = ["(^_^)", "(T_T)", "(>_<)", "(O_O)"];
+                    for (let i = 1; i <= 10; i++) {
+                        outputArea.innerHTML += `<div class="fade-in-up">第 ${i} 次: 我以後會用 AI 寫程式 ${ems[Math.floor(Math.random() * 4)]}</div>`;
+                        await new Promise(r => setTimeout(r, 100));
+                    }
+                } else {
+                    const lines = ["學生 1: 85 [及格 🎓]", "學生 2: 42 [不及格 ❌]", "學生 3: 93 [及格 🎓]", "學生 4: 60 [及格 🎓]", "學生 5: 77 [及格 🎓]", "---", "平均分數: 71.4"];
+                    for (let line of lines) {
+                        outputArea.innerHTML += `<div>${line}</div>`;
+                        await new Promise(r => setTimeout(r, 200));
+                    }
                 }
             }
 
+            outputStatus.innerText = 'Execute Success';
+            outputStatus.className = 'px-2 py-0.5 bg-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold italic';
             btn.disabled = false;
             btn.classList.remove('opacity-50');
         }
@@ -1533,10 +1579,11 @@
                 'public': {
                     title: 'Access Specifier (存取修飾字)',
                     body: `定義成員的能見度。設為 <code>public</code> 代表 JVM 可以從類別外部自由進入。
-                        <table class="modifier-table"><thead><tr><th>修飾字</th><th>同類別</th><th>同封包</th><th>子類別</th><th>世界</th></tr></thead><tbody>
-                        <tr class="current-row"><td>public</td><td>V</td><td>V</td><td>V</td><td>V</td></tr>
-                        <tr><td>protected</td><td>V</td><td>V</td><td>V</td><td>X</td></tr>
-                        <tr><td>private</td><td>V</td><td>X</td><td>X</td><td>X</td></tr></tbody></table>`,
+                        <table class="modifier-table"><thead><tr><th>修飾字</th><th>同類別 (Class)</th><th>同封包 (Package)</th><th>子類別 (Subclass)</th><th>世界 (World)</th></tr></thead><tbody>
+                        <tr class="current-row"><td>public</td><td>O</td><td>O</td><td>O</td><td>O</td></tr>
+                        <tr><td>protected</td><td>O</td><td>O</td><td>O</td><td>X</td></tr>
+                        <tr><td>(default)</td><td>O</td><td>O</td><td>X</td><td>X</td></tr>
+                        <tr><td>private</td><td>O</td><td>X</td><td>X</td><td>X</td></tr></tbody></table>`,
                     icon: 'lock-open'
                 },
                 'static': { title: 'Keyword (關鍵字 - 靜態)', body: '<b>static</b> 讓這個方法屬於「類別」而非物件。JVM 不需要執行 <code>new MyApp()</code> 就能啟動。', icon: 'zap' },
