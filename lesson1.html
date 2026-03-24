@@ -283,6 +283,46 @@
             font-weight: 600;
         }
 
+        /* AI Magic Section Styles */
+        .ai-chat-bubble {
+            position: relative;
+            background: #f1f5f9;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border-bottom-left-radius: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .ai-response-bubble {
+            background: #e0e7ff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border-bottom-right-radius: 0;
+            border: 1px solid #c7d2fe;
+        }
+
+        .rct-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .rct-card:hover {
+            border-color: #6366f1;
+            transform: translateY(-5px);
+            background: #fdf2f8;
+        }
+
+        .skeleton-muscle-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: #1e293b;
+            border-radius: 2rem;
+            color: white;
+        }
+
         /* Modifier Table Styles */
         .modifier-table {
             width: 100%;
@@ -379,6 +419,10 @@
             <button onclick="showSection('object')" id="tab-object"
                 class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
                 4. 類別與物件
+            </button>
+            <button onclick="showSection('ai-magic')" id="tab-ai-magic"
+                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                5. AI 魔法提示
             </button>
         </div>
     </nav>
@@ -581,6 +625,161 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: AI MAGIC PROMPT -->
+        <section id="sec-ai-magic" class="concept-section hidden">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">AI 魔法提示：賦予程式靈魂 (The Magic)</h2>
+                    <p class="text-slate-500">2026 年，不只是學 Java，更要學會如何指揮 AI 架構師</p>
+                </div>
+
+                <!-- RCT Framework Cards -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="rct-card p-6 bg-white rounded-3xl shadow-lg border-l-8 border-pink-500">
+                        <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">R</div>
+                        <h4 class="font-bold text-lg text-slate-800">Role (角色)</h4>
+                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">定義 AI 的專業身分。<br><span class="text-pink-600 font-bold italic">「你是一位幽默的 Java 教練...」</span></p>
+                    </div>
+                    <div class="rct-card p-6 bg-white rounded-3xl shadow-lg border-l-8 border-indigo-500">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">C</div>
+                        <h4 class="font-bold text-lg text-slate-800">Context (背景)</h4>
+                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">提供現狀與限制條件。<br><span class="text-indigo-600 font-bold italic">「我是剛學會 for 迴圈的初學者...」</span></p>
+                    </div>
+                    <div class="rct-card p-6 bg-white rounded-3xl shadow-lg border-l-8 border-emerald-500">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">T</div>
+                        <h4 class="font-bold text-lg text-slate-800">Task (任務)</h4>
+                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">具體的行動與輸出要求。<br><span class="text-emerald-600 font-bold italic">「幫我改程式，隨機加上 Emoji...」</span></p>
+                    </div>
+                </div>
+
+                <!-- Example Switcher -->
+                <div class="flex flex-wrap gap-4 justify-center mb-8">
+                    <button id="btn-ex-1" onclick="switchAiExample(1)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105">
+                        範例一：罰寫進化 (Emoji)
+                    </button>
+                    <button id="btn-ex-2" onclick="switchAiExample(2)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
+                        範例二：成績分析 (Logic)
+                    </button>
+                </div>
+
+                <!-- AI Magic Interaction Area -->
+                <div class="grid lg:grid-cols-2 gap-8 items-start">
+                    <!-- Left Side: Chat & Editor -->
+                    <div class="space-y-6">
+                        <!-- Editor Simulator (Original Code) -->
+                        <div class="bg-slate-900 rounded-[2rem] p-6 shadow-2xl relative border-4 border-slate-800">
+                            <div class="flex items-center justify-between mb-4 border-b border-slate-700 pb-2">
+                                <div class="text-slate-400 font-bold text-xs flex items-center gap-2">
+                                    <i data-lucide="code"></i> JDoodle 編輯器 (原始狀態)
+                                </div>
+                                <div class="flex gap-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                            </div>
+                            <div id="editor-code-display" class="code-font text-[11px] leading-relaxed transition-all duration-500">
+                                <div class="text-slate-500">public class Main {</div>
+                                <div class="pl-4 text-slate-500">public static void main(String[] args) {</div>
+                                <div class="pl-8 text-indigo-300">for (int i = 1; i <= 10; i++) {</div>
+                                <div class="pl-12 text-indigo-300">System.out.println("第 " + i + " 次: 我以後會用 AI 寫程式 ");</div>
+                                <div class="pl-8 text-indigo-300">}</div>
+                                <div class="pl-4 text-slate-500">}</div>
+                                <div class="text-slate-500">}</div>
+                            </div>
+                            <!-- Selection Overlay (Simulation) -->
+                            <div id="editor-selection-mask" class="absolute inset-0 bg-indigo-500/30 hidden"></div>
+                        </div>
+
+                        <!-- AI Chat Window -->
+                        <div class="bg-slate-50 rounded-[2.5rem] p-6 shadow-inner border border-slate-200">
+                            <div class="flex items-center gap-2 mb-4 text-slate-400 font-bold text-xs">
+                                <i data-lucide="sparkles"></i> AI 助手對話框 (ChatGPT / Gemini)
+                            </div>
+                            <div class="space-y-4">
+                                <!-- Prompt Bubble -->
+                                <div class="ai-chat-bubble ml-8">
+                                    <div class="text-[9px] text-pink-600 font-black mb-1 tracking-widest uppercase">My Magic Prompt (RCT)</div>
+                                    <p id="prompt-typing-area" class="text-[11px] text-slate-700 leading-relaxed font-medium italic"></p>
+                                </div>
+
+                                <!-- Response Bubble -->
+                                <div id="ai-response-area" class="ai-response-bubble mr-8 hidden fade-in-up">
+                                    <div class="flex items-center gap-2 text-indigo-600 font-bold text-[9px] mb-2 tracking-widest uppercase">
+                                        <i data-lucide="bot"></i> AI 教練回覆
+                                    </div>
+                                    <p class="text-[10px] text-indigo-800 leading-relaxed italic mb-2">「沒問題！我幫你引入了 Random 工具並建立表情符號清單，讓罰寫變有趣！」</p>
+                                    <div id="ai-generated-code-box" class="bg-indigo-900 rounded-xl p-3 code-font text-[9px] text-white shadow-lg relative overflow-hidden transition-all duration-500">
+                                        <div class="absolute top-0 right-0 p-1 px-2 bg-indigo-500 text-[7px] uppercase tracking-widest">New Java Code</div>
+                                        <div id="ai-code-content">
+                                            <div class="text-emerald-400">import java.util.Random;</div>
+                                            <div class="mt-1 text-slate-400">public class Main {</div>
+                                            <div class="pl-2">public static void main(String[] args) {</div>
+                                            <div class="pl-4 text-emerald-400">String[] emojis = {"(^_^)", "(T_T)", "(>_<)", "(O_O)", "(Wait...)"};</div>
+                                            <div class="pl-4 text-emerald-400">Random rand = new Random();</div>
+                                            <div class="pl-4 text-slate-300 font-bold">for (int i = 1; i <= 10; i++) {</div>
+                                            <div class="pl-6 text-indigo-200 italic">int randomIndex = rand.nextInt(emojis.length);</div>
+                                            <div class="pl-6 text-indigo-200">System.out.println("第 " + i + " 次: 我會用 AI 寫程式 " + emojis[randomIndex]);</div>
+                                            <div class="pl-4 text-slate-300">}</div>
+                                            <div class="pl-2">}</div>
+                                            <div>}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-start-magic" onclick="runAiMagicSimulation()" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-2xl font-black shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95">
+                                <i data-lucide="zap"></i> 施放 R.C.T. 魔法咒語
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Concept & Final Output -->
+                    <div class="space-y-6">
+                        <div class="bg-indigo-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden border-4 border-indigo-700 min-h-[300px]">
+                            <div class="absolute top-0 right-0 p-4 opacity-10">
+                                <i data-lucide="cpu" size="100"></i>
+                            </div>
+                            <h3 class="font-bold text-xl mb-6 flex items-center gap-2"><i data-lucide="lightbulb" class="text-yellow-400"></i> 工程師的未來全貌</h3>
+                            
+                            <div class="space-y-6 relative z-10">
+                                <div class="flex items-start gap-4">
+                                    <div class="p-2 bg-indigo-800 rounded-lg text-emerald-400 shadow-md">
+                                        <i data-lucide="clipboard-list" size="20"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-black text-indigo-200 text-xs tracking-widest uppercase mb-1">Java 是你的骨架 (Skeleton)</h5>
+                                        <p class="text-indigo-100 text-[11px] leading-relaxed">理解迴圈邏輯。如果 AI 給錯了 (例如忘了 import)，你有能力手動修正。</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="p-2 bg-indigo-800 rounded-lg text-pink-400 shadow-md">
+                                        <i data-lucide="zap" size="20"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-black text-indigo-200 text-xs tracking-widest uppercase mb-1">AI 是你的肌肉 (Muscle)</h5>
+                                        <p class="text-indigo-100 text-[11px] leading-relaxed">處理繁瑣語法與亂數工具。它將你的「清晰邏輯」轉化為「強大功能」。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Demo Output Display -->
+                        <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-100">
+                            <div class="flex items-center justify-between mb-4 border-b pb-3">
+                                <div class="font-black text-slate-700 flex items-center gap-2 text-sm"><i data-lucide="terminal" size="16"></i> 執行結果 (Output)</div>
+                                <span id="output-status" class="px-2 py-0.5 bg-slate-100 text-slate-400 rounded-full text-[10px] font-bold italic">Waiting...</span>
+                            </div>
+                            <div id="magic-output-area" class="code-font text-[11px] space-y-1 text-slate-400 italic text-center py-12">
+                                點擊按鈕，見證 AI 與 Java 的協作魔法...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 </div>
             </div>
         </section>
@@ -862,11 +1061,171 @@
 
         function showSection(sectionId) {
             document.querySelectorAll('.concept-section').forEach(s => s.classList.add('hidden'));
-            const map = { 'fullstack': 'sec-fullstack', 'entry': 'sec-entry', 'var-mem': 'sec-var-mem', 'object': 'tab-object-sec' };
+            const map = { 
+                'fullstack': 'sec-fullstack', 
+                'entry': 'sec-entry', 
+                'var-mem': 'sec-var-mem', 
+                'object': 'tab-object-sec',
+                'ai-magic': 'sec-ai-magic'
+            };
             document.getElementById(map[sectionId]).classList.remove('hidden');
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
             document.getElementById('tab-' + sectionId).classList.add('active-tab');
             lucide.createIcons();
+            if(sectionId === 'fullstack') setTimeout(syncPaths, 100);
+        }
+
+        // --- AI MAGIC SIMULATION ---
+        let currentAiEx = 1;
+
+        function switchAiExample(exNum) {
+            currentAiEx = exNum;
+            const btn1 = document.getElementById('btn-ex-1');
+            const btn2 = document.getElementById('btn-ex-2');
+            
+            // Reset UI
+            if(exNum === 1) {
+                btn1.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
+                btn2.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
+            } else {
+                btn2.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
+                btn1.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
+            }
+            resetAiSimulation();
+        }
+
+        function resetAiSimulation() {
+            const typingArea = document.getElementById('prompt-typing-area');
+            const responseArea = document.getElementById('ai-response-area');
+            const codeBox = document.getElementById('ai-generated-code-box');
+            const editorDisplay = document.getElementById('editor-code-display');
+            const outputArea = document.getElementById('magic-output-area');
+            const outputStatus = document.getElementById('output-status');
+            
+            typingArea.innerText = '';
+            responseArea.classList.add('hidden');
+            codeBox.style.opacity = '0';
+            outputStatus.innerText = 'Waiting...';
+            outputStatus.className = 'px-2 py-0.5 bg-slate-100 text-slate-400 rounded-full text-[10px] font-bold italic';
+            outputArea.innerHTML = '點擊按鈕，見證 AI 與 Java 的協作魔法...';
+            outputArea.className = 'code-font text-[11px] space-y-1 text-slate-400 italic text-center py-12';
+
+            if(currentAiEx === 1) {
+                editorDisplay.innerHTML = `
+                    <div class="text-slate-500">public class Main {</div>
+                    <div class="pl-4 text-slate-500">public static void main(String[] args) {</div>
+                    <div class="pl-8 text-indigo-300">for (int i = 1; i <= 10; i++) {</div>
+                    <div class="pl-12 text-indigo-300">System.out.println("第 " + i + " 次: 我以後會用 AI 寫程式 ");</div>
+                    <div class="pl-8 text-indigo-300">}</div>
+                    <div class="pl-4 text-slate-500">}</div>
+                    <div class="text-slate-500">}</div>`;
+            } else {
+                editorDisplay.innerHTML = `
+                    <div class="text-slate-500">public class Main {</div>
+                    <div class="pl-4 text-slate-500">public static void main(String[] args) {</div>
+                    <div class="pl-8 text-emerald-400">int[] scores = {85, 42, 93, 60, 77};</div>
+                    <div class="pl-8 text-indigo-300">for (int i = 0; i < scores.length; i++) {</div>
+                    <div class="pl-12 text-indigo-300">System.out.println("學生 " + (i+1) + " 分數: " + scores[i]);</div>
+                    <div class="pl-8 text-indigo-300">}</div>
+                    <div class="pl-4 text-slate-500">}</div>
+                    <div class="text-slate-500">}</div>`;
+            }
+        }
+
+        async function runAiMagicSimulation() {
+            const btn = document.getElementById('btn-start-magic');
+            const typingArea = document.getElementById('prompt-typing-area');
+            const responseArea = document.getElementById('ai-response-area');
+            const codeBox = document.getElementById('ai-generated-code-box');
+            const editorDisplay = document.getElementById('editor-code-display');
+            const selectionMask = document.getElementById('editor-selection-mask');
+            const outputArea = document.getElementById('magic-output-area');
+            const outputStatus = document.getElementById('output-status');
+            const aiCodeContent = document.getElementById('ai-code-content');
+            
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+            resetAiSimulation();
+            
+            // Define Content based on Example
+            const prompts = [
+                "(Role) 你是一位幽默的 Java 教練。\n(Context) 我是剛學會 for 迴圈的初學者。\n(Task) 幫我修改這段程式碼，讓它每次印出的句子後面都隨機加上 Emoji！",
+                "(Role) 你是一位嚴謹但溫暖的資深軟體架構師。\n(Context) 我剛學會用 int[] 陣列存放 5 位學生的分數並用迴圈印出。\n(Task) 請進化這段代碼：1. 判斷及格(60分)並印出 🎓 或 ❌。 2. 計算平均分數。"
+            ];
+
+            const aiResponses = [
+                `<div class="text-emerald-400">import java.util.Random;</div>
+                <div class="text-slate-300">public class Main {</div>
+                <div class="pl-4 text-slate-300">public static void main(String[] args) {</div>
+                <div class="pl-8 text-emerald-400">String[] emojis = {"(^_^)", "(T_T)", "(>_<)", "(O_O)"};</div>
+                <div class="pl-8 text-emerald-400">Random rand = new Random();</div>
+                <div class="pl-8 text-slate-300">for (int i = 1; i <= 10; i++) {</div>
+                <div class="pl-12 text-indigo-200 italic">System.out.println("第 " + i + " 次: 會用 AI 寫程式 " + emojis[rand.nextInt(4)]);</div>
+                <div class="pl-8 text-slate-300">}</div>
+                <div class="pl-4 text-slate-300">}</div>
+                <div class="text-slate-300">}</div>`,
+                
+                `<div class="text-slate-300">public class Main {</div>
+                <div class="pl-4 text-slate-300">public static void main(String[] args) {</div>
+                <div class="pl-8 text-emerald-400">int[] scores = {85, 42, 93, 60, 77};</div>
+                <div class="pl-8 text-emerald-400">double sum = 0;</div>
+                <div class="pl-8 text-slate-300">for (int i = 0; i < scores.length; i++) {</div>
+                <div class="pl-12 text-emerald-400">String res = (scores[i]>=60) ? "及格 🎓" : "不及格 ❌";</div>
+                <div class="pl-12 text-indigo-200">System.out.println("學生 "+(i+1)+": "+scores[i]+" ["+res+"]");</div>
+                <div class="pl-12 text-emerald-400">sum += scores[i];</div>
+                <div class="pl-8 text-slate-300">}</div>
+                <div class="pl-8 text-indigo-200">System.out.println("平均分數: " + (sum/5));</div>
+                <div class="pl-4 text-slate-300">}</div>
+                <div class="text-slate-300">}</div>`
+            ];
+
+            // Step 1: Typing Prompt
+            const promptText = prompts[currentAiEx - 1];
+            for (let i = 0; i < promptText.length; i++) {
+                typingArea.innerText += promptText[i];
+                await new Promise(r => setTimeout(r, 15));
+            }
+            
+            // Step 2 & 3: AI Response & Code
+            await new Promise(r => setTimeout(r, 800));
+            aiCodeContent.innerHTML = aiResponses[currentAiEx - 1];
+            responseArea.classList.remove('hidden');
+            lucide.createIcons();
+            await new Promise(r => setTimeout(r, 600));
+            codeBox.style.opacity = '1';
+            
+            // Step 4: Simulate Paste
+            await new Promise(r => setTimeout(r, 1200));
+            selectionMask.classList.remove('hidden');
+            await new Promise(r => setTimeout(r, 400));
+            editorDisplay.innerHTML = aiResponses[currentAiEx - 1];
+            selectionMask.classList.add('hidden');
+            
+            // Step 5: Execute
+            outputStatus.innerText = 'Running...';
+            outputStatus.className = 'px-2 py-0.5 bg-yellow-100 text-yellow-600 rounded-full text-[10px] font-bold italic animate-pulse';
+            await new Promise(r => setTimeout(r, 1000));
+            outputStatus.innerText = 'Execute Success';
+            outputStatus.className = 'px-2 py-0.5 bg-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold italic';
+            outputArea.innerHTML = '';
+            outputArea.className = 'code-font text-[11px] space-y-1 text-slate-600 text-left px-4';
+            
+            if(currentAiEx === 1) {
+                const ems = ["(^_^)", "(T_T)", "(>_<)", "(O_O)"];
+                for (let i = 1; i <= 10; i++) {
+                    outputArea.innerHTML += `<div>第 ${i} 次: 我以後會用 AI 寫程式 ${ems[Math.floor(Math.random()*4)]}</div>`;
+                    await new Promise(r => setTimeout(r, 100));
+                }
+            } else {
+                const lines = ["學生 1: 85 [及格 🎓]", "學生 2: 42 [不及格 ❌]", "學生 3: 93 [及格 🎓]", "學生 4: 60 [及格 🎓]", "學生 5: 77 [及格 🎓]", "---", "平均分數: 71.4"];
+                for (let line of lines) {
+                    outputArea.innerHTML += `<div>${line}</div>`;
+                    await new Promise(r => setTimeout(r, 200));
+                }
+            }
+            
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
         }
 
         // --- DETAILED FLOW LOGIC ---
