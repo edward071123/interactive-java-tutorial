@@ -109,6 +109,164 @@
             }
         }
 
+        /* Web Flow UI */
+        .web-node {
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+            z-index: 20;
+        }
+
+        .web-node.active {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .flow-path {
+            stroke: #cbd5e1;
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 8;
+            transition: stroke 0.3s;
+        }
+
+        .flow-path.active {
+            stroke: #3b82f6;
+            animation: dashmove 2s linear infinite;
+        }
+
+        @keyframes dashmove {
+            to {
+                stroke-dashoffset: -32;
+            }
+        }
+
+        .packet {
+            fill: #ef4444;
+            filter: drop-shadow(0 0 context5px rgba(239, 68, 68, 0.6));
+            transition: fill 0.3s;
+        }
+
+        .packet.encrypted {
+            fill: #10b981;
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.8));
+        }
+
+        /* Server Action Highlighting */
+        .server-step {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .server-step-active {
+            background-color: #4f46e5 !important;
+            color: white !important;
+            border-color: #4338ca !important;
+            opacity: 1 !important;
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Login UI Simulation */
+        .login-screen {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            font-size: 8px;
+            text-align: left;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-btn {
+            background: #4f46e5;
+            color: white;
+            border-radius: 4px;
+            padding: 2px 8px;
+            margin-top: 4px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .success-badge {
+            animation: bounce 0.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Zone Labels */
+        .zone-box {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            pointer-events: none;
+            border: 2px dashed rgba(0, 0, 0, 0.05);
+            border-radius: 2rem;
+            padding: 1rem;
+        }
+
+        .zone-label {
+            position: absolute;
+            top: 1rem;
+            font-weight: 900;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* SSL Comparison Box */
+        .comparison-card {
+            background: #1e293b;
+            border-radius: 1.5rem;
+            padding: 0.75rem;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+            flex: 1;
+        }
+
+        .data-stream {
+            font-size: 10px;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            margin-top: 0.25rem;
+            word-break: break-all;
+        }
+
+        .unencrypted {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+
+        .encrypted-text {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+        }
+
+        .highlight-card {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            z-index: 10;
+        }
+
+        .highlight-card.border-red-500 {
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.6);
+        }
+
+        .highlight-card.border-emerald-500 {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+        }
+
         /* Modifier Table Styles */
         .modifier-table {
             width: 100%;
@@ -179,36 +337,214 @@
                 <h1 class="text-3xl font-bold flex items-center gap-3">
                     <i data-lucide="coffee"></i> Java 核心基礎教學
                 </h1>
-                <p class="mt-2 text-indigo-200">互動式學習：從程式起點到物件導向</p>
+                <p class="mt-2 text-indigo-200">全端應用架構、加密通訊與 Java 核心邏輯</p>
             </div>
             <div class="hidden md:block opacity-20">
-                <i data-lucide="database" size="80"></i>
+                <i data-lucide="shield-check" size="80"></i>
             </div>
         </div>
     </header>
 
     <!-- Navigation -->
     <nav class="bg-white sticky top-0 z-10 shadow-sm border-b">
-        <div class="max-w-5xl mx-auto flex overflow-x-auto">
+        <div class="max-w-6xl mx-auto flex overflow-x-auto">
+            <button onclick="showSection('fullstack')" id="tab-fullstack"
+                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap active-tab">
+                1. 全端連線與 SSL 加密
+            </button>
             <button onclick="showSection('entry')" id="tab-entry"
-                class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap active-tab">
-                1. 程式進入點 (Main)
+                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                2. 程式進入點 (Main)
             </button>
             <button onclick="showSection('var-mem')" id="tab-var-mem"
-                class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                2. 變數與記憶體 (比喻)
+                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                3. 變數與記憶體
             </button>
             <button onclick="showSection('object')" id="tab-object"
-                class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                3. 類別與物件 (工廠比喻)
+                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                4. 類別與物件
             </button>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto p-4 md:p-8">
 
+        <!-- SECTION 1: WEB FULLSTACK FLOW -->
+        <section id="sec-fullstack" class="concept-section block">
+            <div class="max-w-6xl mx-auto space-y-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">網路全端流程：從網址解析到 SSL 安全傳輸</h2>
+                    <p class="text-slate-500">視覺化前後端協作，觀察 Java 如何處理不同路徑的 Response 頁面</p>
+                </div>
+
+                <!-- TOP CONTROL AREA: SSL Comparison + Buttons -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+                    <!-- SSL Comparison (Left 8 cols) -->
+                    <div class="md:col-span-8 flex flex-col sm:flex-row gap-4">
+                        <div id="card-http"
+                            class="comparison-card border-t-4 border-red-500 transition-all duration-500">
+                            <h4 class="text-red-400 font-bold text-xs flex items-center gap-1 mb-1"><i
+                                    data-lucide="unlock" size="14"></i> HTTP (未加密)</h4>
+                            <div class="data-stream unencrypted">user=Edward&pass=1234</div>
+                        </div>
+                        <div id="card-https"
+                            class="comparison-card border-t-4 border-emerald-500 transition-all duration-500">
+                            <h4 class="text-emerald-400 font-bold text-xs flex items-center gap-1 mb-1"><i
+                                    data-lucide="lock" size="14"></i> HTTPS (SSL加密)</h4>
+                            <div class="data-stream encrypted-text">Payload: f9a2e38c71b1...</div>
+                        </div>
+                    </div>
+                    <!-- Action Buttons (Right 4 cols) -->
+                    <div class="md:col-span-4 flex flex-col gap-3">
+                        <button onclick="startDetailedFlow(true)" id="btn-success-sim"
+                            class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-4 rounded-full font-bold shadow-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="shield-check"></i> 模擬連線成功
+                        </button>
+                        <button onclick="startDetailedFlow(false)" id="btn-fail-sim"
+                            class="bg-red-600 hover:bg-red-500 text-white px-6 py-4 rounded-full font-bold shadow-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="shield-alert"></i> 模擬連線失敗
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="relative bg-white rounded-[3rem] shadow-2xl p-6 md:p-12 border border-slate-100 overflow-hidden min-h-[750px]">
+
+                    <!-- Background Zones -->
+                    <div class="zone-box bg-blue-50/20 left-4 right-[72%]">
+                        <div class="zone-label text-blue-400 left-1/2 -translate-x-1/2">前端 (Frontend)</div>
+                    </div>
+                    <div class="zone-box bg-indigo-50/10 left-[30%] right-4">
+                        <div class="zone-label text-indigo-400 left-1/2 -translate-x-1/2">後端 (Backend)</div>
+                    </div>
+
+                    <!-- SVG Interactive Lines (Only Two Main Trunk Lines) -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" id="login-svg">
+                        <!-- DNS Sub-paths -->
+                        <path id="lpath-dns-in" class="flow-path" d="M150,220 Q300,50 450,120" />
+                        <path id="lpath-dns-out" class="flow-path" d="M450,120 Q300,100 150,220" />
+                        <!-- Request Main Path -->
+                        <path id="lpath-req" class="flow-path" d="M150,220 Q500,100 850,220" />
+                        <!-- Response Main Path (Shared for SSL return and final data) -->
+                        <path id="lpath-res" class="flow-path" d="M850,220 Q500,340 150,220" />
+                        <!-- DB Internal Paths -->
+                        <path id="lpath-db-in" class="flow-path" d="M850,280 L850,550" />
+                        <path id="lpath-db-out" class="flow-path" d="M890,550 L890,280" />
+
+                        <circle id="login-packet" r="10" class="packet" style="display:none;" />
+                    </svg>
+
+                    <div class="grid grid-cols-12 gap-8 relative z-10 items-start">
+
+                        <!-- 1. Device Node -->
+                        <div class="col-span-12 md:col-span-3">
+                            <div id="lnode-client"
+                                class="web-node p-6 rounded-[2.5rem] bg-white shadow-sm flex flex-col items-center text-center">
+                                <h4 class="font-bold text-slate-700 mb-2 flex items-center gap-2"><i
+                                        data-lucide="smartphone" size="16"></i> 使用者裝置</h4>
+                                <div class="w-full bg-slate-200 p-1 rounded-t-lg text-[7px] flex items-center gap-1">
+                                    <div class="flex gap-0.5">
+                                        <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                                        <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
+                                    </div>
+                                    <div id="addr-bar"
+                                        class="bg-white flex-1 rounded px-1 truncate text-red-500 font-bold">
+                                        http://edward.com/login</div>
+                                </div>
+                                <div id="login-ui-box"
+                                    class="w-full mt-0 border-x border-b border-slate-200 rounded-b-lg p-2 bg-slate-50 min-h-[100px] flex items-center justify-center">
+                                    <div id="ui-initial" class="text-[9px] text-slate-400 italic">尚未載入頁面</div>
+                                    <div id="ui-page-login" class="login-screen w-full hidden">
+                                        <div class="font-bold border-b pb-1 mb-2 text-indigo-600">會員登入</div>
+                                        帳號: <span id="input-user"
+                                            class="bg-slate-100 px-1 rounded min-w-[30px] inline-block"></span><br>
+                                        密碼: <span id="input-pass"
+                                            class="bg-slate-100 px-1 rounded min-w-[30px] inline-block"></span>
+                                        <div class="login-btn opacity-50" id="fake-login-btn">Submit</div>
+                                    </div>
+                                    <div id="ui-page-success"
+                                        class="login-screen hidden bg-emerald-50 border-emerald-200 w-full text-center">
+                                        <div class="text-emerald-600 font-bold mb-1">登入成功！</div>
+                                        <i data-lucide="check-circle"
+                                            class="text-emerald-500 mx-auto mt-2 success-badge" size="24"></i>
+                                    </div>
+                                    <div id="ui-page-fail"
+                                        class="login-screen hidden bg-red-50 border-red-200 w-full text-center">
+                                        <div class="text-red-600 font-bold mb-1">登入失敗</div>
+                                        <div class="text-[7px] text-red-400">帳號或密碼錯誤。</div>
+                                        <i data-lucide="x-circle" class="text-red-400 mx-auto mt-2" size="24"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DNS Server -->
+                        <div class="col-span-12 md:col-span-4 flex justify-center">
+                            <div id="lnode-dns"
+                                class="web-node p-4 rounded-2xl bg-white border-blue-100 border-2 flex flex-col items-center text-center w-40 shadow-sm">
+                                <i data-lucide="globe" class="text-blue-500 mb-1" size="24"></i>
+                                <h4 class="font-bold text-blue-900 text-xs">DNS 伺服器</h4>
+                                <div class="text-[8px] bg-blue-50 p-1 rounded mt-1 font-mono text-blue-600">Lookup:
+                                    edward.com</div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Server Node (Backend) -->
+                        <div class="col-span-12 md:col-span-4">
+                            <div id="lnode-server"
+                                class="web-node p-8 rounded-[2.5rem] bg-white border-slate-200 border-2 flex flex-col items-center text-center">
+                                <div
+                                    class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg">
+                                    <i data-lucide="cpu" size="24"></i>
+                                </div>
+                                <h4 class="font-bold text-indigo-900">雲端主機 (Server)</h4>
+                                <div class="mt-4 space-y-2 w-full text-[9px] text-left">
+                                    <div id="s-step-ssl"
+                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                        🔐 驗證 SSL (TLS Handshake)</div>
+                                    <div id="s-step-static"
+                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                        1. 讀取靜態檔 (HTML/CSS/JS)</div>
+                                    <div id="s-step-compare"
+                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                        2. Java: 帳密與資料庫比對邏輯</div>
+                                    <div id="s-step-resp"
+                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                        3. Java: 封裝 Response 結果頁</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-12 h-16"></div>
+                        <div class="hidden md:block col-span-8"></div>
+
+                        <!-- 3. Database Node (Backend) -->
+                        <div class="col-span-12 md:col-span-4 flex justify-center">
+                            <div id="lnode-db"
+                                class="web-node p-6 rounded-3xl bg-white border-emerald-100 border-2 flex flex-col items-center text-center w-full shadow-sm">
+                                <h4 class="font-bold text-emerald-900 mb-3 text-sm flex items-center gap-2"><i
+                                        data-lucide="database" size="16"></i> 資料庫</h4>
+                                <div
+                                    class="w-full bg-emerald-50/50 rounded-lg p-2 shadow-inner font-mono text-[8px] text-left mb-3 border border-emerald-100">
+                                    <div class="text-emerald-400 border-b border-emerald-100 pb-1 mb-1 italic">Users
+                                        Table</div>
+                                    <div class="text-emerald-700 font-bold italic">查詢與回傳結果中...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step Explanation Box -->
+                    <div id="detail-step-desc"
+                        class="mt-8 p-6 bg-slate-900 text-slate-100 rounded-2xl border-l-4 border-indigo-500 min-h-[140px] flex items-center justify-center text-center shadow-lg">
+                        <p class="text-slate-400 italic text-lg">請選擇上方按鈕啟動模擬流程...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION 1: ENTRY POINT -->
-        <section id="sec-entry" class="concept-section block">
+        <section id="sec-entry" class="concept-section hidden">
             <div class="max-w-4xl mx-auto space-y-12">
                 <div class="text-center">
                     <h2 class="text-3xl font-bold text-indigo-900 mb-2">程式進入點 (Main Method)</h2>
@@ -337,7 +673,8 @@
                             </div>
                             <div id="line-person" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
                                     class="text-purple-400">Car</span> bus1 = <span class="text-blue-400">new</span>
-                                <span class="text-purple-400">Car</span>();</div>
+                                <span class="text-purple-400">Car</span>();
+                            </div>
                             <div id="line-int-arr" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
                                     class="text-blue-400">int</span>[] row = {<span class="text-orange-400">1,
                                     2</span>};</div>
@@ -475,6 +812,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <script>
@@ -482,12 +820,174 @@
 
         function showSection(sectionId) {
             document.querySelectorAll('.concept-section').forEach(s => s.classList.add('hidden'));
-            const target = sectionId === 'object' ? 'tab-object-sec' : 'sec-' + sectionId;
-            document.getElementById(target).classList.remove('hidden');
+            const map = { 'fullstack': 'sec-fullstack', 'entry': 'sec-entry', 'var-mem': 'sec-var-mem', 'object': 'tab-object-sec' };
+            document.getElementById(map[sectionId]).classList.remove('hidden');
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
             document.getElementById('tab-' + sectionId).classList.add('active-tab');
             lucide.createIcons();
         }
+
+        // --- DETAILED FLOW LOGIC ---
+        let isFlowing = false;
+
+        async function startDetailedFlow(isSuccess) {
+            if (isFlowing) return;
+            isFlowing = true;
+
+            const btnS = document.getElementById('btn-success-sim');
+            const btnF = document.getElementById('btn-fail-sim');
+            const exp = document.getElementById('detail-step-desc');
+            const packet = document.getElementById('login-packet');
+            const addrBar = document.getElementById('addr-bar');
+            const uiInitial = document.getElementById('ui-initial');
+            const uiLogin = document.getElementById('ui-page-login');
+            const uiSuccess = document.getElementById('ui-page-success');
+            const uiFail = document.getElementById('ui-page-fail');
+            const inputUser = document.getElementById('input-user');
+            const inputPass = document.getElementById('input-pass');
+
+            const sSSL = document.getElementById('s-step-ssl');
+            const sStatic = document.getElementById('s-step-static');
+            const sCompare = document.getElementById('s-step-compare');
+            const sResp = document.getElementById('s-step-resp');
+
+            const cardHttp = document.getElementById('card-http');
+            const cardHttps = document.getElementById('card-https');
+
+            btnS.disabled = btnF.disabled = true;
+            btnS.classList.add('opacity-50'); btnF.classList.add('opacity-50');
+
+            // Reset UI
+            addrBar.innerText = 'http://edward.com/login';
+            addrBar.className = 'bg-white flex-1 rounded px-1 truncate text-red-500 font-bold';
+            uiInitial.classList.remove('hidden');
+            uiLogin.classList.add('hidden'); uiSuccess.classList.add('hidden'); uiFail.classList.add('hidden');
+            inputUser.innerText = ''; inputPass.innerText = '';
+            packet.classList.remove('encrypted');
+            cardHttp.classList.remove('highlight-card');
+            cardHttps.classList.remove('highlight-card');
+            [sSSL, sStatic, sCompare, sResp].forEach(el => el.classList.remove('server-step-active'));
+
+            const runStep = async (text, node, path = null, callback = null, duration = 3500) => {
+                exp.innerHTML = `<p class="fade-in-up text-lg">${text}</p>`;
+                document.querySelectorAll('.web-node').forEach(n => n.classList.remove('active'));
+                if (node) document.getElementById(node).classList.add('active');
+                if (callback) await callback();
+                if (path) {
+                    packet.style.display = 'block';
+                    await animatePacketAlongPath('login-packet', path, duration);
+                } else {
+                    await new Promise(r => setTimeout(r, 4000));
+                }
+            };
+
+            // 1. Enter URL
+            await runStep('<b>[前端] 步驟 1：輸入網址。</b> 目前尚未建立加密通道 (HTTP)。', 'lnode-client', null, () => {
+                cardHttp.classList.add('highlight-card');
+            });
+
+            // 2. DNS
+            await runStep('<b>[網路層] 步驟 2：解析域名。</b> 透過 DNS 伺服器找到 <code>edward.com</code> 的實體 IP。', 'lnode-dns', 'lpath-dns-in');
+            await runStep('<b>[網路層] 步驟 3：取得 IP。</b> 主機位址：<code>104.26.10.22</code>。', 'lnode-dns', 'lpath-dns-out', () => {
+                addrBar.innerText = '104.26.10.22/login';
+            });
+
+            // 4. SSL Handshake
+            await runStep('<b>[加密層] 步驟 4：SSL 握手。</b> 瀏覽器要求與主機建立安全加密連線。', 'lnode-client', 'lpath-req');
+            await runStep('<b>[後端] 步驟 5：驗證憑證。</b> 主機回傳憑證，雙方建立加密通道。', 'lnode-server', 'lpath-res', () => {
+                sSSL.classList.add('server-step-active');
+            });
+
+            // 6. HTTPS Transition
+            await runStep('<b>[安全性] 加密完成！</b> 網址轉為 <b>HTTPS</b>。接下來所有傳輸都將受保護。', 'lnode-client', null, () => {
+                sSSL.classList.remove('server-step-active');
+                cardHttp.classList.remove('highlight-card');
+                cardHttps.classList.add('highlight-card');
+                addrBar.innerHTML = '<span class="text-emerald-600">🔒 https://edward.com/login</span>';
+                addrBar.className = 'bg-white flex-1 rounded px-1 truncate text-emerald-600 font-bold';
+                packet.classList.add('encrypted');
+            });
+
+            // 7. Request Static
+            await runStep('<b>[加密傳輸] 步驟 6：請求頁面。</b> 透過安全通道索取 HTML 資源。', 'lnode-client', 'lpath-req');
+            await runStep('<b>[後端] 步驟 7：讀取資源。</b> 主機正在讀取登入頁面檔案。', 'lnode-server', null, () => {
+                sStatic.classList.add('server-step-active');
+            });
+            await runStep('<b>[後端 -> 前端] 步驟 8：回傳網頁。</b> 檔案加密後安全送達瀏覽器。', 'lnode-server', 'lpath-res', () => {
+                sStatic.classList.remove('server-step-active');
+            });
+
+            // 9. Interaction
+            await runStep('<b>[前端] 步驟 9：渲染介面。</b> 瀏覽器畫出登入畫面，等待使用者輸入。', 'lnode-client', null, () => {
+                uiInitial.classList.add('hidden'); uiLogin.classList.remove('hidden');
+            });
+
+            // 10. Typing
+            await runStep('<b>[前端] 步驟 10：填寫資料。</b> 使用者在本地端輸入帳密。', 'lnode-client', null, async () => {
+                const user = "Edward";
+                for (let char of user) { inputUser.innerHTML += char; await new Promise(r => setTimeout(r, 100)); }
+                await new Promise(r => setTimeout(r, 400));
+                const pass = isSuccess ? "1234" : "wrong";
+                for (let char of pass) { inputPass.innerHTML += char; await new Promise(r => setTimeout(r, 100)); }
+                document.getElementById('fake-login-btn').classList.remove('opacity-50');
+            });
+
+            // 11. Submit
+            await runStep('<b>[加密傳輸] 步驟 11：送出資料。</b> 加密封包飛向後端進行驗證。', 'lnode-client', 'lpath-req');
+
+            // 12. Java Logic Start
+            await runStep('<b>[後端] 步驟 12：邏輯啟動。</b> Java 啟動並連線資料庫驗證身份。', 'lnode-server', 'lpath-db-in', () => {
+                sCompare.classList.add('server-step-active');
+            });
+            await runStep('<b>[後端內部] 步驟 13：獲得回傳。</b> 資料庫回報比對結果。', 'lnode-db', 'lpath-db-out');
+
+            // 14. Branching & Packaging
+            const finalMsg = isSuccess
+                ? '<b>[後端] 步驟 14：判斷成功。</b> Java 比對通過，正在生成「成功頁面」。'
+                : '<b>[後端] 步驟 14：判斷失敗。</b> Java 比對錯誤，正在生成「登入失敗」頁面。';
+
+            await runStep(finalMsg, 'lnode-server', null, () => {
+                sCompare.classList.remove('server-step-active');
+                sResp.classList.add('server-step-active');
+            });
+
+            // 15. Final Response
+            await runStep('<b>[後端 -> 前端] 步驟 15：回傳結果。</b> Java 將結果頁面透過 Response 安全傳回。', 'lnode-server', 'lpath-res', () => {
+                sResp.classList.remove('server-step-active');
+            });
+
+            // 16. Final Render
+            await runStep('<b>[前端] 步驟 16：呈現結果。</b> 瀏覽器更新最終 UI。', 'lnode-client', null, () => {
+                uiLogin.classList.add('hidden');
+                if (isSuccess) uiSuccess.classList.remove('hidden'); else uiFail.classList.remove('hidden');
+                lucide.createIcons();
+            });
+
+            packet.style.display = 'none';
+            btnS.disabled = btnF.disabled = false;
+            btnS.classList.remove('opacity-50'); btnF.classList.remove('opacity-50');
+            isFlowing = false;
+        }
+
+        function animatePacketAlongPath(packetId, pathId, duration = 2200) {
+            return new Promise(resolve => {
+                const path = document.getElementById(pathId);
+                const p = document.getElementById(packetId);
+                const len = path.getTotalLength();
+                let start = null;
+                function step(timestamp) {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    const r = Math.min(progress / duration, 1);
+                    const pt = path.getPointAtLength(r * len);
+                    p.setAttribute('cx', pt.x); p.setAttribute('cy', pt.y);
+                    if (r < 1) window.requestAnimationFrame(step); else resolve();
+                }
+                window.requestAnimationFrame(step);
+            });
+        }
+
+        window.onload = () => lucide.createIcons();
 
         // --- SECTION 3: FACTORY & VARIABLE LOGIC ---
         let carCounterGlobal = 0;
