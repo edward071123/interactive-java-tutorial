@@ -69,9 +69,20 @@
         .diagram-container {
             background: #0f172a;
             border-radius: 2rem;
-            padding: 4rem 2rem;
+            padding: 2rem; /* Reduced padding to make room for line numbers */
             color: white;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+        }
+
+        .line-numbers {
+            text-align: right;
+            padding-right: 1.5rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            margin-right: 1.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            user-select: none;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .clickable-word {
@@ -458,11 +469,11 @@
                     <div class="md:col-span-4 flex flex-col gap-3">
                         <button onclick="startDetailedFlow(true)" id="btn-success-sim"
                             class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-4 rounded-full font-bold shadow-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
-                            <i data-lucide="shield-check"></i> 模擬連線成功
+                            <i data-lucide="shield-check"></i> 模擬帳密正確, 登入成功
                         </button>
                         <button onclick="startDetailedFlow(false)" id="btn-fail-sim"
                             class="bg-red-600 hover:bg-red-500 text-white px-6 py-4 rounded-full font-bold shadow-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
-                            <i data-lucide="shield-alert"></i> 模擬連線失敗
+                            <i data-lucide="shield-alert"></i> 模擬帳密有誤, 無法登入
                         </button>
                     </div>
                 </div>
@@ -640,28 +651,39 @@
                 <!-- RCT Framework Cards -->
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="rct-card p-6 bg-white rounded-3xl shadow-lg border-l-8 border-pink-500">
-                        <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">R</div>
+                        <div
+                            class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">
+                            R</div>
                         <h4 class="font-bold text-lg text-slate-800">Role (角色)</h4>
-                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">定義 AI 的專業身分。<br><span class="text-pink-600 font-bold italic">「你是一位幽默的 Java 教練...」</span></p>
+                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">定義 AI 的專業身分。<br><span
+                                class="text-pink-600 font-bold italic">「你是一位幽默的 Java 教練...」</span></p>
                     </div>
                     <div class="rct-card p-6 bg-white rounded-3xl shadow-lg border-l-8 border-indigo-500">
-                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">C</div>
+                        <div
+                            class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">
+                            C</div>
                         <h4 class="font-bold text-lg text-slate-800">Context (背景)</h4>
-                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">提供現狀與限制條件。<br><span class="text-indigo-600 font-bold italic">「我是剛學會 for 迴圈的初學者...」</span></p>
+                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">提供現狀與限制條件。<br><span
+                                class="text-indigo-600 font-bold italic">「我是剛學會 for 迴圈的初學者...」</span></p>
                     </div>
                     <div class="rct-card p-6 bg-white rounded-3xl shadow-lg border-l-8 border-emerald-500">
-                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">T</div>
+                        <div
+                            class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 font-black text-xl">
+                            T</div>
                         <h4 class="font-bold text-lg text-slate-800">Task (任務)</h4>
-                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">具體的行動與輸出要求。<br><span class="text-emerald-600 font-bold italic">「幫我改程式，隨機加上 Emoji...」</span></p>
+                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">具體的行動與輸出要求。<br><span
+                                class="text-emerald-600 font-bold italic">「幫我改程式，隨機加上 Emoji...」</span></p>
                     </div>
                 </div>
 
                 <!-- Example Switcher -->
                 <div class="flex flex-wrap gap-4 justify-center mb-8">
-                    <button id="btn-ex-1" onclick="switchAiExample(1)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105">
+                    <button id="btn-ex-1" onclick="switchAiExample(1)"
+                        class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105">
                         範例一：罰寫進化 (Emoji)
                     </button>
-                    <button id="btn-ex-2" onclick="switchAiExample(2)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
+                    <button id="btn-ex-2" onclick="switchAiExample(2)"
+                        class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
                         範例二：成績分析 (Logic)
                     </button>
                 </div>
@@ -682,106 +704,133 @@
                                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
                                 </div>
                             </div>
-                            <div id="editor-code-display" class="code-font text-[11px] leading-relaxed transition-all duration-500">
+                            <div id="editor-code-display"
+                                class="code-font text-[11px] leading-relaxed transition-all duration-500">
                                 <div class="text-slate-500">public class Main {</div>
                                 <div class="pl-4 text-slate-500">public static void main(String[] args) {</div>
                                 <div class="pl-8 text-indigo-300">for (int i = 1; i <= 10; i++) {</div>
-                                <div class="pl-12 text-indigo-300">System.out.println("第 " + i + " 次: 我以後會用 AI 寫程式 ");</div>
-                                <div class="pl-8 text-indigo-300">}</div>
-                                <div class="pl-4 text-slate-500">}</div>
-                                <div class="text-slate-500">}</div>
+                                        <div class="pl-12 text-indigo-300">System.out.println("第 " + i + " 次: 我以後會用 AI
+                                            寫程式 ");</div>
+                                        <div class="pl-8 text-indigo-300">}</div>
+                                        <div class="pl-4 text-slate-500">}</div>
+                                        <div class="text-slate-500">}</div>
+                                </div>
+                                <!-- Selection Overlay (Simulation) -->
+                                <div id="editor-selection-mask" class="absolute inset-0 bg-indigo-500/30 hidden"></div>
                             </div>
-                            <!-- Selection Overlay (Simulation) -->
-                            <div id="editor-selection-mask" class="absolute inset-0 bg-indigo-500/30 hidden"></div>
-                        </div>
 
-                        <!-- AI Chat Window -->
-                        <div class="bg-slate-50 rounded-[2.5rem] p-6 shadow-inner border border-slate-200">
-                            <div class="flex items-center gap-2 mb-4 text-slate-400 font-bold text-xs">
-                                <i data-lucide="sparkles"></i> AI 助手對話框 (ChatGPT / Gemini)
-                            </div>
-                            <div class="space-y-4">
-                                <!-- Prompt Bubble -->
-                                <div class="ai-chat-bubble ml-8">
-                                    <div class="text-[9px] text-pink-600 font-black mb-1 tracking-widest uppercase">My Magic Prompt (RCT)</div>
-                                    <p id="prompt-typing-area" class="text-[11px] text-slate-700 leading-relaxed font-medium italic"></p>
+                            <!-- AI Chat Window -->
+                            <div class="bg-slate-50 rounded-[2.5rem] p-6 shadow-inner border border-slate-200">
+                                <div class="flex items-center gap-2 mb-4 text-slate-400 font-bold text-xs">
+                                    <i data-lucide="sparkles"></i> AI 助手對話框 (ChatGPT / Gemini)
+                                </div>
+                                <div class="space-y-4">
+                                    <!-- Prompt Bubble -->
+                                    <div class="ai-chat-bubble ml-8">
+                                        <div class="text-[9px] text-pink-600 font-black mb-1 tracking-widest uppercase">
+                                            My Magic Prompt (RCT)</div>
+                                        <p id="prompt-typing-area"
+                                            class="text-[11px] text-slate-700 leading-relaxed font-medium italic"></p>
+                                    </div>
+
+                                    <!-- Response Bubble -->
+                                    <div id="ai-response-area" class="ai-response-bubble mr-8 hidden fade-in-up">
+                                        <div
+                                            class="flex items-center gap-2 text-indigo-600 font-bold text-[9px] mb-2 tracking-widest uppercase">
+                                            <i data-lucide="bot"></i> AI 教練回覆
+                                        </div>
+                                        <p class="text-[10px] text-indigo-800 leading-relaxed italic mb-2">「沒問題！我幫你引入了
+                                            Random 工具並建立表情符號清單，讓罰寫變有趣！」</p>
+                                        <div id="ai-generated-code-box"
+                                            class="bg-indigo-900 rounded-xl p-3 code-font text-[9px] text-white shadow-lg relative overflow-hidden transition-all duration-500">
+                                            <div
+                                                class="absolute top-0 right-0 p-1 px-2 bg-indigo-500 text-[7px] uppercase tracking-widest">
+                                                New Java Code</div>
+                                            <div id="ai-code-content">
+                                                <div class="text-emerald-400">import java.util.Random;</div>
+                                                <div class="mt-1 text-slate-400">public class Main {</div>
+                                                <div class="pl-2">public static void main(String[] args) {</div>
+                                                <div class="pl-4 text-emerald-400">String[] emojis = {"(^_^)", "(T_T)",
+                                                    "(>_<)", "(O_O)" , "(Wait...)" };</div>
+                                                        <div class="pl-4 text-emerald-400">Random rand = new Random();
+                                                        </div>
+                                                        <div class="pl-4 text-slate-300 font-bold">for (int i = 1; i <=
+                                                                10; i++) {</div>
+                                                                <div class="pl-6 text-indigo-200 italic">int randomIndex
+                                                                    = rand.nextInt(emojis.length);</div>
+                                                                <div class="pl-6 text-indigo-200">System.out.println("第
+                                                                    " + i + " 次: 我會用 AI 寫程式 " + emojis[randomIndex]);
+                                                                </div>
+                                                                <div class="pl-4 text-slate-300">}</div>
+                                                                <div class="pl-2">}</div>
+                                                                <div>}</div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button id="btn-start-magic" onclick="runAiMagicSimulation()"
+                                            class="w-full mt-6 bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-2xl font-black shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95">
+                                            <i data-lucide="zap"></i> 施放 R.C.T. 魔法咒語
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <!-- Response Bubble -->
-                                <div id="ai-response-area" class="ai-response-bubble mr-8 hidden fade-in-up">
-                                    <div class="flex items-center gap-2 text-indigo-600 font-bold text-[9px] mb-2 tracking-widest uppercase">
-                                        <i data-lucide="bot"></i> AI 教練回覆
+                                <!-- Right Side: Concept & Final Output -->
+                                <div class="space-y-6">
+                                    <div
+                                        class="bg-indigo-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden border-4 border-indigo-700 min-h-[300px]">
+                                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                                            <i data-lucide="cpu" size="100"></i>
+                                        </div>
+                                        <h3 class="font-bold text-xl mb-6 flex items-center gap-2"><i
+                                                data-lucide="lightbulb" class="text-yellow-400"></i> 工程師的未來全貌</h3>
+
+                                        <div class="space-y-6 relative z-10">
+                                            <div class="flex items-start gap-4">
+                                                <div class="p-2 bg-indigo-800 rounded-lg text-emerald-400 shadow-md">
+                                                    <i data-lucide="clipboard-list" size="20"></i>
+                                                </div>
+                                                <div>
+                                                    <h5
+                                                        class="font-black text-indigo-200 text-xs tracking-widest uppercase mb-1">
+                                                        Java 是你的骨架 (Skeleton)</h5>
+                                                    <p class="text-indigo-100 text-[11px] leading-relaxed">理解迴圈邏輯。如果 AI
+                                                        給錯了 (例如忘了 import)，你有能力手動修正。</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start gap-4">
+                                                <div class="p-2 bg-indigo-800 rounded-lg text-pink-400 shadow-md">
+                                                    <i data-lucide="zap" size="20"></i>
+                                                </div>
+                                                <div>
+                                                    <h5
+                                                        class="font-black text-indigo-200 text-xs tracking-widest uppercase mb-1">
+                                                        AI 是你的肌肉 (Muscle)</h5>
+                                                    <p class="text-indigo-100 text-[11px] leading-relaxed">
+                                                        處理繁瑣語法與亂數工具。它將你的「清晰邏輯」轉化為「強大功能」。</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="text-[10px] text-indigo-800 leading-relaxed italic mb-2">「沒問題！我幫你引入了 Random 工具並建立表情符號清單，讓罰寫變有趣！」</p>
-                                    <div id="ai-generated-code-box" class="bg-indigo-900 rounded-xl p-3 code-font text-[9px] text-white shadow-lg relative overflow-hidden transition-all duration-500">
-                                        <div class="absolute top-0 right-0 p-1 px-2 bg-indigo-500 text-[7px] uppercase tracking-widest">New Java Code</div>
-                                        <div id="ai-code-content">
-                                            <div class="text-emerald-400">import java.util.Random;</div>
-                                            <div class="mt-1 text-slate-400">public class Main {</div>
-                                            <div class="pl-2">public static void main(String[] args) {</div>
-                                            <div class="pl-4 text-emerald-400">String[] emojis = {"(^_^)", "(T_T)", "(>_<)", "(O_O)", "(Wait...)"};</div>
-                                            <div class="pl-4 text-emerald-400">Random rand = new Random();</div>
-                                            <div class="pl-4 text-slate-300 font-bold">for (int i = 1; i <= 10; i++) {</div>
-                                            <div class="pl-6 text-indigo-200 italic">int randomIndex = rand.nextInt(emojis.length);</div>
-                                            <div class="pl-6 text-indigo-200">System.out.println("第 " + i + " 次: 我會用 AI 寫程式 " + emojis[randomIndex]);</div>
-                                            <div class="pl-4 text-slate-300">}</div>
-                                            <div class="pl-2">}</div>
-                                            <div>}</div>
+
+                                    <!-- Demo Output Display -->
+                                    <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-100">
+                                        <div class="flex items-center justify-between mb-4 border-b pb-3">
+                                            <div class="font-black text-slate-700 flex items-center gap-2 text-sm"><i
+                                                    data-lucide="terminal" size="16"></i> 執行結果 (Output)</div>
+                                            <span id="output-status"
+                                                class="px-2 py-0.5 bg-slate-100 text-slate-400 rounded-full text-[10px] font-bold italic">Waiting...</span>
+                                        </div>
+                                        <div id="magic-output-area"
+                                            class="code-font text-[11px] space-y-1 text-slate-400 italic text-center py-12">
+                                            點擊按鈕，見證 AI 與 Java 的協作魔法...
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button id="btn-start-magic" onclick="runAiMagicSimulation()" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-2xl font-black shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95">
-                                <i data-lucide="zap"></i> 施放 R.C.T. 魔法咒語
-                            </button>
+
                         </div>
                     </div>
-
-                    <!-- Right Side: Concept & Final Output -->
-                    <div class="space-y-6">
-                        <div class="bg-indigo-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden border-4 border-indigo-700 min-h-[300px]">
-                            <div class="absolute top-0 right-0 p-4 opacity-10">
-                                <i data-lucide="cpu" size="100"></i>
-                            </div>
-                            <h3 class="font-bold text-xl mb-6 flex items-center gap-2"><i data-lucide="lightbulb" class="text-yellow-400"></i> 工程師的未來全貌</h3>
-                            
-                            <div class="space-y-6 relative z-10">
-                                <div class="flex items-start gap-4">
-                                    <div class="p-2 bg-indigo-800 rounded-lg text-emerald-400 shadow-md">
-                                        <i data-lucide="clipboard-list" size="20"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-black text-indigo-200 text-xs tracking-widest uppercase mb-1">Java 是你的骨架 (Skeleton)</h5>
-                                        <p class="text-indigo-100 text-[11px] leading-relaxed">理解迴圈邏輯。如果 AI 給錯了 (例如忘了 import)，你有能力手動修正。</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-4">
-                                    <div class="p-2 bg-indigo-800 rounded-lg text-pink-400 shadow-md">
-                                        <i data-lucide="zap" size="20"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-black text-indigo-200 text-xs tracking-widest uppercase mb-1">AI 是你的肌肉 (Muscle)</h5>
-                                        <p class="text-indigo-100 text-[11px] leading-relaxed">處理繁瑣語法與亂數工具。它將你的「清晰邏輯」轉化為「強大功能」。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Demo Output Display -->
-                        <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-100">
-                            <div class="flex items-center justify-between mb-4 border-b pb-3">
-                                <div class="font-black text-slate-700 flex items-center gap-2 text-sm"><i data-lucide="terminal" size="16"></i> 執行結果 (Output)</div>
-                                <span id="output-status" class="px-2 py-0.5 bg-slate-100 text-slate-400 rounded-full text-[10px] font-bold italic">Waiting...</span>
-                            </div>
-                            <div id="magic-output-area" class="code-font text-[11px] space-y-1 text-slate-400 italic text-center py-12">
-                                點擊按鈕，見證 AI 與 Java 的協作魔法...
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-            </div>
         </section>
 
         <!-- SECTION 1: ENTRY POINT -->
@@ -793,14 +842,17 @@
                 </div>
 
                 <div class="diagram-container shadow-2xl overflow-x-auto">
-                    <div class="code-font text-base md:text-xl leading-relaxed min-w-[600px]">
-                        <div class="mb-4 text-slate-400">
+                    <div class="line-numbers code-font text-base md:text-xl leading-relaxed py-1">
+                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div>
+                    </div>
+                    <div class="code-font text-base md:text-xl leading-relaxed min-w-[600px] flex-1">
+                        <div class="mb-0 text-slate-400">
                             <span id="word-public-class" class="clickable-word text-blue-400"
                                 onclick="focusAnatomy('public')">public</span>&nbsp;<span id="word-class"
                                 class="clickable-word text-orange-400"
                                 onclick="focusAnatomy('class')">class</span>&nbsp;<span id="word-myapp"
                                 class="clickable-word text-white font-bold" onclick="focusAnatomy('myapp')">MyApp</span>
-                            {
+                            <span id="word-class-braces-open" class="clickable-word text-slate-400" onclick="focusAnatomy('class-braces')">{</span>
                         </div>
 
                         <!-- Main Method -->
@@ -819,46 +871,45 @@
                                 onclick="focusAnatomy('throws')">throws</span>&nbsp;
                             <span id="word-exception" class="clickable-word text-orange-300"
                                 onclick="focusAnatomy('exception')">Exception</span>&nbsp;
-                            <span class="text-slate-400 ml-2">{</span>
+                            <span id="word-main-braces-open" class="clickable-word text-slate-400 ml-2" onclick="focusAnatomy('method-braces')">{</span>
                         </div>
 
-                        <div class="pl-16 py-1">
-                            <span id="word-system-out" class="clickable-word text-slate-300"
-                                onclick="focusAnatomy('system-out')">System.out</span><span
-                                class="text-slate-500">.</span><span id="word-println"
-                                class="clickable-word text-sky-400"
-                                onclick="focusAnatomy('println')">println</span>(<span class="text-green-400">"Hello
-                                World"</span>);
+                        <div class="pl-16 py-0">
+                            <span id="word-hello-world" class="clickable-word" onclick="focusAnatomy('hello-world')">
+                                <span class="text-slate-300">System.out</span><span class="text-slate-500">.</span><span class="text-sky-400">println</span>(<span class="text-green-400">"Hello World"</span>);
+                            </span>
                         </div>
 
-                        <div class="pl-16 py-1">
+                        <div class="pl-16 py-0">
                             <span id="word-call" class="clickable-word text-sky-400 font-bold"
                                 onclick="focusAnatomy('call')">printIdentity();</span>
                         </div>
 
-                        <div class="pl-8 text-slate-400 mb-6">}</div>
+                        <div id="word-main-braces-close" class="pl-8 text-slate-400 mb-0 clickable-word" onclick="focusAnatomy('method-braces')">}</div>
 
-                        <div class="pl-8 flex flex-wrap items-center">
-                            <span id="word-public-def" class="clickable-word text-blue-400"
-                                onclick="focusAnatomy('public')">public</span>&nbsp;
-                            <span id="word-static-def" class="clickable-word text-purple-400"
-                                onclick="focusAnatomy('static')">static</span>&nbsp;
-                            <span id="word-void-def" class="clickable-word text-yellow-400"
-                                onclick="focusAnatomy('void')">void</span>&nbsp;
-                            <span id="word-identity" class="clickable-word text-green-400 font-bold"
-                                onclick="focusAnatomy('identity')">printIdentity()</span>
-                            <span class="text-slate-400 ml-2">{</span>
+                        <div id="method-def-block" class="rounded-xl transition-all duration-500">
+                            <div class="pl-8 flex flex-wrap items-center">
+                                <span id="word-public-def" class="clickable-word text-blue-400"
+                                    onclick="focusAnatomy('public')">public</span>&nbsp;
+                                <span id="word-static-def" class="clickable-word text-purple-400"
+                                    onclick="focusAnatomy('static')">static</span>&nbsp;
+                                <span id="word-void-def" class="clickable-word text-yellow-400"
+                                    onclick="focusAnatomy('void')">void</span>&nbsp;
+                                <span id="word-identity" class="clickable-word text-green-400 font-bold"
+                                    onclick="focusAnatomy('identity')">printIdentity</span><span id="word-params-def" class="clickable-word text-white" onclick="focusAnatomy('params-def')">()</span>
+                                <span id="word-id-braces-open" class="clickable-word text-slate-400 ml-2" onclick="focusAnatomy('method-braces')">{</span>
+                            </div>
+
+                            <div id="word-body" class="pl-16 cursor-pointer py-0 transition-all"
+                                onclick="focusAnatomy('body')">
+                                <span class="text-slate-300">System</span><span class="text-slate-500">.</span><span
+                                    class="text-slate-300">out</span><span class="text-slate-500">.</span><span
+                                    class="text-sky-400">println</span>(<span class="text-green-400">"I am Edward."</span>);
+                            </div>
+
+                            <div id="word-id-braces-close" class="pl-8 text-slate-400 clickable-word" onclick="focusAnatomy('method-braces')">}</div>
                         </div>
-
-                        <div id="word-body" class="pl-16 cursor-pointer py-1 transition-all"
-                            onclick="focusAnatomy('body')">
-                            <span class="text-slate-300">System</span><span class="text-slate-500">.</span><span
-                                class="text-slate-300">out</span><span class="text-slate-500">.</span><span
-                                class="text-sky-400">println</span>(<span class="text-green-400">"I am Edward."</span>);
-                        </div>
-
-                        <div class="pl-8 text-slate-400">}</div>
-                        <div class="text-slate-400">}</div>
+                        <div id="word-class-braces-close" class="text-slate-400 clickable-word" onclick="focusAnatomy('class-braces')">}</div>
                     </div>
                 </div>
 
@@ -1061,10 +1112,10 @@
 
         function showSection(sectionId) {
             document.querySelectorAll('.concept-section').forEach(s => s.classList.add('hidden'));
-            const map = { 
-                'fullstack': 'sec-fullstack', 
-                'entry': 'sec-entry', 
-                'var-mem': 'sec-var-mem', 
+            const map = {
+                'fullstack': 'sec-fullstack',
+                'entry': 'sec-entry',
+                'var-mem': 'sec-var-mem',
                 'object': 'tab-object-sec',
                 'ai-magic': 'sec-ai-magic'
             };
@@ -1072,7 +1123,7 @@
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
             document.getElementById('tab-' + sectionId).classList.add('active-tab');
             lucide.createIcons();
-            if(sectionId === 'fullstack') setTimeout(syncPaths, 100);
+            if (sectionId === 'fullstack') setTimeout(syncPaths, 100);
         }
 
         // --- AI MAGIC SIMULATION ---
@@ -1082,9 +1133,9 @@
             currentAiEx = exNum;
             const btn1 = document.getElementById('btn-ex-1');
             const btn2 = document.getElementById('btn-ex-2');
-            
+
             // Reset UI
-            if(exNum === 1) {
+            if (exNum === 1) {
                 btn1.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
                 btn2.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
             } else {
@@ -1101,7 +1152,7 @@
             const editorDisplay = document.getElementById('editor-code-display');
             const outputArea = document.getElementById('magic-output-area');
             const outputStatus = document.getElementById('output-status');
-            
+
             typingArea.innerText = '';
             responseArea.classList.add('hidden');
             codeBox.style.opacity = '0';
@@ -1110,7 +1161,7 @@
             outputArea.innerHTML = '點擊按鈕，見證 AI 與 Java 的協作魔法...';
             outputArea.className = 'code-font text-[11px] space-y-1 text-slate-400 italic text-center py-12';
 
-            if(currentAiEx === 1) {
+            if (currentAiEx === 1) {
                 editorDisplay.innerHTML = `
                     <div class="text-slate-500">public class Main {</div>
                     <div class="pl-4 text-slate-500">public static void main(String[] args) {</div>
@@ -1142,11 +1193,11 @@
             const outputArea = document.getElementById('magic-output-area');
             const outputStatus = document.getElementById('output-status');
             const aiCodeContent = document.getElementById('ai-code-content');
-            
+
             btn.disabled = true;
             btn.classList.add('opacity-50');
             resetAiSimulation();
-            
+
             // Define Content based on Example
             const prompts = [
                 "(Role) 你是一位幽默的 Java 教練。\n(Context) 我是剛學會 for 迴圈的初學者。\n(Task) 幫我修改這段程式碼，讓它每次印出的句子後面都隨機加上 Emoji！",
@@ -1164,7 +1215,7 @@
                 <div class="pl-8 text-slate-300">}</div>
                 <div class="pl-4 text-slate-300">}</div>
                 <div class="text-slate-300">}</div>`,
-                
+
                 `<div class="text-slate-300">public class Main {</div>
                 <div class="pl-4 text-slate-300">public static void main(String[] args) {</div>
                 <div class="pl-8 text-emerald-400">int[] scores = {85, 42, 93, 60, 77};</div>
@@ -1185,7 +1236,7 @@
                 typingArea.innerText += promptText[i];
                 await new Promise(r => setTimeout(r, 15));
             }
-            
+
             // Step 2 & 3: AI Response & Code
             await new Promise(r => setTimeout(r, 800));
             aiCodeContent.innerHTML = aiResponses[currentAiEx - 1];
@@ -1193,14 +1244,14 @@
             lucide.createIcons();
             await new Promise(r => setTimeout(r, 600));
             codeBox.style.opacity = '1';
-            
+
             // Step 4: Simulate Paste
             await new Promise(r => setTimeout(r, 1200));
             selectionMask.classList.remove('hidden');
             await new Promise(r => setTimeout(r, 400));
             editorDisplay.innerHTML = aiResponses[currentAiEx - 1];
             selectionMask.classList.add('hidden');
-            
+
             // Step 5: Execute
             outputStatus.innerText = 'Running...';
             outputStatus.className = 'px-2 py-0.5 bg-yellow-100 text-yellow-600 rounded-full text-[10px] font-bold italic animate-pulse';
@@ -1209,11 +1260,11 @@
             outputStatus.className = 'px-2 py-0.5 bg-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold italic';
             outputArea.innerHTML = '';
             outputArea.className = 'code-font text-[11px] space-y-1 text-slate-600 text-left px-4';
-            
-            if(currentAiEx === 1) {
+
+            if (currentAiEx === 1) {
                 const ems = ["(^_^)", "(T_T)", "(>_<)", "(O_O)"];
                 for (let i = 1; i <= 10; i++) {
-                    outputArea.innerHTML += `<div>第 ${i} 次: 我以後會用 AI 寫程式 ${ems[Math.floor(Math.random()*4)]}</div>`;
+                    outputArea.innerHTML += `<div>第 ${i} 次: 我以後會用 AI 寫程式 ${ems[Math.floor(Math.random() * 4)]}</div>`;
                     await new Promise(r => setTimeout(r, 100));
                 }
             } else {
@@ -1223,7 +1274,7 @@
                     await new Promise(r => setTimeout(r, 200));
                 }
             }
-            
+
             btn.disabled = false;
             btn.classList.remove('opacity-50');
         }
@@ -1462,11 +1513,23 @@
         function focusAnatomy(key) {
             document.querySelectorAll('.clickable-word').forEach(el => el.classList.remove('word-highlight'));
             document.getElementById('word-body').classList.remove('word-highlight');
+            document.getElementById('method-def-block').classList.remove('word-highlight');
+            if (document.getElementById('word-class-braces-open')) document.getElementById('word-class-braces-open').classList.remove('word-highlight');
+            if (document.getElementById('word-class-braces-close')) document.getElementById('word-class-braces-close').classList.remove('word-highlight');
+            
+            // New Method Braces Reset
+            ['word-main-braces-open', 'word-main-braces-close', 'word-id-braces-open', 'word-id-braces-close'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('word-highlight');
+            });
+
             const detailBox = document.getElementById('anatomy-detail');
             detailBox.classList.remove('hidden');
             const data = {
                 'class': { title: 'Class (類別關鍵字)', body: '<code>class</code> 用於定義一個物件的「藍圖」。所有的程式碼都必須寫在類別裡面。', icon: 'file-code' },
                 'myapp': { title: 'Class Name (類別名稱)', body: '如果類別宣告為 <code>public</code>，其名稱必須與檔案名稱完全一致。此檔案應命名為 <code>MyApp.java</code>。', icon: 'file-type' },
+                'class-braces': { title: 'Class Scope (類別範圍)', body: '大括號定義了類別的起點與終點。所有的方法與變數都必須在這個範圍內。', icon: 'frame' },
+                'method-braces': { title: 'Method Scope (方法範圍)', body: '大括號定義了方法的實作區塊。當方法被呼叫時，會執行這一對大括號內的程式碼。', icon: 'box' },
                 'public': {
                     title: 'Access Specifier (存取修飾字)',
                     body: `定義成員的能見度。設為 <code>public</code> 代表 JVM 可以從類別外部自由進入。
@@ -1482,11 +1545,11 @@
                 'args': { title: 'Parameter (參數列表)', body: '儲存啟動時輸入的參數容器。', icon: 'package' },
                 'throws': { title: 'Throws (宣告例外拋出)', body: '告訴 JVM 如果發生錯誤我不處理，往上丟給上層。', icon: 'share-2' },
                 'exception': { title: 'Exception (例外狀況)', body: '代表程式可能會遇到的突發錯誤處理。', icon: 'alert-triangle' },
-                'system-out': { title: 'System.out (標準輸出串流)', body: 'Java 的標準輸出管道，通常將文字導向終端機。', icon: 'monitor' },
-                'println': { title: 'println (列印並換行)', body: '<b>print line</b> 的縮寫。印出內容後會自動執行換行。', icon: 'corner-down-left' },
+                'hello-world': { title: 'Execution Code (執行語句)', body: '系統印出字串: "Hello World"', icon: 'terminal' },
                 'call': { title: 'Method Call (方法呼叫)', body: '跳轉執行自定義動作。', icon: 'phone-forwarded' },
-                'identity': { title: 'Method Definition (自定義方法)', body: '您創造的方法區塊。', icon: 'git-branch' },
-                'body': { title: 'Execution Code (執行語句)', body: '具體的實作邏輯區。', icon: 'terminal' }
+                'identity': { title: 'Identifier (識別碼 - 方法名)', body: 'printIdentity 為自定義的方法名稱', icon: 'git-branch' },
+                'params-def': { title: 'Parameter (參數列表)', body: '未定義任何需帶入的參數', icon: 'package' },
+                'body': { title: 'Execution Code (執行語句)', body: '系統印出字串: "I am Edward."', icon: 'terminal' }
             };
             const selected = data[key];
             document.getElementById('detail-title').innerText = selected.title;
@@ -1504,6 +1567,22 @@
                 document.getElementById('word-void-def').classList.add('word-highlight');
             } else if (key === 'body') {
                 document.getElementById('word-body').classList.add('word-highlight');
+            } else if (key === 'call') {
+                document.getElementById('word-call').classList.add('word-highlight');
+                document.getElementById('method-def-block').classList.add('word-highlight');
+            } else if (key === 'class-braces') {
+                document.getElementById('word-class-braces-open').classList.add('word-highlight');
+                document.getElementById('word-class-braces-close').classList.add('word-highlight');
+            } else if (key === 'method-braces') {
+                // Find which pair was clicked
+                const clickedId = window.event.target.id;
+                if (clickedId.includes('main')) {
+                    document.getElementById('word-main-braces-open').classList.add('word-highlight');
+                    document.getElementById('word-main-braces-close').classList.add('word-highlight');
+                } else {
+                    document.getElementById('word-id-braces-open').classList.add('word-highlight');
+                    document.getElementById('word-id-braces-close').classList.add('word-highlight');
+                }
             } else {
                 document.getElementById(`word-${key}`).classList.add('word-highlight');
             }
