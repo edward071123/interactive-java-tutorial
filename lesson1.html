@@ -149,6 +149,24 @@
             font-weight: bold;
             color: #166534;
         }
+
+        /* Factory Styles */
+        .car-instance {
+            transition: all 0.5s ease;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
     </style>
 </head>
 
@@ -161,7 +179,7 @@
                 <h1 class="text-3xl font-bold flex items-center gap-3">
                     <i data-lucide="coffee"></i> Java 核心基礎教學
                 </h1>
-                <p class="mt-2 text-indigo-200">互動式學習：點擊代碼探索核心邏輯</p>
+                <p class="mt-2 text-indigo-200">互動式學習：從程式起點到物件導向</p>
             </div>
             <div class="hidden md:block opacity-20">
                 <i data-lucide="database" size="80"></i>
@@ -178,11 +196,11 @@
             </button>
             <button onclick="showSection('var-mem')" id="tab-var-mem"
                 class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                2. 變數與記憶體 (車位比喻)
+                2. 變數與記憶體 (比喻)
             </button>
             <button onclick="showSection('object')" id="tab-object"
                 class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                3. 物件藍圖 (Class)
+                3. 類別與物件 (工廠比喻)
             </button>
         </div>
     </nav>
@@ -243,7 +261,6 @@
 
                         <div class="pl-8 text-slate-400 mb-6">}</div>
 
-                        <!-- Custom Method Definition -->
                         <div class="pl-8 flex flex-wrap items-center">
                             <span id="word-public-def" class="clickable-word text-blue-400"
                                 onclick="focusAnatomy('public')">public</span>&nbsp;
@@ -285,14 +302,13 @@
             <div
                 class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8 flex flex-col md:flex-row gap-6 items-center">
                 <div class="bg-indigo-100 p-4 rounded-full text-indigo-600">
-                    <i data-lucide="car" size="40"></i>
+                    <i data-lucide="info" size="40"></i>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-1">🚗 終極停車場比喻</h3>
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">🪧 空間比喻：室內小空間與室外大空間</h3>
                     <p class="text-slate-600 text-sm leading-relaxed">
-                        <b>Primitive:</b> 機車(char)/腳踏車(int)/滑板車(float)直接停在車位(Stack)。<br>
-                        <b>Object:</b> 巴士太大停在VIP車庫(Heap)，車位只放「取車單/地址」。<br>
-                        <b>Static:</b> 停車場「公用設施」，由全場所有車主共用。
+                        <b>Primitive:</b> 室內小空間直接寫下數值 (Stack)。<br>
+                        <b>Array/Object:</b> 室內空間只放一張紙條，指引你到<b>室外大空間 (Heap)</b> 尋找真正的物件實體。
                     </p>
                 </div>
             </div>
@@ -320,8 +336,8 @@
                                     class="text-purple-400">String</span> s = <span class="text-green-400">"Hi"</span>;
                             </div>
                             <div id="line-person" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
-                                    class="text-purple-400">Person</span> p = <span class="text-blue-400">new</span>
-                                <span class="text-purple-400">Person</span>();</div>
+                                    class="text-purple-400">Car</span> bus1 = <span class="text-blue-400">new</span>
+                                <span class="text-purple-400">Car</span>();</div>
                             <div id="line-int-arr" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
                                     class="text-blue-400">int</span>[] row = {<span class="text-orange-400">1,
                                     2</span>};</div>
@@ -332,7 +348,7 @@
 
                         <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2">
                             <button onclick="simStatic()"
-                                class="bg-purple-700 hover:bg-purple-600 text-white p-2 rounded text-[10px] font-bold">設置設施
+                                class="bg-purple-700 hover:bg-purple-600 text-white p-2 rounded text-[10px] font-bold">公用腳踏車
                                 (Static)</button>
                             <button onclick="simChar()"
                                 class="bg-blue-700 hover:bg-blue-600 text-white p-2 rounded text-[10px] font-bold">停機車
@@ -344,29 +360,29 @@
                                 class="bg-blue-700 hover:bg-blue-600 text-white p-2 rounded text-[10px] font-bold">停滑板車
                                 (float)</button>
                             <button onclick="simString()"
-                                class="bg-green-700 hover:bg-green-600 text-white p-2 rounded text-[10px] font-bold">個人單據管理櫃
+                                class="bg-green-700 hover:bg-green-600 text-white p-2 rounded text-[10px] font-bold">個人單據管理
                                 (String)</button>
                             <button onclick="simPerson()"
-                                class="bg-indigo-700 hover:bg-indigo-600 text-white p-2 rounded text-[10px] font-bold">辦取車單
-                                (Object)</button>
+                                class="bg-indigo-700 hover:bg-indigo-600 text-white p-2 rounded text-[10px] font-bold">領取大巴士位址
+                                (Car)</button>
                             <button onclick="simIntArray()"
-                                class="bg-sky-700 hover:bg-sky-600 text-white p-2 rounded text-[10px] font-bold">合租腳踏車位
+                                class="bg-sky-700 hover:bg-sky-600 text-white p-2 rounded text-[10px] font-bold">連號腳踏車位
                                 (int[])</button>
                             <button onclick="simStrArray()"
                                 class="bg-emerald-700 hover:bg-emerald-600 text-white p-2 rounded text-[10px] font-bold">公司單據管理櫃
                                 (String[])</button>
                             <button onclick="clearAllMemory()"
-                                class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded text-[10px] font-bold">清空停車場</button>
+                                class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded text-[10px] font-bold">重置</button>
                         </div>
                     </div>
 
                     <div id="analogy-box" class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-200 min-h-[180px]">
                         <h4
                             class="font-bold text-amber-800 flex items-center gap-2 border-b border-amber-200 pb-2 mb-3 text-sm">
-                            <i data-lucide="help-circle" size="18"></i> 停車場比喻解析
+                            <i data-lucide="help-circle" size="18"></i> 運作解析
                         </h4>
                         <div id="explanation-text" class="text-amber-900 text-sm leading-relaxed italic">
-                            點擊按鈕，觀察 Java 如何在後台分配記憶體！
+                            點擊按鈕，觀察 Java 如何分配空間位址！
                         </div>
                     </div>
                 </div>
@@ -374,7 +390,7 @@
                 <div
                     class="grid grid-cols-2 gap-4 bg-slate-200 p-4 rounded-3xl border-8 border-slate-300 relative min-h-[550px]">
                     <div class="space-y-4 text-center">
-                        <div class="font-black text-slate-500 tracking-widest uppercase text-[10px]">Stack (一般車位)</div>
+                        <div class="font-black text-slate-500 tracking-widest uppercase text-[10px]">Stack (室內小空間)</div>
                         <div id="stack-v2"
                             class="bg-white rounded-xl p-3 min-h-[450px] flex flex-col-reverse gap-2 shadow-inner border-2 border-slate-300">
                             <div id="static-area"
@@ -385,7 +401,7 @@
                         </div>
                     </div>
                     <div class="space-y-4 text-center">
-                        <div class="font-black text-slate-500 tracking-widest uppercase text-[10px]">Heap (VIP 車庫)</div>
+                        <div class="font-black text-slate-500 tracking-widest uppercase text-[10px]">Heap (室外大空間)</div>
                         <div id="heap-v2"
                             class="bg-slate-50 rounded-xl p-3 min-h-[450px] flex flex-col content-start gap-3 shadow-inner border-2 border-slate-300 overflow-y-auto text-left">
                         </div>
@@ -394,35 +410,71 @@
             </div>
         </section>
 
-        <!-- SECTION 3: OBJECT -->
-        <section id="sec-object" class="concept-section hidden">
-            <div class="max-w-2xl mx-auto text-center space-y-8">
-                <h2 class="text-3xl font-bold text-indigo-900">類別與物件</h2>
-                <div class="bg-white p-10 rounded-[3rem] shadow-xl border-t-8 border-indigo-500">
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                        <b>Class (類別)</b> 是設計圖，定義了規格；<br>
-                        <b>Object (物件)</b> 是真實的產物，存在於記憶體中。
-                    </p>
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="p-6 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
-                            <div
-                                class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
-                                <i data-lucide="scroll-text" class="text-slate-400"></i>
+        <!-- SECTION 3: OBJECT & CLASS -->
+        <section id="tab-object-sec" class="concept-section hidden">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">類別、物件與進入點</h2>
+                    <p class="text-slate-500">理解 Java 如何實體化物件並指派給變數</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- 1. The Blueprint -->
+                    <div class="bg-white p-6 rounded-[2rem] shadow-lg border-t-8 border-indigo-500">
+                        <h3 class="font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                            <i data-lucide="file-text"></i> 設計圖 (Class Car)
+                        </h3>
+                        <div class="bg-slate-900 rounded-xl p-4 code-font text-[10px] text-slate-300 mb-4">
+                            <div><span class="text-blue-400">class</span> <span class="text-green-300">Car</span> {
                             </div>
-                            <div class="font-bold text-slate-600">設計圖</div>
+                            <div class="pl-4 text-slate-500">// 屬性</div>
+                            <div class="pl-4"><span class="text-purple-400">String</span> color;</div>
+                            <div class="pl-4 text-slate-500">// 方法</div>
+                            <div class="pl-4"><span class="text-blue-400">void</span> start() { ... }</div>
+                            <div>}</div>
                         </div>
-                        <div class="p-6 bg-indigo-50 rounded-3xl border-2 border-indigo-100">
-                            <div
-                                class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
-                                <i data-lucide="car" class="text-indigo-600"></i>
+                        <p class="text-[10px] text-slate-500 leading-relaxed">定義規格，等待被實體化。</p>
+                    </div>
+
+                    <!-- 2. The Main Controller -->
+                    <div class="bg-indigo-900 p-6 rounded-[2rem] shadow-2xl text-white border-4 border-indigo-700">
+                        <h3 class="font-bold mb-4 flex items-center gap-2">
+                            <i data-lucide="terminal"></i> 主控室 (MyApp)
+                        </h3>
+                        <div id="main-code-display"
+                            class="code-font text-[11px] space-y-1 bg-indigo-800/30 p-3 rounded-xl border border-indigo-400/30">
+                            <div><span class="text-blue-300">public class</span> MyApp {</div>
+                            <div class="pl-3">public static void main(...) {</div>
+                            <div id="dynamic-declaration" class="pl-6 text-yellow-200">
+                                // 點擊按鈕執行 new Car()
                             </div>
-                            <div class="font-bold text-indigo-800">實體車</div>
+                            <div class="pl-3">}</div>
+                            <div>}</div>
+                        </div>
+                        <div class="mt-6 space-y-2">
+                            <button onclick="handleInstantiation('red', 'Sport')"
+                                class="w-full bg-red-600 hover:bg-red-500 text-white py-3 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95">實體化並宣告：紅跑車</button>
+                            <button onclick="handleInstantiation('blue', 'Truck')"
+                                class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95">實體化並宣告：藍貨車</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. The Factory Floor (Heap) -->
+                    <div class="bg-slate-100 p-6 rounded-[2rem] shadow-inner border-2 border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center justify-between">
+                            <span class="flex items-center gap-2"><i data-lucide="factory"></i> 生產線 (室外大空間)</span>
+                            <button onclick="resetFactory()"
+                                class="text-[9px] bg-slate-300 px-2 py-1 rounded hover:bg-slate-400">重置工廠</button>
+                        </h3>
+                        <div id="factory-floor" class="space-y-3 min-h-[300px]">
+                            <div class="text-center text-slate-400 text-[11px] mt-12 italic">
+                                物件將在此處生成...
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
     <script>
@@ -430,10 +482,47 @@
 
         function showSection(sectionId) {
             document.querySelectorAll('.concept-section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('sec-' + sectionId).classList.remove('hidden');
+            const target = sectionId === 'object' ? 'tab-object-sec' : 'sec-' + sectionId;
+            document.getElementById(target).classList.remove('hidden');
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
             document.getElementById('tab-' + sectionId).classList.add('active-tab');
             lucide.createIcons();
+        }
+
+        // --- SECTION 3: FACTORY & VARIABLE LOGIC ---
+        let carCounterGlobal = 0;
+        function resetFactory() {
+            carCounterGlobal = 0;
+            document.getElementById('factory-floor').innerHTML = '<div class="text-center text-slate-400 text-[11px] mt-12 italic">物件將在此處生成...</div>';
+            document.getElementById('dynamic-declaration').innerHTML = '// 點擊按鈕執行 new Car()';
+            lucide.createIcons();
+        }
+        function handleInstantiation(color, type) {
+            carCounterGlobal++;
+            const varName = 'c' + carCounterGlobal;
+            const decLine = `<div><span class="text-green-300 font-bold">Car</span> <span class="text-white underline">${varName}</span> = <span class="text-yellow-400 font-bold">new</span> Car();</div>`;
+            const dynamicArea = document.getElementById('dynamic-declaration');
+            if (carCounterGlobal === 1) dynamicArea.innerHTML = '';
+            dynamicArea.innerHTML += decLine;
+            const floor = document.getElementById('factory-floor');
+            if (floor.innerText.includes('物件將在此處生成')) floor.innerHTML = '';
+            const addr = '0x' + Math.random().toString(16).substr(2, 4).toUpperCase();
+            const colorClass = color === 'red' ? 'text-red-500' : 'text-blue-500';
+            const icon = type === 'Sport' ? 'zap' : 'truck';
+            const card = document.createElement('div');
+            card.className = 'car-instance bg-white p-3 rounded-2xl shadow-sm border-l-4 border-indigo-500 flex flex-col gap-2';
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="text-[9px] font-black bg-indigo-600 text-white px-2 py-0.5 rounded-md">變數: ${varName}</span>
+                    <span class="text-[8px] font-mono text-slate-400">位址: ${addr}</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center ${colorClass}"><i data-lucide="${icon}" size="18"></i></div>
+                    <div><div class="font-bold text-slate-800 text-xs">${type} Object</div><div class="text-[9px] text-slate-500 italic">color: "${color}"</div></div>
+                </div>`;
+            floor.prepend(card); lucide.createIcons();
+            const codeBox = document.getElementById('main-code-display');
+            codeBox.scrollTop = codeBox.scrollHeight;
         }
 
         // --- INTERACTIVE ANATOMY LOGIC ---
@@ -442,10 +531,9 @@
             document.getElementById('word-body').classList.remove('word-highlight');
             const detailBox = document.getElementById('anatomy-detail');
             detailBox.classList.remove('hidden');
-
             const data = {
-                'class': { title: 'Class (類別關鍵字)', body: '<code>class</code> 用於定義一個物件的「藍圖」。<br>在 Java 中，所有的程式碼都必須寫在類別裡面。', icon: 'file-code' },
-                'myapp': { title: 'Class Name (類別名稱)', body: '如果類別宣告為 <code>public</code>，其名稱必須與檔案名稱完全一致（包含大小寫）。<br>此檔案應命名為 <code>MyApp.java</code>。', icon: 'file-type' },
+                'class': { title: 'Class (類別關鍵字)', body: '<code>class</code> 用於定義一個物件的「藍圖」。所有的程式碼都必須寫在類別裡面。', icon: 'file-code' },
+                'myapp': { title: 'Class Name (類別名稱)', body: '如果類別宣告為 <code>public</code>，其名稱必須與檔案名稱完全一致。此檔案應命名為 <code>MyApp.java</code>。', icon: 'file-type' },
                 'public': {
                     title: 'Access Specifier (存取修飾字)',
                     body: `定義成員的能見度。設為 <code>public</code> 代表 JVM 可以從類別外部自由進入。
@@ -457,22 +545,20 @@
                 },
                 'static': { title: 'Keyword (關鍵字 - 靜態)', body: '<b>static</b> 讓這個方法屬於「類別」而非物件。JVM 不需要執行 <code>new MyApp()</code> 就能啟動。', icon: 'zap' },
                 'void': { title: 'Return Type (回傳型別)', body: '<b>void</b> 代表「空」。方法執行完後不需要傳回任何數值給 JVM。', icon: 'arrow-down-to-dot' },
-                'main': { title: 'Identifier (識別碼 - 方法名)', body: '<b>main</b> 是 JVM 唯一認可的入口名稱。注意：必須全小寫。', icon: 'door-open' },
-                'args': { title: 'Parameter (參數列表)', body: '<b>String[] args</b> 是一個裝載外部指令的容器，儲存啟動時輸入的參數。', icon: 'package' },
-                'throws': { title: 'Throws (宣告例外拋出)', body: '「責任聲明」。告訴 JVM 如果發生錯誤我處理不了，請丟給上層處理。', icon: 'share-2' },
-                'exception': { title: 'Exception (例外狀況)', body: 'Java 錯誤的母類別。代表程式可能會遇到突發狀況（如找不到檔案）。', icon: 'alert-triangle' },
-                'system-out': { title: 'System.out (標準輸出串流)', body: 'Java 的標準輸出管道，通常將文字導向螢幕終端機。', icon: 'monitor' },
+                'main': { title: 'Identifier (識別碼 - 方法名)', body: '<b>main</b> 是 JVM 唯一認可的入口名稱。', icon: 'door-open' },
+                'args': { title: 'Parameter (參數列表)', body: '儲存啟動時輸入的參數容器。', icon: 'package' },
+                'throws': { title: 'Throws (宣告例外拋出)', body: '告訴 JVM 如果發生錯誤我不處理，往上丟給上層。', icon: 'share-2' },
+                'exception': { title: 'Exception (例外狀況)', body: '代表程式可能會遇到的突發錯誤處理。', icon: 'alert-triangle' },
+                'system-out': { title: 'System.out (標準輸出串流)', body: 'Java 的標準輸出管道，通常將文字導向終端機。', icon: 'monitor' },
                 'println': { title: 'println (列印並換行)', body: '<b>print line</b> 的縮寫。印出內容後會自動執行換行。', icon: 'corner-down-left' },
-                'call': { title: 'Method Call (方法呼叫)', body: '<code>printIdentity();</code> 代表「跳轉執行」。暫時放下 main，去執行 printIdentity 內的動作。', icon: 'phone-forwarded' },
-                'identity': { title: 'Method Definition (自定義方法)', body: '您創造的方法名稱，遵循小駝峰式命名 (camelCase)。', icon: 'git-branch' },
-                'body': { title: 'Execution Code (執行語句)', body: '<code>System.out.println("I am Edward.");</code> 指令具體實作邏輯。', icon: 'terminal' }
+                'call': { title: 'Method Call (方法呼叫)', body: '跳轉執行自定義動作。', icon: 'phone-forwarded' },
+                'identity': { title: 'Method Definition (自定義方法)', body: '您創造的方法區塊。', icon: 'git-branch' },
+                'body': { title: 'Execution Code (執行語句)', body: '具體的實作邏輯區。', icon: 'terminal' }
             };
-
             const selected = data[key];
             document.getElementById('detail-title').innerText = selected.title;
             document.getElementById('detail-body').innerHTML = selected.body;
             document.getElementById('detail-icon').innerHTML = `<i data-lucide="${selected.icon}"></i>`;
-
             if (key === 'public') {
                 document.getElementById('word-public-class').classList.add('word-highlight');
                 document.getElementById('word-public-main').classList.add('word-highlight');
@@ -502,50 +588,39 @@
             const target = document.getElementById('line-' + id);
             if (target) target.classList.add('line-active');
         }
-
         function clearAllMemory() {
             stack.innerHTML = `<div id="static-area" class="border-2 border-purple-400 bg-purple-50 p-2 rounded-lg mb-4 hidden"><div class="text-[8px] font-bold text-purple-600 uppercase mb-1">Method Area</div><div id="static-content"></div></div>`;
-            heap.innerHTML = '';
-            explanation.innerHTML = '停車場已清空。';
+            heap.innerHTML = ''; explanation.innerHTML = '重置完成。';
             document.querySelectorAll('.code-font div').forEach(d => d.classList.remove('line-active'));
         }
-
         function simStatic() {
             highlightLine('static');
             const sArea = document.getElementById('static-area');
             const sContent = document.getElementById('static-content');
             sArea.classList.remove('hidden');
             sContent.innerHTML = `<div class="text-[10px] font-bold text-purple-800">count: <span class="bg-purple-200 px-2 rounded">0</span></div>`;
-            explanation.innerHTML = `<b>🚗 比喻：公用車踏車 (Static)</b><br>全場共用這一台。`;
+            explanation.innerHTML = `<b>🚗 比喻：公用腳踏車 (Static)</b><br>全場共用這一台設施。`;
         }
         function simChar() {
             highlightLine('char');
             const node = document.createElement('div');
             node.className = 'memory-node parking-spot bg-blue-100 border-2 border-blue-400 p-2 rounded-lg text-xs';
-            node.innerHTML = `
-                <div class="font-bold text-blue-800">key (char)</div>
-                <div class="flex justify-center py-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="M12 18V9c0-1.7 1.3-3 3-3h3"/><path d="M16 18H8"/><path d="M10 11l.7 3.5"/><path d="M14 6l3.5 10"/></svg>
-                    <span class="ml-1">'A'</span>
-                </div>`;
-            stack.appendChild(node);
-            explanation.innerHTML = `<b>🚗 比喻：機車 (char)</b><br>基本型別。直接停入 Stack(一般車位)。`;
+            node.innerHTML = `<div class="font-bold text-blue-800">key (char)</div><div class="flex justify-center py-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="M12 18V9c0-1.7 1.3-3 3-3h3"/><path d="M16 18H8"/><path d="M10 11l.7 3.5"/><path d="M14 6l3.5 10"/></svg><span class="ml-1">'A'</span></div>`;
+            stack.appendChild(node); explanation.innerHTML = `<b>🚗 比喻：機車 (char)</b><br>基本型別。直接停在室內小空間 (Stack)。`;
         }
         function simInt() {
             highlightLine('int');
             const node = document.createElement('div');
             node.className = 'memory-node parking-spot bg-blue-100 border-2 border-blue-400 p-2 rounded-lg text-xs';
             node.innerHTML = `<div class="font-bold text-blue-800">age (int)</div><div class="flex justify-center py-1"><i data-lucide="bike" size="14"></i><span class="ml-1">25</span></div>`;
-            stack.appendChild(node); lucide.createIcons();
-            explanation.innerHTML = `<b>🚗 比喻：腳踏車 (int)</b><br>基本型別。直接停入 Stack(一般車位)。`;
+            stack.appendChild(node); lucide.createIcons(); explanation.innerHTML = `<b>🚗 比喻：腳踏車 (int)</b><br>基本型別。數值直接寫在小空間內的車位上。`;
         }
         function simFloat() {
             highlightLine('float');
             const node = document.createElement('div');
             node.className = 'memory-node parking-spot bg-blue-100 border-2 border-blue-400 p-2 rounded-lg text-xs';
             node.innerHTML = `<div class="font-bold text-blue-800">pi (float)</div><div class="flex justify-center py-1"><i data-lucide="zap" size="14"></i><span class="ml-1">3.14</span></div>`;
-            stack.appendChild(node); lucide.createIcons();
-            explanation.innerHTML = `<b>🚗 比喻：電動滑板車 (float)</b><br>小數點資料宣佈為基本型別。直接停入 Stack(一般車位)。`;
+            stack.appendChild(node); lucide.createIcons(); explanation.innerHTML = `<b>🚗 比喻：滑板車 (float)</b><br>基本型別。直接存放在室內小空間中。`;
         }
         function simString() {
             highlightLine('string'); const addr = getAddr();
@@ -555,21 +630,21 @@
             stack.appendChild(sNode);
             const hNode = document.createElement('div');
             hNode.className = 'memory-node bg-white border-2 border-green-400 p-2 rounded-lg text-xs shadow-sm';
-            hNode.innerHTML = `<div class="text-[8px] opacity-40">${addr}</div><div class="font-bold">"Hi"</div>`;
+            hNode.innerHTML = `<div class="text-[8px] opacity-40">位址: ${addr}</div><div class="font-bold">"Hi"</div>`;
             heap.appendChild(hNode);
-            explanation.innerHTML = `<b>🚗 比喻：個人單據管理 (String)</b><br>String 是物件！ 在Stack(一般車位)存放的是Heap(VIP 車庫)的車位編號。`;
+            explanation.innerHTML = `<b>🚗 比喻：個人單據管理 (String)</b><br>變數存放的是<b>車位位址: ${addr}</b>，真正的物件在室外大空間 (Heap)。`;
         }
         function simPerson() {
             highlightLine('person'); const addr = getAddr();
             const sNode = document.createElement('div');
             sNode.className = 'memory-node parking-spot bg-indigo-100 border-2 border-indigo-500 p-2 rounded-lg text-xs';
-            sNode.innerHTML = `<div class="font-bold text-indigo-800">p (Person)</div><div class="text-center font-mono">${addr}</div>`;
+            sNode.innerHTML = `<div class="font-bold text-indigo-800">bus1 (Car)</div><div class="text-center font-mono">${addr}</div>`;
             stack.appendChild(sNode);
             const hNode = document.createElement('div');
             hNode.className = 'memory-node bg-white border-2 border-indigo-400 p-2 rounded-lg text-xs shadow-md';
-            hNode.innerHTML = `<div class="text-[8px] opacity-40">${addr}</div><div class="font-bold flex items-center gap-1"><i data-lucide="car" size="12"></i> 巴士</div>`;
+            hNode.innerHTML = `<div class="text-[8px] opacity-40">位址: ${addr}</div><div class="font-bold flex items-center gap-1"><i data-lucide="car" size="12"></i> 巴士</div>`;
             heap.appendChild(hNode); lucide.createIcons();
-            explanation.innerHTML = `<b>🚗 比喻：巴士取車單 (Object)</b><br>物件很大，停在Heap(VIP 車庫)，Stack(一般車位)只存放Heap(VIP 車庫)的車位編號。`;
+            explanation.innerHTML = `<b>🚗 比喻：領取大巴士位址 (Car)</b><br>物件很大，變數 <code>bus1</code> 存放的是指向室外大空間 (Heap) 的<b>位址: ${addr}</b>。`;
         }
         function simIntArray() {
             highlightLine('int-arr'); const addr = getAddr();
@@ -579,44 +654,42 @@
             stack.appendChild(sNode);
             const hNode = document.createElement('div');
             hNode.className = 'memory-node bg-sky-50 border-2 border-sky-400 p-2 rounded-lg text-xs w-full';
-            hNode.innerHTML = `<div class="flex gap-1"><div class="bg-white border flex-1 text-center font-mono">1</div><div class="bg-white border flex-1 text-center font-mono">2</div></div>`;
+            hNode.innerHTML = `
+                <div class="text-[9px] font-mono text-sky-700 border-b border-sky-200 mb-2 pb-1">位址: ${addr}</div>
+                <div class="flex gap-1">
+                    <div class="bg-white border flex-1 text-center font-mono py-1 rounded">1</div>
+                    <div class="bg-white border flex-1 text-center font-mono py-1 rounded">2</div>
+                </div>`;
             heap.appendChild(hNode);
-            explanation.innerHTML = `<b>🚗 比喻：連號腳踏車位 (int[])</b><br>在Heap(VIP 車庫)租了很大的車位再劃分給一堆腳踏車。Stack(一般車位)只存放Heap(VIP 車庫)的租用車位的編號。`;
+            explanation.innerHTML = `<b>🚗 比喻：連號腳踏車位 (int[] 陣列)</b><br>在室外大空間 (Heap) 租了大排連號位。室內變數指向該區塊的<b>位址: ${addr}</b>。`;
         }
         function simStrArray() {
             highlightLine('str-arr');
-            const arrAddr = getAddr();
-            const aAddr = getAddr();
-            const bAddr = getAddr();
-            const cAddr = getAddr();
-
-            // Stack
+            const arrAddr = getAddr(); const aAddr = getAddr(); const bAddr = getAddr(); const cAddr = getAddr();
             const sNode = document.createElement('div');
             sNode.className = 'memory-node parking-spot bg-emerald-100 border-2 border-emerald-500 p-2 rounded-lg text-xs';
             sNode.innerHTML = `<div class="font-bold text-emerald-800">tags (String[])</div><div class="text-center font-mono">${arrAddr}</div>`;
             stack.appendChild(sNode);
-
-            // Heap: Array Structure
             const hArrNode = document.createElement('div');
             hArrNode.className = 'memory-node bg-emerald-50 border-2 border-emerald-400 p-2 rounded-lg text-[8px] w-full';
             hArrNode.innerHTML = `
-                <div class="font-mono mb-1 text-emerald-800">${arrAddr} (管理櫃)</div>
+                <div class="font-mono mb-1 text-emerald-800">位址: ${arrAddr} (大看板)</div>
                 <div class="flex gap-1">
                     <div class="bg-white border p-1 flex-1 text-center font-mono">${aAddr}</div>
                     <div class="bg-white border p-1 flex-1 text-center font-mono">${bAddr}</div>
                     <div class="bg-white border p-1 flex-1 text-center font-mono">${cAddr}</div>
                 </div>`;
             heap.appendChild(hArrNode);
-
-            // Heap: Actual String Objects
             [{ a: aAddr, v: "A" }, { a: bAddr, v: "B" }, { a: cAddr, v: "C" }].forEach(item => {
                 const hn = document.createElement('div');
                 hn.className = 'memory-node bg-white border border-emerald-300 p-1 px-3 rounded-full text-[10px] self-end shadow-sm';
-                hn.innerHTML = `<span class="opacity-40 font-mono">${item.a}</span> <b>"${item.v}"</b>`;
+                hn.innerHTML = `<span class="opacity-40 font-mono">位址: ${item.a}</span> <b>"${item.v}"</b>`;
                 heap.appendChild(hn);
             });
-
-            explanation.innerHTML = `<b>🚗 比喻：公司單據管理櫃 (String[])</b><br>這是一個包含三個格子的櫃子（陣列長度為 3）。每個格子存放一張不同的取車單（地址），分別指向最終的貨物 "A"、"B" 與 "C"。這就是 Java 處理物件陣列的方式。`;
+            explanation.innerHTML = `<b>🚗 比喻：公司單據管理櫃 (String[] 陣列)</b><br>
+                1. 變數指向室外 Heap 的<b>大看板 (位址: ${arrAddr})</b>。<br>
+                2. 看板上每格記錄著一個<b>車位位址 (地址 ${aAddr}...)</b>。<br>
+                3. 透過這些位址，才能找到室外另一處真正的貨物 "A", "B", "C"。`;
         }
     </script>
 </body>
