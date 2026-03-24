@@ -267,6 +267,22 @@
             box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
         }
 
+        /* Sidebar Step Styles */
+        .step-item {
+            transition: all 0.4s ease;
+            border-left: 4px solid transparent;
+            opacity: 0.5;
+        }
+
+        .step-highlight {
+            opacity: 1;
+            border-left-color: #4f46e5;
+            background: rgba(79, 70, 229, 0.1);
+            transform: translateX(5px);
+            color: #1e1b4b;
+            font-weight: 600;
+        }
+
         /* Modifier Table Styles */
         .modifier-table {
             width: 100%;
@@ -407,137 +423,163 @@
                     </div>
                 </div>
 
-                <div
-                    class="relative bg-white rounded-[3rem] shadow-2xl p-6 md:p-12 border border-slate-100 overflow-hidden min-h-[750px]">
-
-                    <!-- Background Zones -->
-                    <div class="zone-box bg-blue-50/20 left-4 right-[72%]">
-                        <div class="zone-label text-blue-400 left-1/2 -translate-x-1/2">前端 (Frontend)</div>
-                    </div>
-                    <div class="zone-box bg-indigo-50/10 left-[30%] right-4">
-                        <div class="zone-label text-indigo-400 left-1/2 -translate-x-1/2">後端 (Backend)</div>
-                    </div>
-
-                    <!-- SVG Interactive Lines (Only Two Main Trunk Lines) -->
-                    <svg class="absolute inset-0 w-full h-full pointer-events-none" id="login-svg">
-                        <!-- DNS Sub-paths -->
-                        <path id="lpath-dns-in" class="flow-path" d="M150,220 Q300,50 450,120" />
-                        <path id="lpath-dns-out" class="flow-path" d="M450,120 Q300,100 150,220" />
-                        <!-- Request Main Path -->
-                        <path id="lpath-req" class="flow-path" d="M150,220 Q500,100 850,220" />
-                        <!-- Response Main Path (Shared for SSL return and final data) -->
-                        <path id="lpath-res" class="flow-path" d="M850,220 Q500,340 150,220" />
-                        <!-- DB Internal Paths -->
-                        <path id="lpath-db-in" class="flow-path" d="M850,280 L850,550" />
-                        <path id="lpath-db-out" class="flow-path" d="M890,550 L890,280" />
-
-                        <circle id="login-packet" r="10" class="packet" style="display:none;" />
-                    </svg>
-
-                    <div class="grid grid-cols-12 gap-8 relative z-10 items-start">
-
-                        <!-- 1. Device Node -->
-                        <div class="col-span-12 md:col-span-3">
-                            <div id="lnode-client"
-                                class="web-node p-6 rounded-[2.5rem] bg-white shadow-sm flex flex-col items-center text-center">
-                                <h4 class="font-bold text-slate-700 mb-2 flex items-center gap-2"><i
-                                        data-lucide="smartphone" size="16"></i> 使用者裝置</h4>
-                                <div class="w-full bg-slate-200 p-1 rounded-t-lg text-[7px] flex items-center gap-1">
-                                    <div class="flex gap-0.5">
-                                        <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                                        <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
-                                    </div>
-                                    <div id="addr-bar"
-                                        class="bg-white flex-1 rounded px-1 truncate text-red-500 font-bold">
-                                        http://edward.com/login</div>
-                                </div>
-                                <div id="login-ui-box"
-                                    class="w-full mt-0 border-x border-b border-slate-200 rounded-b-lg p-2 bg-slate-50 min-h-[100px] flex items-center justify-center">
-                                    <div id="ui-initial" class="text-[9px] text-slate-400 italic">尚未載入頁面</div>
-                                    <div id="ui-page-login" class="login-screen w-full hidden">
-                                        <div class="font-bold border-b pb-1 mb-2 text-indigo-600">會員登入</div>
-                                        帳號: <span id="input-user"
-                                            class="bg-slate-100 px-1 rounded min-w-[30px] inline-block"></span><br>
-                                        密碼: <span id="input-pass"
-                                            class="bg-slate-100 px-1 rounded min-w-[30px] inline-block"></span>
-                                        <div class="login-btn opacity-50" id="fake-login-btn">Submit</div>
-                                    </div>
-                                    <div id="ui-page-success"
-                                        class="login-screen hidden bg-emerald-50 border-emerald-200 w-full text-center">
-                                        <div class="text-emerald-600 font-bold mb-1">登入成功！</div>
-                                        <i data-lucide="check-circle"
-                                            class="text-emerald-500 mx-auto mt-2 success-badge" size="24"></i>
-                                    </div>
-                                    <div id="ui-page-fail"
-                                        class="login-screen hidden bg-red-50 border-red-200 w-full text-center">
-                                        <div class="text-red-600 font-bold mb-1">登入失敗</div>
-                                        <div class="text-[7px] text-red-400">帳號或密碼錯誤。</div>
-                                        <i data-lucide="x-circle" class="text-red-400 mx-auto mt-2" size="24"></i>
-                                    </div>
-                                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                    <!-- Left Sidebar: Step Analysis List -->
+                    <div
+                        class="md:col-span-4 bg-white rounded-[2rem] shadow-xl p-6 border border-slate-100 flex flex-col">
+                        <h3 class="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                            <i data-lucide="list-checks"></i> 流程解析步驟
+                        </h3>
+                        <div id="step-list" class="space-y-1 flex-1 overflow-y-auto">
+                            <div id="step-1" class="step-item p-1.5 rounded-r-xl text-[13px]">1. 輸入網址 (HTTP)</div>
+                            <div id="step-2" class="step-item p-1.5 rounded-r-xl text-[13px]">2. DNS 域名解析</div>
+                            <div id="step-3" class="step-item p-1.5 rounded-r-xl text-[13px]">3. 取得伺服器 IP</div>
+                            <div id="step-4" class="step-item p-1.5 rounded-r-xl text-[13px]">4. SSL 安全握手請求</div>
+                            <div id="step-5" class="step-item p-1.5 rounded-r-xl text-[13px]">5. 伺服器驗證憑證</div>
+                            <div id="step-6" class="step-item p-1.5 rounded-r-xl text-[13px]">6. 建立 HTTPS 安全通道</div>
+                            <div id="step-7" class="step-item p-1.5 rounded-r-xl text-[13px]">7. 加密傳輸請求 HTML</div>
+                            <div id="step-8" class="step-item p-1.5 rounded-r-xl text-[13px]">8. 伺服器讀取與回傳資源</div>
+                            <div id="step-9" class="step-item p-1.5 rounded-r-xl text-[13px]">9. 瀏覽器渲染登入介面</div>
+                            <div id="step-10" class="step-item p-1.5 rounded-r-xl text-[13px]">10. 使用者填寫機密帳密</div>
+                            <div id="step-11" class="step-item p-1.5 rounded-r-xl text-[13px]">11. 送出加密後的資料</div>
+                            <div id="step-12" class="step-item p-1.5 rounded-r-xl text-[13px]">12. Java 啟動邏輯與連線 DB</div>
+                            <div id="step-13" class="step-item p-1.5 rounded-r-xl text-[13px]">13. 資料庫回報比對結果</div>
+                            <div id="step-14" class="step-item p-1.5 rounded-r-xl text-[13px]">14. Java 根據判斷結果，回傳對應的頁面
                             </div>
-                        </div>
-
-                        <!-- DNS Server -->
-                        <div class="col-span-12 md:col-span-4 flex justify-center">
-                            <div id="lnode-dns"
-                                class="web-node p-4 rounded-2xl bg-white border-blue-100 border-2 flex flex-col items-center text-center w-40 shadow-sm">
-                                <i data-lucide="globe" class="text-blue-500 mb-1" size="24"></i>
-                                <h4 class="font-bold text-blue-900 text-xs">DNS 伺服器</h4>
-                                <div class="text-[8px] bg-blue-50 p-1 rounded mt-1 font-mono text-blue-600">Lookup:
-                                    edward.com</div>
-                            </div>
-                        </div>
-
-                        <!-- 2. Server Node (Backend) -->
-                        <div class="col-span-12 md:col-span-4">
-                            <div id="lnode-server"
-                                class="web-node p-8 rounded-[2.5rem] bg-white border-slate-200 border-2 flex flex-col items-center text-center">
-                                <div
-                                    class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                                    <i data-lucide="cpu" size="24"></i>
-                                </div>
-                                <h4 class="font-bold text-indigo-900">雲端主機 (Server)</h4>
-                                <div class="mt-4 space-y-2 w-full text-[9px] text-left">
-                                    <div id="s-step-ssl"
-                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
-                                        🔐 驗證 SSL (TLS Handshake)</div>
-                                    <div id="s-step-static"
-                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
-                                        1. 讀取靜態檔 (HTML/CSS/JS)</div>
-                                    <div id="s-step-compare"
-                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
-                                        2. Java: 帳密與資料庫比對邏輯</div>
-                                    <div id="s-step-resp"
-                                        class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
-                                        3. Java: 封裝 Response 結果頁</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-span-12 h-16"></div>
-                        <div class="hidden md:block col-span-8"></div>
-
-                        <!-- 3. Database Node (Backend) -->
-                        <div class="col-span-12 md:col-span-4 flex justify-center">
-                            <div id="lnode-db"
-                                class="web-node p-6 rounded-3xl bg-white border-emerald-100 border-2 flex flex-col items-center text-center w-full shadow-sm">
-                                <h4 class="font-bold text-emerald-900 mb-3 text-sm flex items-center gap-2"><i
-                                        data-lucide="database" size="16"></i> 資料庫</h4>
-                                <div
-                                    class="w-full bg-emerald-50/50 rounded-lg p-2 shadow-inner font-mono text-[8px] text-left mb-3 border border-emerald-100">
-                                    <div class="text-emerald-400 border-b border-emerald-100 pb-1 mb-1 italic">Users
-                                        Table</div>
-                                    <div class="text-emerald-700 font-bold italic">查詢與回傳結果中...</div>
-                                </div>
-                            </div>
+                            <div id="step-15" class="step-item p-1.5 rounded-r-xl text-[13px]">15. 瀏覽器呈現最終結果</div>
                         </div>
                     </div>
 
-                    <!-- Step Explanation Box -->
-                    <div id="detail-step-desc"
-                        class="mt-8 p-6 bg-slate-900 text-slate-100 rounded-2xl border-l-4 border-indigo-500 min-h-[140px] flex items-center justify-center text-center shadow-lg">
-                        <p class="text-slate-400 italic text-lg">請選擇上方按鈕啟動模擬流程...</p>
+                    <!-- Right Side: Visualization Area -->
+                    <div class="md:col-span-8 flex flex-col">
+                        <div
+                            class="relative bg-white rounded-[3rem] shadow-2xl pt-16 pb-8 px-6 md:px-8 border border-slate-100 overflow-hidden min-h-[750px] flex-1">
+
+                            <!-- Background Zones -->
+                            <div class="zone-box bg-blue-50/20 left-2 right-[56%]">
+                                <div class="zone-label text-blue-400 left-1/2 -translate-x-1/2 top-4">前端 (Frontend)
+                                </div>
+                            </div>
+                            <div class="zone-box bg-indigo-50/10 left-[64%] right-2">
+                                <div class="zone-label text-indigo-400 left-1/2 -translate-x-1/2 top-4">後端 (Backend)
+                                </div>
+                            </div>
+
+                            <!-- SVG Interactive Lines (Only Two Main Trunk Lines) -->
+                            <svg class="absolute inset-0 w-full h-full pointer-events-none" id="login-svg">
+                                <!-- DNS Sub-paths -->
+                                <path id="lpath-dns-in" class="flow-path" d="M150,220 Q300,50 450,120" />
+                                <path id="lpath-dns-out" class="flow-path" d="M450,120 Q300,100 150,220" />
+                                <!-- Request Main Path -->
+                                <path id="lpath-req" class="flow-path" d="M150,220 Q500,100 850,220" />
+                                <!-- Response Main Path (Shared for SSL return and final data) -->
+                                <path id="lpath-res" class="flow-path" d="M850,220 Q500,340 150,220" />
+                                <!-- DB Internal Paths -->
+                                <path id="lpath-db-in" class="flow-path" d="M850,280 L850,550" />
+                                <path id="lpath-db-out" class="flow-path" d="M890,550 L890,280" />
+
+                                <circle id="login-packet" r="10" class="packet" style="display:none;" />
+                            </svg>
+
+                            <div class="grid grid-cols-12 gap-4 relative z-10 items-start">
+
+                                <!-- 1. Device Node -->
+                                <div class="col-span-12 md:col-span-5">
+                                    <div id="lnode-client"
+                                        class="web-node p-4 rounded-[2rem] bg-white shadow-sm flex flex-col items-center text-center">
+                                        <h4 class="font-bold text-slate-700 mb-2 flex items-center gap-2 text-sm"><i
+                                                data-lucide="smartphone" size="16"></i> 使用者裝置</h4>
+                                        <div
+                                            class="w-full bg-slate-200 p-1.5 rounded-t-lg text-[10px] flex items-center gap-1">
+                                            <div class="flex gap-0.5">
+                                                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                                                <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
+                                            </div>
+                                            <div id="addr-bar"
+                                                class="bg-white flex-1 rounded px-1 truncate text-red-500 font-bold">
+                                                http://edward.com/login</div>
+                                        </div>
+                                        <div id="login-ui-box"
+                                            class="w-full mt-0 border-x border-b border-slate-200 rounded-b-lg p-3 bg-slate-50 min-h-[100px] flex items-center justify-center">
+                                            <div id="ui-initial" class="text-[11px] text-slate-400 italic">尚未載入頁面</div>
+                                            <div id="ui-page-login" class="login-screen w-full hidden">
+                                                <div class="font-bold border-b pb-1 mb-1 text-indigo-600 text-[11px]">
+                                                    會員登入</div>
+                                                帳號: <span id="input-user"
+                                                    class="bg-slate-100 px-1 rounded min-w-[20px] inline-block"></span><br>
+                                                密碼: <span id="input-pass"
+                                                    class="bg-slate-100 px-1 rounded min-w-[20px] inline-block"></span>
+                                                <div class="login-btn opacity-50" id="fake-login-btn"
+                                                    style="padding:2px 8px; font-size:10px;">Submit</div>
+                                            </div>
+                                            <div id="ui-page-success"
+                                                class="login-screen hidden bg-emerald-50 border-emerald-200 w-full text-center">
+                                                <div class="text-emerald-600 font-bold mb-1 text-[11px]">登入成功！</div>
+                                                <i data-lucide="check-circle"
+                                                    class="text-emerald-500 mx-auto mt-1 success-badge" size="20"></i>
+                                            </div>
+                                            <div id="ui-page-fail"
+                                                class="login-screen hidden bg-red-50 border-red-200 w-full text-center">
+                                                <div class="text-red-600 font-bold mb-1 text-[11px]">登入失敗</div>
+                                                <i data-lucide="x-circle" class="text-red-400 mx-auto mt-1"
+                                                    size="20"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- DNS Server -->
+                                <div class="col-span-12 md:col-span-3 flex justify-center">
+                                    <div id="lnode-dns"
+                                        class="web-node pt-0 pb-4 rounded-2xl bg-white border-blue-100 border-2 flex flex-col items-center text-center w-32 shadow-sm -mt-10">
+                                        <i data-lucide="globe" class="text-blue-500 mb-1" size="24"></i>
+                                        <h4 class="font-bold text-blue-900 text-sm">DNS 伺服器</h4>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Server Node (Backend) -->
+                                <div class="col-span-12 md:col-span-4">
+                                    <div id="lnode-server"
+                                        class="web-node p-6 rounded-[2rem] bg-white border-slate-200 border-2 flex flex-col items-center text-center">
+                                        <div
+                                            class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center mb-3 shadow-lg">
+                                            <i data-lucide="cpu" size="24"></i>
+                                        </div>
+                                        <h4 class="font-bold text-indigo-900 text-base">雲端主機 (Server)</h4>
+                                        <div class="mt-3 space-y-1.5 w-full text-[11px] text-left">
+                                            <div id="s-step-ssl"
+                                                class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                                🔐 SSL 驗證邏輯</div>
+                                            <div id="s-step-static"
+                                                class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                                1. 靜態檔讀取</div>
+                                            <div id="s-step-compare"
+                                                class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                                2. Java 驗證邏輯</div>
+                                            <div id="s-step-resp"
+                                                class="server-step p-2 bg-slate-50 rounded border border-slate-200 opacity-40">
+                                                3. 根據結果封裝回應頁面 (Response)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-12 h-16"></div>
+                                <div class="hidden md:block col-span-8"></div>
+
+                                <!-- 3. Database Node (Backend) -->
+                                <div class="col-span-12 md:col-span-4 flex justify-center">
+                                    <div id="lnode-db"
+                                        class="web-node p-5 rounded-3xl bg-white border-emerald-100 border-2 flex flex-col items-center text-center w-full shadow-sm">
+                                        <h4 class="font-bold text-emerald-900 mb-2 text-sm flex items-center gap-2"><i
+                                                data-lucide="database" size="18"></i> 資料庫</h4>
+                                        <div
+                                            class="w-full bg-emerald-50/50 rounded-lg p-3 shadow-inner font-mono text-[10px] text-left border border-emerald-100">
+                                            <div class="text-emerald-700 font-bold italic">查詢與回傳結果中...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -836,7 +878,6 @@
 
             const btnS = document.getElementById('btn-success-sim');
             const btnF = document.getElementById('btn-fail-sim');
-            const exp = document.getElementById('detail-step-desc');
             const packet = document.getElementById('login-packet');
             const addrBar = document.getElementById('addr-bar');
             const uiInitial = document.getElementById('ui-initial');
@@ -866,10 +907,17 @@
             packet.classList.remove('encrypted');
             cardHttp.classList.remove('highlight-card');
             cardHttps.classList.remove('highlight-card');
+            document.querySelectorAll('.step-item').forEach(s => s.classList.remove('step-highlight'));
             [sSSL, sStatic, sCompare, sResp].forEach(el => el.classList.remove('server-step-active'));
 
-            const runStep = async (text, node, path = null, callback = null, duration = 3500) => {
-                exp.innerHTML = `<p class="fade-in-up text-lg">${text}</p>`;
+            const runStep = async (stepNum, node, path = null, callback = null, duration = 3500) => {
+                document.querySelectorAll('.step-item').forEach(s => s.classList.remove('step-highlight'));
+                const currentStep = document.getElementById(`step-${stepNum}`);
+                if (currentStep) {
+                    currentStep.classList.add('step-highlight');
+                    currentStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
                 document.querySelectorAll('.web-node').forEach(n => n.classList.remove('active'));
                 if (node) document.getElementById(node).classList.add('active');
                 if (callback) await callback();
@@ -882,24 +930,24 @@
             };
 
             // 1. Enter URL
-            await runStep('<b>[前端] 步驟 1：輸入網址。</b> 目前尚未建立加密通道 (HTTP)。', 'lnode-client', null, () => {
+            await runStep(1, 'lnode-client', null, () => {
                 cardHttp.classList.add('highlight-card');
             });
 
             // 2. DNS
-            await runStep('<b>[網路層] 步驟 2：解析域名。</b> 透過 DNS 伺服器找到 <code>edward.com</code> 的實體 IP。', 'lnode-dns', 'lpath-dns-in');
-            await runStep('<b>[網路層] 步驟 3：取得 IP。</b> 主機位址：<code>104.26.10.22</code>。', 'lnode-dns', 'lpath-dns-out', () => {
+            await runStep(2, 'lnode-dns', 'lpath-dns-in');
+            await runStep(3, 'lnode-dns', 'lpath-dns-out', () => {
                 addrBar.innerText = '104.26.10.22/login';
             });
 
             // 4. SSL Handshake
-            await runStep('<b>[加密層] 步驟 4：SSL 握手。</b> 瀏覽器要求與主機建立安全加密連線。', 'lnode-client', 'lpath-req');
-            await runStep('<b>[後端] 步驟 5：驗證憑證。</b> 主機回傳憑證，雙方建立加密通道。', 'lnode-server', 'lpath-res', () => {
+            await runStep(4, 'lnode-client', 'lpath-req');
+            await runStep(5, 'lnode-server', 'lpath-res', () => {
                 sSSL.classList.add('server-step-active');
             });
 
             // 6. HTTPS Transition
-            await runStep('<b>[安全性] 加密完成！</b> 網址轉為 <b>HTTPS</b>。接下來所有傳輸都將受保護。', 'lnode-client', null, () => {
+            await runStep(6, 'lnode-client', null, () => {
                 sSSL.classList.remove('server-step-active');
                 cardHttp.classList.remove('highlight-card');
                 cardHttps.classList.add('highlight-card');
@@ -909,21 +957,19 @@
             });
 
             // 7. Request Static
-            await runStep('<b>[加密傳輸] 步驟 6：請求頁面。</b> 透過安全通道索取 HTML 資源。', 'lnode-client', 'lpath-req');
-            await runStep('<b>[後端] 步驟 7：讀取資源。</b> 主機正在讀取登入頁面檔案。', 'lnode-server', null, () => {
+            await runStep(7, 'lnode-client', 'lpath-req');
+            await runStep(8, 'lnode-server', 'lpath-res', () => {
                 sStatic.classList.add('server-step-active');
-            });
-            await runStep('<b>[後端 -> 前端] 步驟 8：回傳網頁。</b> 檔案加密後安全送達瀏覽器。', 'lnode-server', 'lpath-res', () => {
-                sStatic.classList.remove('server-step-active');
             });
 
             // 9. Interaction
-            await runStep('<b>[前端] 步驟 9：渲染介面。</b> 瀏覽器畫出登入畫面，等待使用者輸入。', 'lnode-client', null, () => {
+            await runStep(9, 'lnode-client', null, () => {
+                sStatic.classList.remove('server-step-active');
                 uiInitial.classList.add('hidden'); uiLogin.classList.remove('hidden');
             });
 
             // 10. Typing
-            await runStep('<b>[前端] 步驟 10：填寫資料。</b> 使用者在本地端輸入帳密。', 'lnode-client', null, async () => {
+            await runStep(10, 'lnode-client', null, async () => {
                 const user = "Edward";
                 for (let char of user) { inputUser.innerHTML += char; await new Promise(r => setTimeout(r, 100)); }
                 await new Promise(r => setTimeout(r, 400));
@@ -933,31 +979,23 @@
             });
 
             // 11. Submit
-            await runStep('<b>[加密傳輸] 步驟 11：送出資料。</b> 加密封包飛向後端進行驗證。', 'lnode-client', 'lpath-req');
+            await runStep(11, 'lnode-client', 'lpath-req');
 
             // 12. Java Logic Start
-            await runStep('<b>[後端] 步驟 12：邏輯啟動。</b> Java 啟動並連線資料庫驗證身份。', 'lnode-server', 'lpath-db-in', () => {
+            await runStep(12, 'lnode-server', 'lpath-db-in', () => {
                 sCompare.classList.add('server-step-active');
             });
-            await runStep('<b>[後端內部] 步驟 13：獲得回傳。</b> 資料庫回報比對結果。', 'lnode-db', 'lpath-db-out');
+            await runStep(13, 'lnode-db', 'lpath-db-out');
 
             // 14. Branching & Packaging
-            const finalMsg = isSuccess
-                ? '<b>[後端] 步驟 14：判斷成功。</b> Java 比對通過，正在生成「成功頁面」。'
-                : '<b>[後端] 步驟 14：判斷失敗。</b> Java 比對錯誤，正在生成「登入失敗」頁面。';
-
-            await runStep(finalMsg, 'lnode-server', null, () => {
+            await runStep(14, 'lnode-server', 'lpath-res', () => {
                 sCompare.classList.remove('server-step-active');
                 sResp.classList.add('server-step-active');
             });
 
-            // 15. Final Response
-            await runStep('<b>[後端 -> 前端] 步驟 15：回傳結果。</b> Java 將結果頁面透過 Response 安全傳回。', 'lnode-server', 'lpath-res', () => {
+            // 15. Final Render
+            await runStep(15, 'lnode-client', null, () => {
                 sResp.classList.remove('server-step-active');
-            });
-
-            // 16. Final Render
-            await runStep('<b>[前端] 步驟 16：呈現結果。</b> 瀏覽器更新最終 UI。', 'lnode-client', null, () => {
                 uiLogin.classList.add('hidden');
                 if (isSuccess) uiSuccess.classList.remove('hidden'); else uiFail.classList.remove('hidden');
                 lucide.createIcons();
@@ -970,6 +1008,7 @@
         }
 
         function animatePacketAlongPath(packetId, pathId, duration = 2200) {
+            syncPaths(); // Ensure paths are correctly positioned before animation
             return new Promise(resolve => {
                 const path = document.getElementById(pathId);
                 const p = document.getElementById(packetId);
@@ -987,7 +1026,42 @@
             });
         }
 
-        window.onload = () => lucide.createIcons();
+        function syncPaths() {
+            const svg = document.getElementById('login-svg');
+            const rect = svg.getBoundingClientRect();
+
+            const getCenter = (id) => {
+                const el = document.getElementById(id);
+                const r = el.getBoundingClientRect();
+                return {
+                    x: r.left - rect.left + r.width / 2,
+                    y: r.top - rect.top + r.height / 2
+                };
+            };
+
+            const c = getCenter('lnode-client');
+            const d = getCenter('lnode-dns');
+            const s = getCenter('lnode-server');
+            const db = getCenter('lnode-db');
+
+            // DNS Paths (Curved)
+            document.getElementById('lpath-dns-in').setAttribute('d', `M${c.x},${c.y} Q${(c.x + d.x) / 2},${Math.min(c.y, d.y) - 80} ${d.x},${d.y}`);
+            document.getElementById('lpath-dns-out').setAttribute('d', `M${d.x},${d.y} Q${(c.x + d.x) / 2},${Math.min(c.y, d.y) - 50} ${c.x},${c.y}`);
+
+            // Req/Res Paths (Curved)
+            document.getElementById('lpath-req').setAttribute('d', `M${c.x},${c.y} Q${(c.x + s.x) / 2},${Math.min(c.y, s.y) - 100} ${s.x},${s.y}`);
+            document.getElementById('lpath-res').setAttribute('d', `M${s.x},${s.y} Q${(c.x + s.x) / 2},${Math.max(c.y, s.y) + 100} ${c.x},${c.y}`);
+
+            // DB Paths (Straight/L-shape)
+            document.getElementById('lpath-db-in').setAttribute('d', `M${s.x - 10},${s.y} L${db.x - 10},${db.y}`);
+            document.getElementById('lpath-db-out').setAttribute('d', `M${db.x + 10},${db.y} L${s.x + 10},${s.y}`);
+        }
+
+        window.addEventListener('resize', syncPaths);
+        window.onload = () => {
+            lucide.createIcons();
+            setTimeout(syncPaths, 100);
+        };
 
         // --- SECTION 3: FACTORY & VARIABLE LOGIC ---
         let carCounterGlobal = 0;
