@@ -189,7 +189,7 @@
 
     <main class="max-w-7xl mx-auto p-4 md:p-8">
 
-        <!-- SECTION 1: ENTRY POINT (CLEAN INTERACTIVE DESIGN) -->
+        <!-- SECTION 1: ENTRY POINT -->
         <section id="sec-entry" class="concept-section block">
             <div class="max-w-4xl mx-auto space-y-12">
                 <div class="text-center">
@@ -197,9 +197,8 @@
                     <p class="text-slate-500 italic">點擊下方代碼中的彩色關鍵字，查看詳細定義與規則</p>
                 </div>
 
-                <!-- Code Diagram Area -->
-                <div class="diagram-container">
-                    <div class="code-font text-base md:text-2xl leading-relaxed">
+                <div class="diagram-container shadow-2xl overflow-x-auto">
+                    <div class="code-font text-base md:text-xl leading-relaxed min-w-[600px]">
                         <div class="mb-4 text-slate-400">
                             <span id="word-public-class" class="clickable-word text-blue-400"
                                 onclick="focusAnatomy('public')">public</span>&nbsp;<span id="word-class"
@@ -209,25 +208,59 @@
                             {
                         </div>
 
+                        <!-- Main Method -->
                         <div class="pl-8 flex flex-wrap items-center">
-                            <span id="word-public" class="clickable-word text-blue-400"
+                            <span id="word-public-main" class="clickable-word text-blue-400"
                                 onclick="focusAnatomy('public')">public</span>&nbsp;
-                            <span id="word-static" class="clickable-word text-purple-400"
+                            <span id="word-static-main" class="clickable-word text-purple-400"
                                 onclick="focusAnatomy('static')">static</span>&nbsp;
-                            <span id="word-void" class="clickable-word text-yellow-400"
+                            <span id="word-void-main" class="clickable-word text-yellow-400"
                                 onclick="focusAnatomy('void')">void</span>&nbsp;
                             <span id="word-main" class="clickable-word text-green-400"
                                 onclick="focusAnatomy('main')">main</span>
                             <span id="word-args" class="clickable-word text-white"
-                                onclick="focusAnatomy('args')">(String[] args)</span>
+                                onclick="focusAnatomy('args')">(String[] args)</span>&nbsp;
+                            <span id="word-throws" class="clickable-word text-purple-400"
+                                onclick="focusAnatomy('throws')">throws</span>&nbsp;
+                            <span id="word-exception" class="clickable-word text-orange-300"
+                                onclick="focusAnatomy('exception')">Exception</span>&nbsp;
                             <span class="text-slate-400 ml-2">{</span>
                         </div>
 
-                        <div id="word-body" class="pl-16 cursor-pointer py-4 transition-all"
+                        <div class="pl-16 py-1">
+                            <span id="word-system-out" class="clickable-word text-slate-300"
+                                onclick="focusAnatomy('system-out')">System.out</span><span
+                                class="text-slate-500">.</span><span id="word-println"
+                                class="clickable-word text-sky-400"
+                                onclick="focusAnatomy('println')">println</span>(<span class="text-green-400">"Hello
+                                World"</span>);
+                        </div>
+
+                        <div class="pl-16 py-1">
+                            <span id="word-call" class="clickable-word text-sky-400 font-bold"
+                                onclick="focusAnatomy('call')">printIdentity();</span>
+                        </div>
+
+                        <div class="pl-8 text-slate-400 mb-6">}</div>
+
+                        <!-- Custom Method Definition -->
+                        <div class="pl-8 flex flex-wrap items-center">
+                            <span id="word-public-def" class="clickable-word text-blue-400"
+                                onclick="focusAnatomy('public')">public</span>&nbsp;
+                            <span id="word-static-def" class="clickable-word text-purple-400"
+                                onclick="focusAnatomy('static')">static</span>&nbsp;
+                            <span id="word-void-def" class="clickable-word text-yellow-400"
+                                onclick="focusAnatomy('void')">void</span>&nbsp;
+                            <span id="word-identity" class="clickable-word text-green-400 font-bold"
+                                onclick="focusAnatomy('identity')">printIdentity()</span>
+                            <span class="text-slate-400 ml-2">{</span>
+                        </div>
+
+                        <div id="word-body" class="pl-16 cursor-pointer py-1 transition-all"
                             onclick="focusAnatomy('body')">
                             <span class="text-slate-300">System</span><span class="text-slate-500">.</span><span
                                 class="text-slate-300">out</span><span class="text-slate-500">.</span><span
-                                class="text-sky-400">println</span>(<span class="text-green-400">"Hello World"</span>);
+                                class="text-sky-400">println</span>(<span class="text-green-400">"I am Edward."</span>);
                         </div>
 
                         <div class="pl-8 text-slate-400">}</div>
@@ -235,7 +268,6 @@
                     </div>
                 </div>
 
-                <!-- Interactive Detail Box (Displays on Click) -->
                 <div id="anatomy-detail"
                     class="p-8 bg-white border-2 border-indigo-100 rounded-[2rem] shadow-xl hidden fade-in-up">
                     <div class="flex items-center gap-4 mb-4">
@@ -258,7 +290,7 @@
                 <div>
                     <h3 class="text-xl font-bold text-slate-800 mb-1">🚗 終極停車場比喻</h3>
                     <p class="text-slate-600 text-sm leading-relaxed">
-                        <b>Primitive:</b> 機車直接停在車位(Stack)。
+                        <b>Primitive:</b> 機車(char)/腳踏車(int)/滑板車(float)直接停在車位(Stack)。<br>
                         <b>Object:</b> 巴士太大停在VIP車庫(Heap)，車位只放「取車單/地址」。<br>
                         <b>Static:</b> 停車場「公用設施」，由全場所有車主共用。
                     </p>
@@ -271,12 +303,18 @@
                         <h3 class="text-indigo-400 font-bold mb-4 flex items-center gap-2 text-sm">
                             <i data-lucide="code-2" size="16"></i> Java 原始碼模擬
                         </h3>
-                        <div class="space-y-1 code-font text-[11px] md:text-xs text-slate-300">
+                        <div class="space-y-1 code-font text-[10px] md:text-xs text-slate-300">
                             <div id="line-static" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
-                                    class="text-purple-400">static int</span> carCount = <span
+                                    class="text-purple-400">static int</span> count = <span
                                     class="text-orange-400">0</span>;</div>
                             <div id="line-char" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
                                     class="text-blue-400">char</span> key = <span class="text-orange-400">'A'</span>;
+                            </div>
+                            <div id="line-int" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
+                                    class="text-blue-400">int</span> age = <span class="text-orange-400">25</span>;
+                            </div>
+                            <div id="line-float" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
+                                    class="text-blue-400">float</span> pi = <span class="text-orange-400">3.14f</span>;
                             </div>
                             <div id="line-string" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
                                     class="text-purple-400">String</span> s = <span class="text-green-400">"Hi"</span>;
@@ -287,24 +325,36 @@
                             <div id="line-int-arr" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
                                     class="text-blue-400">int</span>[] row = {<span class="text-orange-400">1,
                                     2</span>};</div>
+                            <div id="line-str-arr" class="p-1 px-3 border-l-4 border-transparent transition-all"><span
+                                    class="text-purple-400">String</span>[] tags = {<span class="text-green-400">"A",
+                                    "B", "C"</span>};</div>
                         </div>
 
-                        <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2">
                             <button onclick="simStatic()"
                                 class="bg-purple-700 hover:bg-purple-600 text-white p-2 rounded text-[10px] font-bold">設置設施
                                 (Static)</button>
                             <button onclick="simChar()"
                                 class="bg-blue-700 hover:bg-blue-600 text-white p-2 rounded text-[10px] font-bold">停機車
                                 (char)</button>
+                            <button onclick="simInt()"
+                                class="bg-blue-700 hover:bg-blue-600 text-white p-2 rounded text-[10px] font-bold">停腳踏車
+                                (int)</button>
+                            <button onclick="simFloat()"
+                                class="bg-blue-700 hover:bg-blue-600 text-white p-2 rounded text-[10px] font-bold">停滑板車
+                                (float)</button>
                             <button onclick="simString()"
-                                class="bg-green-700 hover:bg-green-600 text-white p-2 rounded text-[10px] font-bold">存貨單
+                                class="bg-green-700 hover:bg-green-600 text-white p-2 rounded text-[10px] font-bold">個人單據管理櫃
                                 (String)</button>
                             <button onclick="simPerson()"
                                 class="bg-indigo-700 hover:bg-indigo-600 text-white p-2 rounded text-[10px] font-bold">辦取車單
                                 (Object)</button>
                             <button onclick="simIntArray()"
-                                class="bg-sky-700 hover:bg-sky-600 text-white p-2 rounded text-[10px] font-bold">定連號位
+                                class="bg-sky-700 hover:bg-sky-600 text-white p-2 rounded text-[10px] font-bold">合租腳踏車位
                                 (int[])</button>
+                            <button onclick="simStrArray()"
+                                class="bg-emerald-700 hover:bg-emerald-600 text-white p-2 rounded text-[10px] font-bold">公司單據管理櫃
+                                (String[])</button>
                             <button onclick="clearAllMemory()"
                                 class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded text-[10px] font-bold">清空停車場</button>
                         </div>
@@ -322,11 +372,11 @@
                 </div>
 
                 <div
-                    class="grid grid-cols-2 gap-4 bg-slate-200 p-4 rounded-3xl border-8 border-slate-300 relative min-h-[500px]">
+                    class="grid grid-cols-2 gap-4 bg-slate-200 p-4 rounded-3xl border-8 border-slate-300 relative min-h-[550px]">
                     <div class="space-y-4 text-center">
                         <div class="font-black text-slate-500 tracking-widest uppercase text-[10px]">Stack (一般車位)</div>
                         <div id="stack-v2"
-                            class="bg-white rounded-xl p-3 min-h-[400px] flex flex-col-reverse gap-2 shadow-inner border-2 border-slate-300">
+                            class="bg-white rounded-xl p-3 min-h-[450px] flex flex-col-reverse gap-2 shadow-inner border-2 border-slate-300">
                             <div id="static-area"
                                 class="border-2 border-purple-400 bg-purple-50 p-2 rounded-lg mb-4 hidden">
                                 <div class="text-[8px] font-bold text-purple-600 uppercase mb-1">Method Area</div>
@@ -337,7 +387,7 @@
                     <div class="space-y-4 text-center">
                         <div class="font-black text-slate-500 tracking-widest uppercase text-[10px]">Heap (VIP 車庫)</div>
                         <div id="heap-v2"
-                            class="bg-slate-50 rounded-xl p-3 min-h-[400px] flex flex-col content-start gap-3 shadow-inner border-2 border-slate-300 overflow-y-auto text-left">
+                            class="bg-slate-50 rounded-xl p-3 min-h-[450px] flex flex-col content-start gap-3 shadow-inner border-2 border-slate-300 overflow-y-auto text-left">
                         </div>
                     </div>
                 </div>
@@ -390,65 +440,32 @@
         function focusAnatomy(key) {
             document.querySelectorAll('.clickable-word').forEach(el => el.classList.remove('word-highlight'));
             document.getElementById('word-body').classList.remove('word-highlight');
-
             const detailBox = document.getElementById('anatomy-detail');
             detailBox.classList.remove('hidden');
 
             const data = {
-                'class': {
-                    title: 'Class (類別關鍵字)',
-                    body: '<code>class</code> 用於定義一個物件的「藍圖」。<br>在 Java 中，所有的程式碼都必須寫在類別裡面。它規定了物件具備哪些資料（屬性）以及可以做哪些動作（方法）。',
-                    icon: 'file-code'
-                },
-                'myapp': {
-                    title: 'Class Name (類別名稱)',
-                    body: '這是在此檔案中定義的類別名稱。<b>重要規則：</b>在 Java 中，如果類別宣告為 <code>public</code>，則其名稱必須與檔案名稱完全一致（包含大小寫）。<br>例如這個檔案必須命名為 <code><b>MyApp.java</b></code> 才能正確編譯。',
-                    icon: 'file-type'
-                },
+                'class': { title: 'Class (類別關鍵字)', body: '<code>class</code> 用於定義一個物件的「藍圖」。<br>在 Java 中，所有的程式碼都必須寫在類別裡面。', icon: 'file-code' },
+                'myapp': { title: 'Class Name (類別名稱)', body: '如果類別宣告為 <code>public</code>，其名稱必須與檔案名稱完全一致（包含大小寫）。<br>此檔案應命名為 <code>MyApp.java</code>。', icon: 'file-type' },
                 'public': {
                     title: 'Access Specifier (存取修飾字)',
-                    body: `
-                        這定義了成員的「能見度」。設為 <code>public</code> 代表 Java 虛擬機 (JVM) 可以從類別外部自由進入。
-                        <p class="mt-4 font-bold text-slate-800 text-sm">存取權限範圍表：</p>
-                        <table class="modifier-table">
-                            <thead>
-                                <tr><th>修飾字</th><th>同類別</th><th>同封包</th><th>子類別</th><th>世界</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr class="current-row"><td>public</td><td><span class="check-v">V</span></td><td><span class="check-v">V</span></td><td><span class="check-v">V</span></td><td><span class="check-v">V</span></td></tr>
-                                <tr><td>protected</td><td><span class="check-v">V</span></td><td><span class="check-v">V</span></td><td><span class="check-v">V</span></td><td><span class="check-x">X</span></td></tr>
-                                <tr><td>(預設)</td><td><span class="check-v">V</span></td><td><span class="check-v">V</span></td><td><span class="check-x">X</span></td><td><span class="check-x">X</span></td></tr>
-                                <tr><td>private</td><td><span class="check-v">V</span></td><td><span class="check-x">X</span></td><td><span class="check-x">X</span></td><td><span class="check-x">X</span></td></tr>
-                            </tbody>
-                        </table>
-                    `,
+                    body: `定義成員的能見度。設為 <code>public</code> 代表 JVM 可以從類別外部自由進入。
+                        <table class="modifier-table"><thead><tr><th>修飾字</th><th>同類別</th><th>同封包</th><th>子類別</th><th>世界</th></tr></thead><tbody>
+                        <tr class="current-row"><td>public</td><td>V</td><td>V</td><td>V</td><td>V</td></tr>
+                        <tr><td>protected</td><td>V</td><td>V</td><td>V</td><td>X</td></tr>
+                        <tr><td>private</td><td>V</td><td>X</td><td>X</td><td>X</td></tr></tbody></table>`,
                     icon: 'lock-open'
                 },
-                'static': {
-                    title: 'Keyword (關鍵字 - 靜態)',
-                    body: '<b>static</b> 讓這個方法屬於「類別」而非個別物件。JVM 不需要執行 <code>new MyApp()</code> 產生實體就能啟動它。這就像停車場門口的打氣機，不用買車也能直接使用。',
-                    icon: 'zap'
-                },
-                'void': {
-                    title: 'Return Type (回傳型別)',
-                    body: '<b>void</b> 代表「空」。這意味著 <code>main</code> 方法只負責執行任務（如印出訊息），執行完後不需要傳回任何數值（如數字或文字）給 JVM。',
-                    icon: 'arrow-down-to-dot'
-                },
-                'main': {
-                    title: 'Identifier (識別碼 - 方法名)',
-                    body: '<b>main</b> 是 JVM 唯一認可的「入口名稱」。這是全 Java 世界公認的標準，JVM 啟動後會精確搜尋這個拼字。注意：大小寫必須全小寫。',
-                    icon: 'door-open'
-                },
-                'args': {
-                    title: 'Parameter (參數列表)',
-                    body: '<b>String[] args</b> 是一個裝載外部指令的容器。當你在執行程式時輸入額外文字（參數），它們會被存進這個字串陣列中供程式使用。',
-                    icon: 'package'
-                },
-                'body': {
-                    title: 'Execution Code (執行代碼)',
-                    body: '<code>System.out.println("Hello World");</code> 是最經典的執行語句。<br><b>System.out</b> 指向標準輸出設備（通常是螢幕），而 <b>println</b> 則是一個將文字印出並自動換行的方法。',
-                    icon: 'terminal'
-                }
+                'static': { title: 'Keyword (關鍵字 - 靜態)', body: '<b>static</b> 讓這個方法屬於「類別」而非物件。JVM 不需要執行 <code>new MyApp()</code> 就能啟動。', icon: 'zap' },
+                'void': { title: 'Return Type (回傳型別)', body: '<b>void</b> 代表「空」。方法執行完後不需要傳回任何數值給 JVM。', icon: 'arrow-down-to-dot' },
+                'main': { title: 'Identifier (識別碼 - 方法名)', body: '<b>main</b> 是 JVM 唯一認可的入口名稱。注意：必須全小寫。', icon: 'door-open' },
+                'args': { title: 'Parameter (參數列表)', body: '<b>String[] args</b> 是一個裝載外部指令的容器，儲存啟動時輸入的參數。', icon: 'package' },
+                'throws': { title: 'Throws (宣告例外拋出)', body: '「責任聲明」。告訴 JVM 如果發生錯誤我處理不了，請丟給上層處理。', icon: 'share-2' },
+                'exception': { title: 'Exception (例外狀況)', body: 'Java 錯誤的母類別。代表程式可能會遇到突發狀況（如找不到檔案）。', icon: 'alert-triangle' },
+                'system-out': { title: 'System.out (標準輸出串流)', body: 'Java 的標準輸出管道，通常將文字導向螢幕終端機。', icon: 'monitor' },
+                'println': { title: 'println (列印並換行)', body: '<b>print line</b> 的縮寫。印出內容後會自動執行換行。', icon: 'corner-down-left' },
+                'call': { title: 'Method Call (方法呼叫)', body: '<code>printIdentity();</code> 代表「跳轉執行」。暫時放下 main，去執行 printIdentity 內的動作。', icon: 'phone-forwarded' },
+                'identity': { title: 'Method Definition (自定義方法)', body: '您創造的方法名稱，遵循小駝峰式命名 (camelCase)。', icon: 'git-branch' },
+                'body': { title: 'Execution Code (執行語句)', body: '<code>System.out.println("I am Edward.");</code> 指令具體實作邏輯。', icon: 'terminal' }
             };
 
             const selected = data[key];
@@ -456,16 +473,21 @@
             document.getElementById('detail-body').innerHTML = selected.body;
             document.getElementById('detail-icon').innerHTML = `<i data-lucide="${selected.icon}"></i>`;
 
-            // Highlight targets
             if (key === 'public') {
                 document.getElementById('word-public-class').classList.add('word-highlight');
-                document.getElementById('word-public').classList.add('word-highlight');
+                document.getElementById('word-public-main').classList.add('word-highlight');
+                document.getElementById('word-public-def').classList.add('word-highlight');
+            } else if (key === 'static') {
+                document.getElementById('word-static-main').classList.add('word-highlight');
+                document.getElementById('word-static-def').classList.add('word-highlight');
+            } else if (key === 'void') {
+                document.getElementById('word-void-main').classList.add('word-highlight');
+                document.getElementById('word-void-def').classList.add('word-highlight');
             } else if (key === 'body') {
                 document.getElementById('word-body').classList.add('word-highlight');
             } else {
                 document.getElementById(`word-${key}`).classList.add('word-highlight');
             }
-
             lucide.createIcons();
             if (window.innerWidth < 768) detailBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
@@ -474,10 +496,7 @@
         const stack = document.getElementById('stack-v2');
         const heap = document.getElementById('heap-v2');
         const explanation = document.getElementById('explanation-text');
-        let carCounter = 0;
-
         function getAddr() { return '0x' + Math.random().toString(16).substr(2, 4).toUpperCase(); }
-
         function highlightLine(id) {
             document.querySelectorAll('.code-font div').forEach(d => d.classList.remove('line-active'));
             const target = document.getElementById('line-' + id);
@@ -488,28 +507,46 @@
             stack.innerHTML = `<div id="static-area" class="border-2 border-purple-400 bg-purple-50 p-2 rounded-lg mb-4 hidden"><div class="text-[8px] font-bold text-purple-600 uppercase mb-1">Method Area</div><div id="static-content"></div></div>`;
             heap.innerHTML = '';
             explanation.innerHTML = '停車場已清空。';
-            carCounter = 0;
             document.querySelectorAll('.code-font div').forEach(d => d.classList.remove('line-active'));
         }
 
         function simStatic() {
-            highlightLine('static'); carCounter++;
+            highlightLine('static');
             const sArea = document.getElementById('static-area');
             const sContent = document.getElementById('static-content');
             sArea.classList.remove('hidden');
-            sContent.innerHTML = `<div class="flex items-center justify-between text-[10px] font-bold text-purple-800"><span>carCount:</span><span class="bg-purple-200 px-2 rounded">${carCounter}</span></div>`;
-            explanation.innerHTML = `<b>🚗 比喻：公用設施 (Static)</b><br>這台打氣機不屬於任何車主，是全停車場共用的。`;
+            sContent.innerHTML = `<div class="text-[10px] font-bold text-purple-800">count: <span class="bg-purple-200 px-2 rounded">0</span></div>`;
+            explanation.innerHTML = `<b>🚗 比喻：公用車踏車 (Static)</b><br>全場共用這一台。`;
         }
-
         function simChar() {
             highlightLine('char');
             const node = document.createElement('div');
             node.className = 'memory-node parking-spot bg-blue-100 border-2 border-blue-400 p-2 rounded-lg text-xs';
-            node.innerHTML = `<div class="font-bold text-blue-800">key (char)</div><div class="flex justify-center py-1"><i data-lucide="bike" size="14"></i><span class="ml-1">'A'</span></div>`;
-            stack.appendChild(node); lucide.createIcons();
-            explanation.innerHTML = `<b>🚗 比喻：機車 (Primitive)</b><br>基本型別體積小，直接停在 Stack 車位裡。`;
+            node.innerHTML = `
+                <div class="font-bold text-blue-800">key (char)</div>
+                <div class="flex justify-center py-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="M12 18V9c0-1.7 1.3-3 3-3h3"/><path d="M16 18H8"/><path d="M10 11l.7 3.5"/><path d="M14 6l3.5 10"/></svg>
+                    <span class="ml-1">'A'</span>
+                </div>`;
+            stack.appendChild(node);
+            explanation.innerHTML = `<b>🚗 比喻：機車 (char)</b><br>基本型別。直接停入 Stack(一般車位)。`;
         }
-
+        function simInt() {
+            highlightLine('int');
+            const node = document.createElement('div');
+            node.className = 'memory-node parking-spot bg-blue-100 border-2 border-blue-400 p-2 rounded-lg text-xs';
+            node.innerHTML = `<div class="font-bold text-blue-800">age (int)</div><div class="flex justify-center py-1"><i data-lucide="bike" size="14"></i><span class="ml-1">25</span></div>`;
+            stack.appendChild(node); lucide.createIcons();
+            explanation.innerHTML = `<b>🚗 比喻：腳踏車 (int)</b><br>基本型別。直接停入 Stack(一般車位)。`;
+        }
+        function simFloat() {
+            highlightLine('float');
+            const node = document.createElement('div');
+            node.className = 'memory-node parking-spot bg-blue-100 border-2 border-blue-400 p-2 rounded-lg text-xs';
+            node.innerHTML = `<div class="font-bold text-blue-800">pi (float)</div><div class="flex justify-center py-1"><i data-lucide="zap" size="14"></i><span class="ml-1">3.14</span></div>`;
+            stack.appendChild(node); lucide.createIcons();
+            explanation.innerHTML = `<b>🚗 比喻：電動滑板車 (float)</b><br>小數點資料宣佈為基本型別。直接停入 Stack(一般車位)。`;
+        }
         function simString() {
             highlightLine('string'); const addr = getAddr();
             const sNode = document.createElement('div');
@@ -520,9 +557,8 @@
             hNode.className = 'memory-node bg-white border-2 border-green-400 p-2 rounded-lg text-xs shadow-sm';
             hNode.innerHTML = `<div class="text-[8px] opacity-40">${addr}</div><div class="font-bold">"Hi"</div>`;
             heap.appendChild(hNode);
-            explanation.innerHTML = `<b>🚗 比喻：貨物單 (String)</b><br>String 在 Java 是物件。車位存放的是提貨地址。`;
+            explanation.innerHTML = `<b>🚗 比喻：個人單據管理 (String)</b><br>String 是物件！ 在Stack(一般車位)存放的是Heap(VIP 車庫)的車位編號。`;
         }
-
         function simPerson() {
             highlightLine('person'); const addr = getAddr();
             const sNode = document.createElement('div');
@@ -531,11 +567,10 @@
             stack.appendChild(sNode);
             const hNode = document.createElement('div');
             hNode.className = 'memory-node bg-white border-2 border-indigo-400 p-2 rounded-lg text-xs shadow-md';
-            hNode.innerHTML = `<div class="text-[8px] opacity-40">${addr}</div><div class="font-bold flex items-center gap-1"><i data-lucide="car" size="12"></i> 豪華巴士</div>`;
+            hNode.innerHTML = `<div class="text-[8px] opacity-40">${addr}</div><div class="font-bold flex items-center gap-1"><i data-lucide="car" size="12"></i> 巴士</div>`;
             heap.appendChild(hNode); lucide.createIcons();
-            explanation.innerHTML = `<b>🚗 比喻：取車單 (Object)</b><br><code>new</code> 產生的巴士停在 Heap，變數只記住門牌地址。`;
+            explanation.innerHTML = `<b>🚗 比喻：巴士取車單 (Object)</b><br>物件很大，停在Heap(VIP 車庫)，Stack(一般車位)只存放Heap(VIP 車庫)的車位編號。`;
         }
-
         function simIntArray() {
             highlightLine('int-arr'); const addr = getAddr();
             const sNode = document.createElement('div');
@@ -546,7 +581,42 @@
             hNode.className = 'memory-node bg-sky-50 border-2 border-sky-400 p-2 rounded-lg text-xs w-full';
             hNode.innerHTML = `<div class="flex gap-1"><div class="bg-white border flex-1 text-center font-mono">1</div><div class="bg-white border flex-1 text-center font-mono">2</div></div>`;
             heap.appendChild(hNode);
-            explanation.innerHTML = `<b>🚗 比喻：連號位 (int[])</b><br>連續的一排車位。拿著第一個位的鑰匙就能依序找到後面。`;
+            explanation.innerHTML = `<b>🚗 比喻：連號腳踏車位 (int[])</b><br>在Heap(VIP 車庫)租了很大的車位再劃分給一堆腳踏車。Stack(一般車位)只存放Heap(VIP 車庫)的租用車位的編號。`;
+        }
+        function simStrArray() {
+            highlightLine('str-arr');
+            const arrAddr = getAddr();
+            const aAddr = getAddr();
+            const bAddr = getAddr();
+            const cAddr = getAddr();
+
+            // Stack
+            const sNode = document.createElement('div');
+            sNode.className = 'memory-node parking-spot bg-emerald-100 border-2 border-emerald-500 p-2 rounded-lg text-xs';
+            sNode.innerHTML = `<div class="font-bold text-emerald-800">tags (String[])</div><div class="text-center font-mono">${arrAddr}</div>`;
+            stack.appendChild(sNode);
+
+            // Heap: Array Structure
+            const hArrNode = document.createElement('div');
+            hArrNode.className = 'memory-node bg-emerald-50 border-2 border-emerald-400 p-2 rounded-lg text-[8px] w-full';
+            hArrNode.innerHTML = `
+                <div class="font-mono mb-1 text-emerald-800">${arrAddr} (管理櫃)</div>
+                <div class="flex gap-1">
+                    <div class="bg-white border p-1 flex-1 text-center font-mono">${aAddr}</div>
+                    <div class="bg-white border p-1 flex-1 text-center font-mono">${bAddr}</div>
+                    <div class="bg-white border p-1 flex-1 text-center font-mono">${cAddr}</div>
+                </div>`;
+            heap.appendChild(hArrNode);
+
+            // Heap: Actual String Objects
+            [{ a: aAddr, v: "A" }, { a: bAddr, v: "B" }, { a: cAddr, v: "C" }].forEach(item => {
+                const hn = document.createElement('div');
+                hn.className = 'memory-node bg-white border border-emerald-300 p-1 px-3 rounded-full text-[10px] self-end shadow-sm';
+                hn.innerHTML = `<span class="opacity-40 font-mono">${item.a}</span> <b>"${item.v}"</b>`;
+                heap.appendChild(hn);
+            });
+
+            explanation.innerHTML = `<b>🚗 比喻：公司單據管理櫃 (String[])</b><br>這是一個包含三個格子的櫃子（陣列長度為 3）。每個格子存放一張不同的取車單（地址），分別指向最終的貨物 "A"、"B" 與 "C"。這就是 Java 處理物件陣列的方式。`;
         }
     </script>
 </body>
