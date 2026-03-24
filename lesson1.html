@@ -65,19 +65,71 @@
             font-weight: bold;
         }
 
-        /* Anatomy Styles */
-        .anatomy-label {
+        /* Anatomy Section Styles */
+        .anatomy-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        .arrow-v {
+        .arrow-up {
             width: 2px;
             height: 40px;
-            background: linear-gradient(to bottom, #6366f1, transparent);
+            background: #94a3b8;
+            position: relative;
             margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .arrow-up::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid #94a3b8;
+        }
+
+        .arrow-down {
+            width: 2px;
+            height: 40px;
+            background: #94a3b8;
+            position: relative;
+            margin-top: 8px;
+            transition: all 0.3s;
+        }
+
+        .arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #94a3b8;
+        }
+
+        /* Interactive Highlights */
+        .highlight-focus {
+            background-color: rgba(34, 197, 94, 0.2);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+            border-radius: 4px;
+            transform: scale(1.05);
+            transition: all 0.3s;
+        }
+
+        .label-focus {
+            color: #166534 !important;
+            transform: translateY(-2px);
+        }
+
+        .label-focus .arrow-up,
+        .label-focus .arrow-down {
+            background: #166534;
         }
     </style>
 </head>
@@ -91,7 +143,7 @@
                 <h1 class="text-3xl font-bold flex items-center gap-3">
                     <i data-lucide="coffee"></i> Java 核心基礎教學
                 </h1>
-                <p class="mt-2 text-indigo-200">終極車位比喻：從基本型別到共有設施</p>
+                <p class="mt-2 text-indigo-200">從起點出發：掌握 Java 核心架構</p>
             </div>
             <div class="hidden md:block opacity-20">
                 <i data-lucide="database" size="80"></i>
@@ -102,25 +154,119 @@
     <!-- Navigation -->
     <nav class="bg-white sticky top-0 z-10 shadow-sm border-b">
         <div class="max-w-5xl mx-auto flex overflow-x-auto">
-            <button onclick="showSection('var-mem')" id="tab-var-mem"
+            <button onclick="showSection('entry')" id="tab-entry"
                 class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap active-tab">
-                1. 變數與記憶體 (車位比喻)
+                1. 程式進入點 (Main)
+            </button>
+            <button onclick="showSection('var-mem')" id="tab-var-mem"
+                class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                2. 變數與記憶體 (車位比喻)
             </button>
             <button onclick="showSection('object')" id="tab-object"
                 class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                2. 物件藍圖 (Class)
-            </button>
-            <button onclick="showSection('entry')" id="tab-entry"
-                class="flex-1 py-4 px-6 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                3. 程式進入點 (Main)
+                3. 物件藍圖 (Class)
             </button>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto p-4 md:p-8">
 
-        <!-- SECTION: VARIABLE & MEMORY -->
-        <section id="sec-var-mem" class="concept-section block">
+        <!-- SECTION 1: ENTRY POINT -->
+        <section id="sec-entry" class="concept-section block">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">程式進入點 (Main Method)</h2>
+                    <p class="text-slate-500">JVM 辨識並啟動程式的標準入口</p>
+                </div>
+
+                <!-- Anatomy Section -->
+                <div
+                    class="bg-white p-12 md:p-20 rounded-[3rem] shadow-xl border border-slate-100 overflow-x-auto relative">
+
+                    <!-- 1. Upper Labels (Pointing Down) -->
+                    <div class="grid grid-cols-5 text-center mb-4">
+                        <div class="invisible">Spacer</div>
+                        <div id="label-keyword" onclick="focusAnatomy('static')"
+                            class="flex flex-col items-center cursor-pointer hover:text-indigo-600 transition-all">
+                            <span class="text-[10px] font-bold text-slate-400 mb-2">Keyword (關鍵字)</span>
+                            <div class="arrow-down"></div>
+                        </div>
+                        <div class="invisible">Spacer</div>
+                        <div id="label-method" onclick="focusAnatomy('main')"
+                            class="flex flex-col items-center cursor-pointer hover:text-indigo-600 transition-all">
+                            <span class="text-[10px] font-bold text-slate-400 mb-2">Method name (方法名稱)</span>
+                            <div class="arrow-down"></div>
+                        </div>
+                        <div id="label-array" onclick="focusAnatomy('args')"
+                            class="flex flex-col items-center translate-x-4 cursor-pointer hover:text-indigo-600 transition-all">
+                            <span class="text-[10px] font-bold text-slate-400 mb-2 whitespace-nowrap">Array of string
+                                type (字串陣列)</span>
+                            <div class="arrow-down"></div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Main Code Body -->
+                    <div
+                        class="code-font text-2xl md:text-4xl font-bold flex justify-center gap-4 text-slate-800 border-y-2 border-slate-100 py-8 mb-4">
+                        <span id="code-public" onclick="focusAnatomy('public')"
+                            class="cursor-pointer px-1 transition-all">public</span>
+                        <span id="code-static" onclick="focusAnatomy('static')"
+                            class="cursor-pointer px-1 transition-all">static</span>
+                        <span id="code-void" onclick="focusAnatomy('void')"
+                            class="cursor-pointer px-1 transition-all">void</span>
+                        <span id="code-main" onclick="focusAnatomy('main')"
+                            class="cursor-pointer px-1 transition-all">main</span>
+                        <span id="code-args" onclick="focusAnatomy('args')"
+                            class="cursor-pointer px-1 transition-all">(String args[])</span>
+                    </div>
+
+                    <!-- 3. Lower Labels (Pointing Up) -->
+                    <div class="grid grid-cols-5 text-center mt-4">
+                        <div id="label-specifier" onclick="focusAnatomy('public')"
+                            class="flex flex-col items-center cursor-pointer hover:text-indigo-600 transition-all">
+                            <div class="arrow-up"></div>
+                            <span class="text-[10px] font-bold text-slate-400 mt-2 whitespace-nowrap">Access Specifier
+                                (存取修飾字)</span>
+                        </div>
+                        <div class="invisible">Spacer</div>
+                        <div id="label-return" onclick="focusAnatomy('void')"
+                            class="flex flex-col items-center cursor-pointer hover:text-indigo-600 transition-all">
+                            <div class="arrow-up"></div>
+                            <span class="text-[10px] font-bold text-slate-400 mt-2 whitespace-nowrap">Return type
+                                (回傳型別)</span>
+                        </div>
+                        <div class="invisible">Spacer</div>
+                        <div class="invisible">Spacer</div>
+                    </div>
+
+                    <!-- 4. Interactive Detail Box (Displays on Click) -->
+                    <div id="anatomy-detail"
+                        class="mt-12 p-6 bg-indigo-50 border-2 border-indigo-200 rounded-2xl hidden animate-fadeIn">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div id="detail-icon" class="p-2 bg-indigo-600 text-white rounded-lg"></div>
+                            <h3 id="detail-title" class="font-bold text-indigo-900 text-lg"></h3>
+                        </div>
+                        <p id="detail-body" class="text-indigo-800 text-sm leading-relaxed"></p>
+                    </div>
+
+                    <!-- 5. Full Code Context -->
+                    <div class="mt-10 p-8 bg-slate-900 rounded-3xl shadow-inner text-sm md:text-base code-font">
+                        <div class="text-blue-400">public class <span class="text-white">MyApp</span> {</div>
+                        <div class="pl-8 text-green-500">
+                            public static void main(String args[]) {
+                        </div>
+                        <div class="pl-16 text-slate-300">
+                            System.out.println(<span class="text-orange-400">"Hello World"</span>);
+                        </div>
+                        <div class="pl-8 text-green-500">}</div>
+                        <div class="text-blue-400">}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: VARIABLE & MEMORY -->
+        <section id="sec-var-mem" class="concept-section hidden">
             <div
                 class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8 flex flex-col md:flex-row gap-6 items-center">
                 <div class="bg-indigo-100 p-4 rounded-full text-indigo-600">
@@ -217,7 +363,6 @@
                             Static Area</div>
                         <div id="stack-v2"
                             class="bg-white rounded-xl p-3 min-h-[500px] flex flex-col-reverse gap-2 shadow-inner border-2 border-slate-300">
-                            <!-- Static Area -->
                             <div id="static-area"
                                 class="border-2 border-purple-400 bg-purple-50 p-2 rounded-lg mb-4 hidden">
                                 <div class="text-[8px] font-bold text-purple-600 uppercase mb-1">Method Area (Static)
@@ -237,7 +382,7 @@
             </div>
         </section>
 
-        <!-- SECTION 2: OBJECT -->
+        <!-- SECTION 3: OBJECT -->
         <section id="sec-object" class="concept-section hidden">
             <div class="max-w-2xl mx-auto text-center space-y-6">
                 <h2 class="text-3xl font-bold text-indigo-900">類別與物件</h2>
@@ -257,64 +402,6 @@
             </div>
         </section>
 
-        <!-- SECTION 3: ENTRY POINT -->
-        <section id="sec-entry" class="concept-section hidden">
-            <div class="max-w-5xl mx-auto space-y-12">
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">程式進入點 (Main Method)</h2>
-                    <p class="text-slate-500">Java 虛擬機 (JVM) 尋找並執行程式的起點</p>
-                </div>
-
-                <div class="bg-slate-900 p-10 md:p-16 rounded-[3rem] shadow-2xl overflow-x-auto relative">
-                    <div
-                        class="flex justify-center items-center gap-4 text-2xl md:text-4xl font-bold code-font tracking-tight mb-20">
-                        <span class="text-blue-400">public</span>
-                        <span class="text-purple-400">static</span>
-                        <span class="text-yellow-400">void</span>
-                        <span class="text-green-400">main</span>
-                        <span class="text-white">(String[] args)</span>
-                    </div>
-
-                    <div class="grid grid-cols-5 gap-2 text-center items-start">
-                        <div class="anatomy-label group">
-                            <div class="arrow-v bg-blue-500/50 group-hover:bg-blue-400"></div>
-                            <div class="bg-blue-900/50 border border-blue-500 p-3 rounded-xl">
-                                <h4 class="text-blue-400 font-bold text-xs mb-1">存取修飾字</h4>
-                                <p class="text-blue-100 text-[10px]">外部可見</p>
-                            </div>
-                        </div>
-                        <div class="anatomy-label group">
-                            <div class="arrow-v bg-purple-500/50 group-hover:bg-purple-400"></div>
-                            <div class="bg-purple-900/50 border border-purple-500 p-3 rounded-xl">
-                                <h4 class="text-purple-400 font-bold text-xs mb-1">靜態方法</h4>
-                                <p class="text-purple-100 text-[10px]">不需 new</p>
-                            </div>
-                        </div>
-                        <div class="anatomy-label group">
-                            <div class="arrow-v bg-yellow-500/50 group-hover:bg-yellow-400"></div>
-                            <div class="bg-yellow-900/50 border border-yellow-500 p-3 rounded-xl">
-                                <h4 class="text-yellow-400 font-bold text-xs mb-1">回傳型別</h4>
-                                <p class="text-yellow-100 text-[10px]">不回傳值</p>
-                            </div>
-                        </div>
-                        <div class="anatomy-label group">
-                            <div class="arrow-v bg-green-500/50 group-hover:bg-green-400"></div>
-                            <div class="bg-green-900/50 border border-green-500 p-3 rounded-xl">
-                                <h4 class="text-green-400 font-bold text-xs mb-1">方法名稱</h4>
-                                <p class="text-green-100 text-[10px]">起點名稱</p>
-                            </div>
-                        </div>
-                        <div class="anatomy-label group">
-                            <div class="arrow-v bg-slate-500/50 group-hover:bg-slate-400"></div>
-                            <div class="bg-slate-800 border border-slate-500 p-3 rounded-xl">
-                                <h4 class="text-slate-400 font-bold text-xs mb-1">參數列表</h4>
-                                <p class="text-slate-100 text-[10px]">外部指令</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <script>
@@ -353,19 +440,76 @@
 
         function getAddr() { return '0x' + Math.random().toString(16).substr(2, 4).toUpperCase(); }
 
-        // --- SIMULATIONS ---
+        // --- ANATOMY INTERACTION ---
+        function focusAnatomy(key) {
+            document.querySelectorAll('[id^="code-"]').forEach(el => el.classList.remove('highlight-focus'));
+            document.querySelectorAll('[id^="label-"]').forEach(el => el.classList.remove('label-focus'));
 
+            const detailBox = document.getElementById('anatomy-detail');
+            const title = document.getElementById('detail-title');
+            const body = document.getElementById('detail-body');
+            const icon = document.getElementById('detail-icon');
+
+            detailBox.classList.remove('hidden');
+
+            const data = {
+                'public': {
+                    title: 'Access Specifier (存取修飾字)',
+                    body: '這是一個控制權限的標籤。<b>public</b> 代表「公開」，表示 Java 虛擬機 (JVM) 可以從類別外部自由進入這個方法。如果沒設為 public，程式就無法啟動。<br><i>其他選項：private (僅限類別內), protected (僅限繼承類別)。</i>',
+                    icon: 'lock-open',
+                    codeId: 'code-public',
+                    labelId: 'label-specifier'
+                },
+                'static': {
+                    title: 'Keyword (靜態關鍵字)',
+                    body: '<b>static</b> 意味著這個方法屬於「類別」本身。JVM 不需要先執行 <code class="bg-indigo-100">new MyApp()</code> 產生實體，就能直接啟動。這就像是公共設施，不用買票就能使用。<br><i>特色：程式一載入記憶體即可運作。</i>',
+                    icon: 'zap',
+                    codeId: 'code-static',
+                    labelId: 'label-keyword'
+                },
+                'void': {
+                    title: 'Return type (回傳型別)',
+                    body: '<b>void</b> 在英文是「空」的意思。這代表方法執行完後，不需要傳回任何結果給呼叫者。它只管把事情做完（例如印出 Hello World）。<br><i>其他選項：int (回傳整數), String (回傳文字)。</i>',
+                    icon: 'arrow-down-to-dot',
+                    codeId: 'code-void',
+                    labelId: 'label-return'
+                },
+                'main': {
+                    title: 'Method name (方法名稱)',
+                    body: '<b>main</b> 是 Java 規範中約定俗成的「大門名稱」。JVM 啟動後會精確尋找這個拼字的方法作為起點。這是一個固定的標準，不可寫成 Main 或其他名字。',
+                    icon: 'door-open',
+                    codeId: 'code-main',
+                    labelId: 'label-method'
+                },
+                'args': {
+                    title: 'Array of string type (字串型別陣列)',
+                    body: '這是一個參數容器。<b>String args[]</b> 負責接收啟動程式時從外部輸入的指令。它是一個「陣列」，代表可以接收多個指令字串。<br><i>變體寫法：String[] args 或 String... args。</i>',
+                    icon: 'package',
+                    codeId: 'code-args',
+                    labelId: 'label-array'
+                }
+            };
+
+            const selected = data[key];
+            title.innerHTML = selected.title;
+            body.innerHTML = selected.body;
+            icon.innerHTML = `<i data-lucide="${selected.icon}"></i>`;
+
+            document.getElementById(selected.codeId).classList.add('highlight-focus');
+            document.getElementById(selected.labelId).classList.add('label-focus');
+
+            lucide.createIcons();
+            if (window.innerWidth < 768) detailBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // --- SIMULATIONS ---
         function simStatic() {
             highlightLine('static');
             carCounter++;
             const sArea = document.getElementById('static-area');
             const sContent = document.getElementById('static-content');
             sArea.classList.remove('hidden');
-            sContent.innerHTML = `
-                <div class="flex items-center justify-between text-[10px] font-bold text-purple-800">
-                    <span>carCount:</span>
-                    <span class="bg-purple-200 px-2 rounded">${carCounter}</span>
-                </div>`;
+            sContent.innerHTML = `<div class="flex items-center justify-between text-[10px] font-bold text-purple-800"><span>carCount:</span><span class="bg-purple-200 px-2 rounded">${carCounter}</span></div>`;
             explanation.innerHTML = `<b>🚗 比喻：公用設施 (Static)</b><br>這台<b>打氣機</b>不屬於任何車主，是全停車場共用的。`;
         }
 
