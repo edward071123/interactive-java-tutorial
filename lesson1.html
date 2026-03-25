@@ -74,6 +74,42 @@
             color: white;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             display: flex;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .copy-btn.success {
+            background: #22c55e;
+            color: white;
+            border-color: #22c55e;
         }
 
         .line-numbers {
@@ -847,6 +883,10 @@
                 </div>
 
                 <div class="diagram-container shadow-2xl overflow-x-auto">
+                    <button class="copy-btn" onclick="copyMainCode(this)">
+                        <i data-lucide="copy" size="14"></i>
+                        <span>複製代碼</span>
+                    </button>
                     <div class="line-numbers code-font text-base md:text-xl leading-relaxed py-1">
                         <div>1</div>
                         <div>2</div>
@@ -867,8 +907,8 @@
                             <span id="word-public-class" class="clickable-word text-blue-400"
                                 onclick="focusAnatomy('public')">public</span>&nbsp;<span id="word-class"
                                 class="clickable-word text-orange-400"
-                                onclick="focusAnatomy('class')">class</span>&nbsp;<span id="word-myapp"
-                                class="clickable-word text-white font-bold" onclick="focusAnatomy('myapp')">MyApp</span>
+                                onclick="focusAnatomy('class')">class</span>&nbsp;<span id="word-main_class"
+                                class="clickable-word text-white font-bold" onclick="focusAnatomy('main_class')">Main</span>
                             <span id="word-class-braces-open" class="clickable-word text-slate-400"
                                 onclick="focusAnatomy('class-braces')">{</span>
                         </div>
@@ -960,10 +1000,10 @@
                     <i data-lucide="info" size="40"></i>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-1">🪧 空間比喻：室內小空間與室外大空間</h3>
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">🪧 記憶體概念：STACK (室內小空間) 與 HEAP (室外大空間)</h3>
                     <p class="text-slate-600 text-sm leading-relaxed">
-                        <b>Primitive:</b> 室內小空間直接寫下數值 (Stack)。<br>
-                        <b>Array/Object:</b> 室內空間只放一張紙條，指引你到<b>室外大空間 (Heap)</b> 尋找真正的物件實體。
+                        <b>Primitive (基本型別):</b> 數值直接儲存在 <b>STACK (室內小空間)</b>。<br>
+                        <b>Array/Object (物件型別):</b> <b>STACK</b> 僅存放一串「地址(位址)」，指引你到 <b>HEAP (室外大空間)</b> 存取真正的資料實體。
                     </p>
                 </div>
             </div>
@@ -1070,7 +1110,7 @@
         <section id="tab-object-sec" class="concept-section hidden">
             <div class="max-w-6xl mx-auto space-y-12">
                 <div class="text-center">
-                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">類別、物件與進入點</h2>
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">類別與物件</h2>
                     <p class="text-slate-500">理解 Java 如何實體化物件並指派給變數</p>
                 </div>
 
@@ -1095,11 +1135,11 @@
                     <!-- 2. The Main Controller -->
                     <div class="bg-indigo-900 p-6 rounded-[2rem] shadow-2xl text-white border-4 border-indigo-700">
                         <h3 class="font-bold mb-4 flex items-center gap-2">
-                            <i data-lucide="terminal"></i> 主控室 (MyApp)
+                            <i data-lucide="terminal"></i> 主控室 (Main)
                         </h3>
                         <div id="main-code-display"
                             class="code-font text-[11px] space-y-1 bg-indigo-800/30 p-3 rounded-xl border border-indigo-400/30">
-                            <div><span class="text-blue-300">public class</span> MyApp {</div>
+                            <div><span class="text-blue-300">public class</span> Main {</div>
                             <div class="pl-3">public static void main(...) {</div>
                             <div id="dynamic-declaration" class="pl-6 text-yellow-200">
                                 // 點擊按鈕執行 new Car()
@@ -1391,7 +1431,7 @@
             document.querySelectorAll('.step-item').forEach(s => s.classList.remove('step-highlight'));
             [sSSL, sStatic, sCompare, sResp].forEach(el => el.classList.remove('server-step-active'));
 
-            const runStep = async (stepNum, node, path = null, callback = null, duration = 3500) => {
+            const runStep = async (stepNum, node, path = null, callback = null, duration = 5000) => {
                 document.querySelectorAll('.step-item').forEach(s => s.classList.remove('step-highlight'));
                 const currentStep = document.getElementById(`step-${stepNum}`);
                 if (currentStep) {
@@ -1406,7 +1446,7 @@
                     packet.style.display = 'block';
                     await animatePacketAlongPath('login-packet', path, duration);
                 } else {
-                    await new Promise(r => setTimeout(r, 4000));
+                    await new Promise(r => setTimeout(r, 6000));
                 }
             };
 
@@ -1452,10 +1492,10 @@
             // 10. Typing
             await runStep(10, 'lnode-client', null, async () => {
                 const user = "Edward";
-                for (let char of user) { inputUser.innerHTML += char; await new Promise(r => setTimeout(r, 100)); }
-                await new Promise(r => setTimeout(r, 400));
+                for (let char of user) { inputUser.innerHTML += char; await new Promise(r => setTimeout(r, 250)); }
+                await new Promise(r => setTimeout(r, 800));
                 const pass = isSuccess ? "1234" : "wrong";
-                for (let char of pass) { inputPass.innerHTML += char; await new Promise(r => setTimeout(r, 100)); }
+                for (let char of pass) { inputPass.innerHTML += char; await new Promise(r => setTimeout(r, 250)); }
                 document.getElementById('fake-login-btn').classList.remove('opacity-50');
             });
 
@@ -1488,7 +1528,7 @@
             isFlowing = false;
         }
 
-        function animatePacketAlongPath(packetId, pathId, duration = 2200) {
+        function animatePacketAlongPath(packetId, pathId, duration = 4500) {
             syncPaths(); // Ensure paths are correctly positioned before animation
             return new Promise(resolve => {
                 const path = document.getElementById(pathId);
@@ -1581,6 +1621,36 @@
         }
 
         // --- INTERACTIVE ANATOMY LOGIC ---
+        function copyMainCode(btn) {
+            const code = `public class Main {
+    public static void main(String[] args) throws Exception {
+        System.out.println("Hello World");
+        printIdentity();
+    }
+
+    public static void printIdentity() {
+        System.out.println("I am Edward.");
+    }
+}`;
+            navigator.clipboard.writeText(code).then(() => {
+                const span = btn.querySelector('span');
+                const icon = btn.querySelector('i');
+                const originalText = span.innerText;
+                
+                btn.classList.add('success');
+                span.innerText = '已複製！';
+                icon.setAttribute('data-lucide', 'check');
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    btn.classList.remove('success');
+                    span.innerText = originalText;
+                    icon.setAttribute('data-lucide', 'copy');
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+
         function focusAnatomy(key) {
             document.querySelectorAll('.clickable-word').forEach(el => el.classList.remove('word-highlight'));
             document.getElementById('word-body').classList.remove('word-highlight');
@@ -1598,7 +1668,7 @@
             detailBox.classList.remove('hidden');
             const data = {
                 'class': { title: 'Class (類別關鍵字)', body: '<code>class</code> 用於定義一個物件的「藍圖」。所有的程式碼都必須寫在類別裡面。', icon: 'file-code' },
-                'myapp': { title: 'Class Name (類別名稱)', body: '如果類別宣告為 <code>public</code>，其名稱必須與檔案名稱完全一致。此檔案應命名為 <code>MyApp.java</code>。', icon: 'file-type' },
+                'main_class': { title: 'Class Name (類別名稱)', body: '如果類別宣告為 <code>public</code>，其名稱必須與檔案名稱完全一致。此檔案應命名為 <code>Main.java</code>。', icon: 'file-type' },
                 'class-braces': { title: 'Class Scope (類別範圍)', body: '大括號定義了類別的起點與終點。所有的方法與變數都必須在這個範圍內。', icon: 'frame' },
                 'method-braces': { title: 'Method Scope (方法範圍)', body: '大括號定義了方法的實作區塊。當方法被呼叫時，會執行這一對大括號內的程式碼。', icon: 'box' },
                 'public': {
@@ -1611,7 +1681,7 @@
                         <tr><td>private</td><td>O</td><td>X</td><td>X</td><td>X</td></tr></tbody></table>`,
                     icon: 'lock-open'
                 },
-                'static': { title: 'Keyword (關鍵字 - 靜態)', body: '<b>static</b> 讓這個方法屬於「類別」而非物件。JVM 不需要執行 <code>new MyApp()</code> 就能啟動。', icon: 'zap' },
+                'static': { title: 'Keyword (關鍵字 - 靜態)', body: '<b>static</b> 讓這個方法屬於「類別」而非物件。JVM 不需要執行 <code>new Main()</code> 就能啟動。', icon: 'zap' },
                 'void': { title: 'Return Type (回傳型別)', body: '<b>void</b> 代表「空」。方法執行完後不需要傳回任何數值給 JVM。', icon: 'arrow-down-to-dot' },
                 'main': { title: 'Identifier (識別碼 - 方法名)', body: '<b>main</b> 是 JVM 唯一認可的入口名稱。', icon: 'door-open' },
                 'args': { title: 'Parameter (參數列表)', body: '儲存啟動時輸入的參數容器。', icon: 'package' },
