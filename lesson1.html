@@ -69,7 +69,8 @@
         .diagram-container {
             background: #0f172a;
             border-radius: 2rem;
-            padding: 2rem; /* Reduced padding to make room for line numbers */
+            padding: 2rem;
+            /* Reduced padding to make room for line numbers */
             color: white;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             display: flex;
@@ -402,9 +403,9 @@
         <div class="max-w-5xl mx-auto flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold flex items-center gap-3">
-                    <i data-lucide="coffee"></i> Java 核心基礎教學
+                    <i data-lucide="coffee"></i> Java 核心基礎入門教學
                 </h1>
-                <p class="mt-2 text-indigo-200">全端應用架構、加密通訊與 Java 核心邏輯</p>
+                <p class="mt-2 text-indigo-200">全端應用架構、加密通訊與 Java 核心入門</p>
             </div>
             <div class="hidden md:block opacity-20">
                 <i data-lucide="shield-check" size="80"></i>
@@ -682,13 +683,15 @@
                         class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105">
                         範例一：罰寫進化 (Emoji)
                     </button>
-                    <button id="btn-ex-2" onclick="switchAiExample(2)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
+                    <button id="btn-ex-2" onclick="switchAiExample(2)"
+                        class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
                         範例二：成績分析 (Logic)
                     </button>
-                    <button id="btn-ex-3" onclick="switchAiExample(3)" class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
+                    <button id="btn-ex-3" onclick="switchAiExample(3)"
+                        class="px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50">
                         範例三：樂透生成 (Scratch)
                     </button>
-                    </div>
+                </div>
 
                 <!-- AI Magic Interaction Area -->
                 <div class="grid lg:grid-cols-2 gap-8 items-start">
@@ -845,7 +848,19 @@
 
                 <div class="diagram-container shadow-2xl overflow-x-auto">
                     <div class="line-numbers code-font text-base md:text-xl leading-relaxed py-1">
-                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div>
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
                     </div>
                     <div class="code-font text-base md:text-xl leading-relaxed min-w-[600px] flex-1">
                         <div class="mb-0 text-slate-400">
@@ -854,7 +869,8 @@
                                 class="clickable-word text-orange-400"
                                 onclick="focusAnatomy('class')">class</span>&nbsp;<span id="word-myapp"
                                 class="clickable-word text-white font-bold" onclick="focusAnatomy('myapp')">MyApp</span>
-                            <span id="word-class-braces-open" class="clickable-word text-slate-400" onclick="focusAnatomy('class-braces')">{</span>
+                            <span id="word-class-braces-open" class="clickable-word text-slate-400"
+                                onclick="focusAnatomy('class-braces')">{</span>
                         </div>
 
                         <!-- Main Method -->
@@ -873,12 +889,15 @@
                                 onclick="focusAnatomy('throws')">throws</span>&nbsp;
                             <span id="word-exception" class="clickable-word text-orange-300"
                                 onclick="focusAnatomy('exception')">Exception</span>&nbsp;
-                            <span id="word-main-braces-open" class="clickable-word text-slate-400 ml-2" onclick="focusAnatomy('method-braces')">{</span>
+                            <span id="word-main-braces-open" class="clickable-word text-slate-400 ml-2"
+                                onclick="focusAnatomy('method-braces')">{</span>
                         </div>
 
                         <div class="pl-16 py-0">
                             <span id="word-hello-world" class="clickable-word" onclick="focusAnatomy('hello-world')">
-                                <span class="text-slate-300">System.out</span><span class="text-slate-500">.</span><span class="text-sky-400">println</span>(<span class="text-green-400">"Hello World"</span>);
+                                <span class="text-slate-300">System.out</span><span class="text-slate-500">.</span><span
+                                    class="text-sky-400">println</span>(<span class="text-green-400">"Hello
+                                    World"</span>);
                             </span>
                         </div>
 
@@ -887,7 +906,8 @@
                                 onclick="focusAnatomy('call')">printIdentity();</span>
                         </div>
 
-                        <div id="word-main-braces-close" class="pl-8 text-slate-400 mb-0 clickable-word" onclick="focusAnatomy('method-braces')">}</div>
+                        <div id="word-main-braces-close" class="pl-8 text-slate-400 mb-0 clickable-word"
+                            onclick="focusAnatomy('method-braces')">}</div>
 
                         <div id="method-def-block" class="rounded-xl transition-all duration-500">
                             <div class="pl-8 flex flex-wrap items-center">
@@ -898,20 +918,25 @@
                                 <span id="word-void-def" class="clickable-word text-yellow-400"
                                     onclick="focusAnatomy('void')">void</span>&nbsp;
                                 <span id="word-identity" class="clickable-word text-green-400 font-bold"
-                                    onclick="focusAnatomy('identity')">printIdentity</span><span id="word-params-def" class="clickable-word text-white" onclick="focusAnatomy('params-def')">()</span>
-                                <span id="word-id-braces-open" class="clickable-word text-slate-400 ml-2" onclick="focusAnatomy('method-braces')">{</span>
+                                    onclick="focusAnatomy('identity')">printIdentity</span><span id="word-params-def"
+                                    class="clickable-word text-white" onclick="focusAnatomy('params-def')">()</span>
+                                <span id="word-id-braces-open" class="clickable-word text-slate-400 ml-2"
+                                    onclick="focusAnatomy('method-braces')">{</span>
                             </div>
 
                             <div id="word-body" class="pl-16 cursor-pointer py-0 transition-all"
                                 onclick="focusAnatomy('body')">
                                 <span class="text-slate-300">System</span><span class="text-slate-500">.</span><span
                                     class="text-slate-300">out</span><span class="text-slate-500">.</span><span
-                                    class="text-sky-400">println</span>(<span class="text-green-400">"I am Edward."</span>);
+                                    class="text-sky-400">println</span>(<span class="text-green-400">"I am
+                                    Edward."</span>);
                             </div>
 
-                            <div id="word-id-braces-close" class="pl-8 text-slate-400 clickable-word" onclick="focusAnatomy('method-braces')">}</div>
+                            <div id="word-id-braces-close" class="pl-8 text-slate-400 clickable-word"
+                                onclick="focusAnatomy('method-braces')">}</div>
                         </div>
-                        <div id="word-class-braces-close" class="text-slate-400 clickable-word" onclick="focusAnatomy('class-braces')">}</div>
+                        <div id="word-class-braces-close" class="text-slate-400 clickable-word"
+                            onclick="focusAnatomy('class-braces')">}</div>
                     </div>
                 </div>
 
@@ -1139,13 +1164,13 @@
 
             // Reset all to inactive style
             [btn1, btn2, btn3].forEach(btn => {
-                if(btn) btn.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
+                if (btn) btn.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-white text-slate-500 border border-slate-200 hover:bg-slate-50";
             });
 
             // Set active style
             const activeBtn = document.getElementById('btn-ex-' + exNum);
-            if(activeBtn) activeBtn.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
-            
+            if (activeBtn) activeBtn.className = "px-8 py-3 rounded-full font-black text-sm transition-all shadow-md bg-indigo-600 text-white transform scale-105";
+
             resetAiSimulation();
         }
 
@@ -1562,7 +1587,7 @@
             document.getElementById('method-def-block').classList.remove('word-highlight');
             if (document.getElementById('word-class-braces-open')) document.getElementById('word-class-braces-open').classList.remove('word-highlight');
             if (document.getElementById('word-class-braces-close')) document.getElementById('word-class-braces-close').classList.remove('word-highlight');
-            
+
             // New Method Braces Reset
             ['word-main-braces-open', 'word-main-braces-close', 'word-id-braces-open', 'word-id-braces-close'].forEach(id => {
                 const el = document.getElementById(id);
