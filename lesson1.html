@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java 核心概念互動實驗室</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -456,26 +457,202 @@
                 class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap active-tab">
                 1. 全端連線與 SSL 加密
             </button>
+            <button onclick="showSection('web-quartet')" id="tab-web-quartet"
+                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                2. 網頁前端四重奏
+            </button>
             <button onclick="showSection('entry')" id="tab-entry"
                 class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                2. 程式進入點 (Main)
+                3. 程式進入點 (Main)
             </button>
             <button onclick="showSection('var-mem')" id="tab-var-mem"
                 class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                3. 變數與記憶體
+                4. 變數與記憶體
             </button>
             <button onclick="showSection('object')" id="tab-object"
                 class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                4. 類別與物件
+                5. 類別與物件
             </button>
             <button onclick="showSection('ai-magic')" id="tab-ai-magic"
                 class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                5. AI 魔法提示
+                6. AI 魔法提示
             </button>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto p-4 md:p-8">
+
+        <!-- SECTION 2: WEB QUARTET (HTML, CSS, JS, jQuery) -->
+        <section id="sec-web-quartet" class="concept-section hidden">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">網頁前端四重奏：HTML, CSS, JS & jQuery</h2>
+                    <p class="text-slate-500">從結構、美學到靈魂，深入了解現代網頁的組成與演進</p>
+                </div>
+
+                <!-- Intro Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-orange-500 hover:-translate-y-2 transition-transform">
+                        <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="layout"></i></div>
+                        <h4 class="font-bold text-lg text-slate-800">HTML</h4>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>骨架 (Structure)</b><br>定義網頁的內容與結構，如標題、段落、圖片。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-blue-500 hover:-translate-y-2 transition-transform">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="palette"></i></div>
+                        <h4 class="font-bold text-lg text-slate-800">CSS</h4>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>皮囊 (Style)</b><br>控制網頁的外觀，如顏色、字體、排版與動畫。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-yellow-500 hover:-translate-y-2 transition-transform">
+                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="zap"></i></div>
+                        <h4 class="font-bold text-lg text-slate-800">JS</h4>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>肌肉 (Action)</b><br>賦予網頁互動能力，處理資料與邏輯運算。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-indigo-500 hover:-translate-y-2 transition-transform">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="layers"></i></div>
+                        <h4 class="font-bold text-lg text-slate-800">jQuery</h4>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>增強裝甲 (Enhanced)</b><br>簡化 JS 操作的函式庫，讓開發更快速、跨瀏覽器更穩定。</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Playground -->
+                <div class="bg-slate-900 rounded-[3rem] p-8 shadow-2xl">
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <!-- Editor Controls -->
+                        <div class="lg:w-1/3 space-y-6">
+                            <h3 class="text-white font-bold flex items-center gap-2"><i data-lucide="flask-conical" class="text-pink-400"></i> 前端實驗室</h3>
+                            
+                            <!-- HTML Control -->
+                            <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                                <label class="text-orange-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="code-2" size="14"></i> HTML: 修改文字內容</label>
+                                <input type="text" id="lab-html-input" value="Hello World!" oninput="updateLabPreview()" 
+                                    class="w-full bg-slate-900 border border-slate-700 text-white p-2 rounded-lg text-sm focus:outline-none focus:border-orange-500 mb-2">
+                                <code id="lab-html-code" class="text-sm text-orange-400 font-black block bg-black/70 p-3 rounded-xl border border-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+                                    &lt;h1 id="text"&gt;Hello World!&lt;/h1&gt;
+                                </code>
+                            </div>
+
+                            <!-- CSS Control -->
+                            <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                                <label class="text-blue-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="swatch-book" size="14"></i> CSS: 調整外觀風格</label>
+                                <div class="grid grid-cols-4 gap-2 mb-2">
+                                    <button onclick="setLabCss('bg-indigo-600', '#4f46e5')" class="bg-indigo-600 h-6 rounded-lg border border-white/20"></button>
+                                    <button onclick="setLabCss('bg-emerald-600', '#10b981')" class="bg-emerald-600 h-6 rounded-lg border border-white/20"></button>
+                                    <button onclick="setLabCss('bg-rose-600', '#e11d48')" class="bg-rose-600 h-6 rounded-lg border border-white/20"></button>
+                                    <button onclick="setLabCss('bg-amber-600', '#d97706')" class="bg-amber-600 h-6 rounded-lg border border-white/20"></button>
+                                </div>
+                                <code id="lab-css-code" class="text-sm text-sky-400 font-black block bg-black/70 p-3 rounded-xl border border-sky-500/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]">
+                                    #text {<br>
+                                    &nbsp;&nbsp;background-color: #4f46e5;<br>
+                                    &nbsp;&nbsp;border-radius: 12px;<br>
+                                    }
+                                </code>
+                            </div>
+
+                            <!-- JS Control -->
+                            <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                                <label class="text-yellow-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="mouse-pointer-2" size="14"></i> JS/jQuery: 執行動作</label>
+                                <div class="grid grid-cols-2 gap-2 mb-2">
+                                    <button onclick="runLabJsAction()" class="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
+                                        JS 原生震動
+                                    </button>
+                                    <button onclick="runLabJQueryAction()" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
+                                        jQuery 震動
+                                    </button>
+                                </div>
+                                <code id="js-code-snippet" class="text-sm text-yellow-300 font-black block bg-black/70 p-3 rounded-xl border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.2)] min-h-[40px]">
+                                    // 點擊按鈕查看對應程式碼
+                                </code>
+                                <p id="lab-js-status" class="text-[10px] text-slate-400 mt-2 italic text-center">等待互動中...</p>
+                            </div>
+                        </div>
+
+                        <!-- Live Preview Display -->
+                        <div class="lg:w-2/3 bg-slate-100 rounded-[2rem] p-8 flex items-center justify-center min-h-[400px] relative overflow-hidden">
+                            <div class="absolute top-4 left-6 text-slate-400 font-bold text-xs flex items-center gap-2">
+                                <i data-lucide="eye" size="14"></i> 網頁渲染預覽 (Preview)
+                            </div>
+                            
+                            <!-- THE ELEMENT -->
+                            <div id="lab-element" class="bg-indigo-600 text-white px-12 py-6 shadow-xl transition-all duration-300 transform" style="border-radius: 12px;">
+                                <h1 id="lab-text" class="text-4xl font-black">Hello World!</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison: JS vs jQuery -->
+                <div class="space-y-6">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-indigo-900">進階：JS vs jQuery 語法差異</h3>
+                        <p class="text-slate-500">只需兩招，看懂兩者的本質不同</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Vanilla JS Card -->
+                        <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-200">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold">JS</div>
+                                <h4 class="font-bold text-slate-800">原生 JavaScript (Vanilla)</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-slate-50 p-4 rounded-xl">
+                                    <div class="text-[10px] text-slate-400 mb-1 font-bold">範例一：選取與修改文字</div>
+                                    <code class="text-[11px] text-indigo-600">
+                                        document.getElementById('box').innerText = 'Hi';
+                                    </code>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-xl">
+                                    <div class="text-[10px] text-slate-400 mb-1 font-bold">範例二：迴圈震動邏輯 (較複雜)</div>
+                                    <code class="text-[11px] text-indigo-600 block">
+                                        for(let i=0; i&lt;10; i++) {<br>
+                                        &nbsp;&nbsp;el.style.transform = `translateX(\${i%2?10:-10}px)`;<br>
+                                        &nbsp;&nbsp;await sleep(50);<br>
+                                        }
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- jQuery Card -->
+                        <div class="bg-indigo-900 rounded-[2rem] p-6 shadow-2xl border-4 border-indigo-700 text-white">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold"><i data-lucide="layers" size="18"></i></div>
+                                <h4 class="font-bold">jQuery (簡化版)</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-indigo-800/50 p-4 rounded-xl border border-indigo-400/20">
+                                    <div class="text-[10px] text-indigo-300 mb-1 font-bold">範例一：選取與修改文字</div>
+                                    <code class="text-[11px] text-yellow-200">
+                                        $('#box').text('Hi');
+                                    </code>
+                                </div>
+                                <div class="bg-indigo-800/50 p-4 rounded-xl border border-indigo-400/20">
+                                    <div class="text-[10px] text-indigo-300 mb-1 font-bold">範例二：動畫震動效果 (簡潔)</div>
+                                    <code class="text-[11px] text-yellow-200 block">
+                                        // 只需一行 (需載入 jQuery UI 或自訂 animate)<br>
+                                        $('#box').animate({ marginLeft: '+=10px' }, 50)...
+                                    </code>
+                                </div>
+                            </div>
+                            <div class="mt-6 p-4 bg-indigo-800/30 rounded-2xl border border-dashed border-indigo-400/30">
+                                <p class="text-[10px] text-indigo-100 italic">
+                                    <b>結論：</b>原生 JS 效能高但開發慢；jQuery 用語義化語法（$）大幅縮短開發時間。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="mt-6 p-4 bg-indigo-800/30 rounded-2xl border border-dashed border-indigo-400/30">
+                                <p class="text-[10px] text-indigo-100 italic">
+                                    <b>核心理念：Write Less, Do More.</b><br>
+                                    jQuery 會幫你處理不同瀏覽器的差異，並且用更直覺的連鎖式 (Chaining) 語法來開發。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- SECTION 1: WEB FULLSTACK FLOW -->
         <section id="sec-fullstack" class="concept-section block">
@@ -1181,6 +1358,7 @@
             document.querySelectorAll('.concept-section').forEach(s => s.classList.add('hidden'));
             const map = {
                 'fullstack': 'sec-fullstack',
+                'web-quartet': 'sec-web-quartet',
                 'entry': 'sec-entry',
                 'var-mem': 'sec-var-mem',
                 'object': 'tab-object-sec',
@@ -1192,6 +1370,106 @@
             lucide.createIcons();
             if (sectionId === 'fullstack') setTimeout(syncPaths, 100);
         }
+
+        // --- WEB QUARTET LAB LOGIC ---
+        let currentLabColor = '#4f46e5';
+        let currentLabRadius = 12;
+
+        function updateLabPreview() {
+            const input = document.getElementById('lab-html-input');
+            const display = document.getElementById('lab-text');
+            const htmlCode = document.getElementById('lab-html-code');
+            const text = input.value || " ";
+            display.innerText = text;
+            htmlCode.innerText = `<h1 id="text">${text}</h1>`;
+        }
+
+        function setLabCss(bgClass, hex) {
+            const el = document.getElementById('lab-element');
+            const cssCode = document.getElementById('lab-css-code');
+            // Remove existing bg classes
+            el.classList.remove('bg-indigo-600', 'bg-emerald-600', 'bg-rose-600', 'bg-amber-600');
+            el.classList.add(bgClass);
+            currentLabColor = hex;
+            updateLabCssCode();
+        }
+
+        function setLabRadius(val) {
+            const el = document.getElementById('lab-element');
+            el.style.borderRadius = val + 'px';
+            currentLabRadius = val;
+            updateLabCssCode();
+        }
+
+        function updateLabCssCode() {
+            const cssCode = document.getElementById('lab-css-code');
+            cssCode.innerHTML = `#text {<br>&nbsp;&nbsp;background-color: ${currentLabColor};<br>&nbsp;&nbsp;border-radius: ${currentLabRadius}px;<br>}`;
+        }
+
+        async function runLabJsAction() {
+            const el = document.getElementById('lab-element');
+            const status = document.getElementById('lab-js-status');
+            const codeSnippet = document.getElementById('js-code-snippet');
+            
+            if (!el || !status) return;
+
+            codeSnippet.innerText = "for(let i=0; i<10; i++) {\n  el.style.transform = `translateX(${i%2?15:-15}px)`;\n}";
+            status.innerText = "原生 JS 震動中...";
+            status.classList.add('text-yellow-400', 'font-bold');
+
+            const originalTransition = el.style.transition;
+            el.style.transition = 'none';
+
+            for(let i=0; i<12; i++) {
+                const offset = (i % 2 === 0) ? '15px' : '-15px';
+                el.style.transform = `translateX(${offset})`;
+                await new Promise(r => setTimeout(r, 40));
+            }
+            el.style.transform = `translateX(0)`;
+            el.style.transition = originalTransition;
+
+            status.innerText = "原生 JS 執行完成";
+            status.classList.replace('text-yellow-400', 'text-emerald-400');
+            
+            setTimeout(() => {
+                status.innerText = "等待互動中...";
+                status.classList.remove('text-emerald-400', 'font-bold');
+            }, 2000);
+        }
+
+        function runLabJQueryAction() {
+            const $el = $('#lab-element');
+            const $status = $('#lab-js-status');
+            const $codeSnippet = $('#js-code-snippet');
+
+            $codeSnippet.text("$('#el').css('transform', 'translateX(15px)')...");
+            $status.text("jQuery 極速震動中 (50Hz)...").addClass('text-indigo-400 font-bold');
+
+            const originalTransition = $el.css('transition');
+            $el.css('transition', 'none'); // 關鍵：關閉所有過渡效果
+
+            let count = 0;
+            const interval = setInterval(() => {
+                const offset = count % 2 === 0 ? '15px' : '-15px';
+                $el.css('transform', `translateX(${offset})`);
+                count++;
+                
+                if (count > 25) { // 震動 25 次
+                    clearInterval(interval);
+                    $el.css('transform', 'translateX(0)');
+                    $el.css('transition', originalTransition);
+                    $status.text("jQuery 執行完成").replaceClass('text-indigo-400', 'text-emerald-400');
+                    setTimeout(() => {
+                        $status.text("等待互動中...").removeClass('text-emerald-400 font-bold');
+                    }, 2000);
+                }
+            }, 20); // 20毫秒一次 = 50Hz 極速
+        }
+
+        // Helper for class replacement
+        $.fn.replaceClass = function(oldClass, newClass) {
+            return this.removeClass(oldClass).addClass(newClass);
+        };
 
         // --- AI MAGIC SIMULATION ---
         let currentAiEx = 1;
