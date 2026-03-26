@@ -477,12 +477,114 @@
                 class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
                 6. AI 魔法提示
             </button>
-        </div>
-    </nav>
+            <button onclick="showSection('sql')" id="tab-sql"
+                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                7. SQL 基礎 (MySQL)
+            </button>
+            </div>
+            </nav>
 
-    <main class="max-w-7xl mx-auto p-4 md:p-8">
+            <main class="max-w-7xl mx-auto p-4 md:p-8">
 
-        <!-- SECTION 2: WEB QUARTET (HTML, CSS, JS, jQuery) -->
+            <!-- SECTION 7: SQL & MySQL CRUD -->
+            <section id="sec-sql" class="concept-section hidden">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">MySQL 基礎：CRUD 資料庫操作</h2>
+                    <p class="text-slate-500">透過 SQL 指令對資料表進行 新增、查詢、修改與刪除</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8 items-start">
+                    <!-- Left Side: Control Panel & SQL Editor -->
+                    <div class="space-y-6">
+                        <div class="bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border-4 border-slate-800">
+                            <h3 class="text-white font-bold mb-6 flex items-center gap-2"><i data-lucide="database" class="text-emerald-400"></i> MySQL 指令控制台</h3>
+
+                            <div class="grid grid-cols-2 gap-4 mb-8">
+                                <button onclick="simulateSql('INSERT')" class="bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                    <span class="text-[10px] opacity-70 mb-1">Create</span>
+                                    <span>INSERT (新增)</span>
+                                </button>
+                                <button onclick="simulateSql('SELECT')" class="bg-sky-600 hover:bg-sky-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                    <span class="text-[10px] opacity-70 mb-1">Read</span>
+                                    <span>SELECT (查詢)</span>
+                                </button>
+                                <button onclick="simulateSql('UPDATE')" class="bg-amber-600 hover:bg-amber-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                    <span class="text-[10px] opacity-70 mb-1">Update</span>
+                                    <span>UPDATE (修改)</span>
+                                </button>
+                                <button onclick="simulateSql('DELETE')" class="bg-rose-600 hover:bg-rose-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                    <span class="text-[10px] opacity-70 mb-1">Delete</span>
+                                    <span>DELETE (刪除)</span>
+                                </button>
+                            </div>
+
+                            <!-- SQL Syntax Display -->
+                            <div class="relative">
+                                <div class="absolute -top-3 left-4 bg-indigo-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black tracking-widest">SQL QUERY</div>
+                                <div id="sql-syntax-box" class="bg-black/80 rounded-2xl p-6 border border-slate-700 min-h-[120px] flex items-center justify-center">
+                                    <code id="sql-display-code" class="text-lg text-emerald-400 font-black italic drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
+                                        -- 點擊上方按鈕執行 SQL
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tip Box -->
+                        <div class="bg-indigo-50 p-6 rounded-3xl border-2 border-indigo-100">
+                            <h4 class="font-bold text-indigo-900 mb-2 flex items-center gap-2 text-sm"><i data-lucide="info" size="18"></i> 重點提示</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                <b>CRUD</b> 是資料庫操作的縮寫。在 MySQL 中，我們使用結構化查詢語言 (SQL) 來與資料溝通。 
+                                注意 <code>WHERE</code> 子句的重要性，如果 <code>UPDATE</code> 或 <code>DELETE</code> 沒加條件，可能會影響全表！
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Visual Table (Database) -->
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 min-h-[500px] flex flex-col">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-slate-800 flex items-center gap-2"><i data-lucide="table-2" class="text-indigo-500"></i> 資料表：users</h3>
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-slate-200"></div>
+                                    <div class="w-3 h-3 rounded-full bg-slate-200"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 overflow-hidden border border-slate-100 rounded-2xl shadow-inner">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-50 border-b border-slate-100">
+                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">ID</th>
+                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">Name</th>
+                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">Email</th>
+                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sql-table-body" class="text-sm font-medium">
+                                        <!-- Table Rows will be dynamic -->
+                                    </tbody>
+                                </table>
+                                <div id="table-empty-msg" class="hidden py-20 text-center text-slate-300 italic">
+                                    Empty Set (0 rows)
+                                </div>
+                            </div>
+
+                            <!-- DB Status Bar -->
+                            <div class="mt-6 flex items-center justify-between px-4 py-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div id="db-action-status" class="text-[10px] font-bold text-slate-400 italic tracking-wide">Database Connected (v8.0)</div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span class="text-[10px] font-black text-slate-400">ONLINE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+
+            <!-- SECTION 2: WEB QUARTET (HTML, CSS, JS, jQuery) -->
         <section id="sec-web-quartet" class="concept-section hidden">
             <div class="max-w-6xl mx-auto space-y-12">
                 <div class="text-center">
@@ -766,7 +868,7 @@
                                             </div>
                                             <div id="addr-bar"
                                                 class="bg-white flex-1 rounded px-1 truncate text-red-500 font-bold">
-                                                http://edward.com/login</div>
+                                            </div>
                                         </div>
                                         <div id="login-ui-box"
                                             class="w-full mt-0 border-x border-b border-slate-200 rounded-b-lg p-3 bg-slate-50 min-h-[100px] flex items-center justify-center">
@@ -1362,7 +1464,8 @@
                 'entry': 'sec-entry',
                 'var-mem': 'sec-var-mem',
                 'object': 'tab-object-sec',
-                'ai-magic': 'sec-ai-magic'
+                'ai-magic': 'sec-ai-magic',
+                'sql': 'sec-sql'
             };
             document.getElementById(map[sectionId]).classList.remove('hidden');
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
@@ -1470,6 +1573,123 @@
         $.fn.replaceClass = function(oldClass, newClass) {
             return this.removeClass(oldClass).addClass(newClass);
         };
+
+        // --- SQL SIMULATION LOGIC ---
+        let dbData = [
+            { id: 1, name: 'Edward', email: 'ed@example.com', status: 'Active' },
+            { id: 2, name: 'Alice', email: 'alice@web.com', status: 'Pending' }
+        ];
+        let nextId = 3;
+        let selectToggle = 0; // 0: Select All, 1: Select Active
+
+        function renderSqlTable(highlightIds = [], isSelection = false) {
+            const tbody = document.getElementById('sql-table-body');
+            const emptyMsg = document.getElementById('table-empty-msg');
+            tbody.innerHTML = '';
+
+            // Ensure highlightIds is always an array
+            const targets = Array.isArray(highlightIds) ? highlightIds : (highlightIds ? [highlightIds] : []);
+
+            if (dbData.length === 0) {
+                emptyMsg.classList.remove('hidden');
+            } else {
+                emptyMsg.classList.add('hidden');
+                dbData.forEach(row => {
+                    const isTarget = targets.includes(row.id);
+                    const tr = document.createElement('tr');
+                    
+                    let highlightClass = '';
+                    if (isTarget) {
+                        highlightClass = isSelection ? 'bg-sky-100 border-sky-200' : 'bg-emerald-50';
+                    } else if (isSelection) {
+                        highlightClass = 'opacity-30 grayscale-[0.5]';
+                    }
+
+                    tr.className = `border-b border-slate-50 transition-all duration-700 ${highlightClass}`;
+                    tr.innerHTML = `
+                        <td class="p-4 font-mono text-slate-400">#${row.id}</td>
+                        <td class="p-4 font-bold text-slate-700">${row.name}</td>
+                        <td class="p-4 text-slate-500">${row.email}</td>
+                        <td class="p-4">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Active' ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'}">
+                                ${row.status}
+                            </span>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        }
+
+        async function simulateSql(action) {
+            const displayCode = document.getElementById('sql-display-code');
+            const statusText = document.getElementById('db-action-status');
+            let syntax = '';
+            let highlightIds = [];
+            let isSelection = false;
+
+            switch(action) {
+                case 'INSERT':
+                    const newName = ['Bob', 'Charlie', 'Diana', 'Eve'][Math.floor(Math.random() * 4)];
+                    const newRow = { id: nextId++, name: newName, email: `${newName.toLowerCase()}@db.com`, status: 'Active' };
+                    dbData.push(newRow);
+                    syntax = `INSERT INTO users (name, email, status) \nVALUES ('${newRow.name}', '${newRow.email}', 'Active');`;
+                    highlightIds = [newRow.id];
+                    statusText.innerText = `Query OK, 1 row affected (0.01 sec)`;
+                    break;
+                case 'SELECT':
+                    if (selectToggle === 0) {
+                        syntax = `SELECT * FROM users;`;
+                        highlightIds = dbData.map(r => r.id);
+                        isSelection = true;
+                        statusText.innerText = `${dbData.length} rows in set (0.00 sec)`;
+                        selectToggle = 1; // Prepare for next click: Select Active
+                    } else {
+                        syntax = `SELECT * FROM users \nWHERE status = 'Active';`;
+                        const activeRows = dbData.filter(r => r.status === 'Active');
+                        highlightIds = activeRows.map(r => r.id);
+                        isSelection = true;
+                        statusText.innerText = `${activeRows.length} rows in set (0.00 sec)`;
+                        selectToggle = 0; // Prepare for next click: Select All
+                    }
+                    break;
+                case 'UPDATE':
+                    if (dbData.length > 0) {
+                        const targetIdx = Math.floor(Math.random() * dbData.length);
+                        dbData[targetIdx].status = dbData[targetIdx].status === 'Active' ? 'Pending' : 'Active';
+                        syntax = `UPDATE users SET status = '${dbData[targetIdx].status}' \nWHERE id = ${dbData[targetIdx].id};`;
+                        highlightIds = [dbData[targetIdx].id];
+                        statusText.innerText = `Rows matched: 1  Changed: 1  Warnings: 0`;
+                    } else {
+                        syntax = `-- No data to update!`;
+                    }
+                    break;
+                case 'DELETE':
+                    if (dbData.length > 0) {
+                        const deleted = dbData.pop();
+                        syntax = `DELETE FROM users \nWHERE id = ${deleted.id};`;
+                        statusText.innerText = `Query OK, 1 row affected (0.02 sec)`;
+                    } else {
+                        syntax = `-- Table is already empty!`;
+                    }
+                    break;
+            }
+
+            displayCode.innerText = syntax;
+            renderSqlTable(highlightIds, isSelection);
+            
+            // Animation for syntax box
+            const box = document.getElementById('sql-syntax-box');
+            box.classList.add('border-emerald-500/50', 'bg-emerald-950/20');
+            setTimeout(() => {
+                box.classList.remove('border-emerald-500/50', 'bg-emerald-950/20');
+            }, 500);
+        }
+
+        // Initialize table on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSqlTable();
+        });
 
         // --- AI MAGIC SIMULATION ---
         let currentAiEx = 1;
@@ -1698,7 +1918,7 @@
             btnS.classList.add('opacity-50'); btnF.classList.add('opacity-50');
 
             // Reset UI
-            addrBar.innerText = 'http://edward.com/login';
+            addrBar.innerText = '';
             addrBar.className = 'bg-white flex-1 rounded px-1 truncate text-red-500 font-bold';
             uiInitial.classList.remove('hidden');
             uiLogin.classList.add('hidden'); uiSuccess.classList.add('hidden'); uiFail.classList.add('hidden');
@@ -1729,8 +1949,13 @@
             };
 
             // 1. Enter URL
-            await runStep(1, 'lnode-client', null, () => {
+            await runStep(1, 'lnode-client', null, async () => {
                 cardHttp.classList.add('highlight-card');
+                const url = 'http://edward.com/login';
+                for (let char of url) { 
+                    addrBar.innerText += char; 
+                    await new Promise(r => setTimeout(r, 80)); 
+                }
             });
 
             // 2. DNS
