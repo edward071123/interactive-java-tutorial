@@ -1400,15 +1400,18 @@
                             <i data-lucide="file-text"></i> 設計圖 (Class Car)
                         </h3>
                         <div class="bg-slate-900 rounded-xl p-4 code-font text-[10px] text-slate-300 mb-4">
-                            <div><span class="text-blue-400">class</span> <span class="text-green-300">Car</span> {
-                            </div>
+                            <div><span class="text-blue-400">class</span> <span class="text-green-300">Car</span> {</div>
                             <div class="pl-4 text-slate-500">// 屬性</div>
+                            <div class="pl-4"><span class="text-purple-400">String</span> name;</div>
                             <div class="pl-4"><span class="text-purple-400">String</span> color;</div>
+                            <div class="pl-4"><span class="text-blue-400">int</span> maxSpeed;</div>
+                            <div class="pl-4"><span class="text-blue-400">int</span> maxLoad;</div>
                             <div class="pl-4 text-slate-500">// 方法</div>
-                            <div class="pl-4"><span class="text-blue-400">void</span> start() { ... }</div>
+                            <div class="pl-4"><span class="text-blue-400">void</span> accelerate() { ... }</div>
+                            <div class="pl-4"><span class="text-blue-400">void</span> loadCargo() { ... }</div>
                             <div>}</div>
                         </div>
-                        <p class="text-[10px] text-slate-500 leading-relaxed">定義規格，等待被實體化。</p>
+                        <p class="text-[10px] text-slate-500 leading-relaxed">定義屬性與方法，讓物件具備名稱、效能參數與專屬行為。</p>
                     </div>
 
                     <!-- 2. The Main Controller -->
@@ -2098,29 +2101,91 @@
         function handleInstantiation(color, type) {
             carCounterGlobal++;
             const varName = 'c' + carCounterGlobal;
-            const decLine = `<div><span class="text-green-300 font-bold">Car</span> <span class="text-white underline">${varName}</span> = <span class="text-yellow-400 font-bold">new</span> Car();</div>`;
+            
+            // Set attributes based on type
+            const name = type === 'Sport' ? '紅跑車' : '藍貨車';
+            const maxSpeed = type === 'Sport' ? 300 : 90;
+            const maxLoad = type === 'Sport' ? 50 : 200;
+            const actionMethod = type === 'Sport' ? 'accelerate()' : 'loadCargo()';
+            
+            // Generate Code
+            const decLine = `
+                <div class="mb-1"><span class="text-green-300 font-bold">Car</span> <span class="text-white underline">${varName}</span> = <span class="text-yellow-400 font-bold">new</span> Car();</div>
+                <div class="mb-1 text-slate-400 text-[9px]">${varName}.name = "${name}"; ${varName}.maxSpeed = ${maxSpeed}; ${varName}.maxLoad = ${maxLoad};</div>
+                <div class="mb-2"><span class="text-white">${varName}.</span><span class="text-sky-300 font-bold">${actionMethod}</span>;</div>
+            `;
+            
             const dynamicArea = document.getElementById('dynamic-declaration');
             if (carCounterGlobal === 1) dynamicArea.innerHTML = '';
             dynamicArea.innerHTML += decLine;
+            
             const floor = document.getElementById('factory-floor');
             if (floor.innerText.includes('物件將在此處生成')) floor.innerHTML = '';
+            
             const addr = '0x' + Math.random().toString(16).substr(2, 4).toUpperCase();
             const colorClass = color === 'red' ? 'text-red-500' : 'text-blue-500';
             const icon = type === 'Sport' ? 'zap' : 'truck';
+            
             const card = document.createElement('div');
-            card.className = 'car-instance bg-white p-3 rounded-2xl shadow-sm border-l-4 border-indigo-500 flex flex-col gap-2';
+            card.id = `obj-${varName}`;
+            card.className = 'car-instance bg-white p-4 rounded-2xl shadow-md border-l-4 border-indigo-500 flex flex-col gap-3 transition-all hover:scale-[1.02]';
             card.innerHTML = `
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between border-b pb-2">
                     <span class="text-[9px] font-black bg-indigo-600 text-white px-2 py-0.5 rounded-md">變數: ${varName}</span>
                     <span class="text-[8px] font-mono text-slate-400">位址: ${addr}</span>
                 </div>
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center ${colorClass}"><i data-lucide="${icon}" size="18"></i></div>
-                    <div><div class="font-bold text-slate-800 text-xs">${type} Object</div><div class="text-[9px] text-slate-500 italic">color: "${color}"</div></div>
-                </div>`;
-            floor.prepend(card); lucide.createIcons();
+                <div class="flex items-center gap-4">
+                    <div id="icon-${varName}" class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center ${colorClass} shadow-inner transition-all">
+                        <i data-lucide="${icon}" size="24"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-xs">${name} Object</div>
+                        <div class="grid grid-cols-2 gap-x-2 mt-1">
+                            <div class="text-[9px] text-slate-500">Speed: <span class="font-bold">${maxSpeed}</span></div>
+                            <div class="text-[9px] text-slate-500">Load: <span class="font-bold">${maxLoad}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="triggerObjectAction('${varName}', '${type}', ${maxSpeed}, ${maxLoad})" 
+                    class="mt-2 w-full py-2 bg-slate-100 hover:bg-indigo-50 text-indigo-600 rounded-lg text-[10px] font-black border border-slate-200 transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="play" size="12"></i> 執行 ${actionMethod}
+                </button>
+                <div id="msg-${varName}" class="text-[9px] text-center font-bold h-3 transition-all opacity-0"></div>
+            `;
+            floor.prepend(card); 
+            lucide.createIcons();
+            
             const codeBox = document.getElementById('main-code-display');
             codeBox.scrollTop = codeBox.scrollHeight;
+        }
+
+        async function triggerObjectAction(varName, type, speed, load) {
+            const iconWrap = document.getElementById(`icon-${varName}`);
+            const msg = document.getElementById(`msg-${varName}`);
+            const actionText = type === 'Sport' 
+                ? `🚀 加速！到達最高速度 ${speed} km/h` 
+                : `📦 裝載！達到最大載重 ${load} kg`;
+            
+            // Animation
+            iconWrap.classList.add('scale-125', 'bg-indigo-100');
+            msg.innerText = actionText;
+            msg.classList.remove('opacity-0', 'text-slate-500');
+            msg.classList.add('opacity-100', type === 'Sport' ? 'text-red-500' : 'text-blue-500');
+            
+            if (type === 'Sport') {
+                iconWrap.classList.add('animate-bounce');
+            } else {
+                iconWrap.style.transform = 'translateY(8px)';
+            }
+            
+            await new Promise(r => setTimeout(r, 1500));
+            
+            iconWrap.classList.remove('scale-125', 'bg-indigo-100', 'animate-bounce');
+            iconWrap.style.transform = 'none';
+            msg.classList.add('opacity-0');
+            setTimeout(() => {
+                msg.innerText = '';
+            }, 300);
         }
 
         // --- INTERACTIVE ANATOMY LOGIC ---
