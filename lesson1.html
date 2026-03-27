@@ -41,9 +41,12 @@
         }
 
         .active-tab {
-            background-color: #eff6ff; /* 淺藍背景 */
-            color: #1d4ed8 !important; /* 深藍文字 */
-            border-bottom: 4px solid #3b82f6 !important; /* 加粗底條 */
+            background-color: #eff6ff;
+            /* 淺藍背景 */
+            color: #1d4ed8 !important;
+            /* 深藍文字 */
+            border-bottom: 4px solid #3b82f6 !important;
+            /* 加粗底條 */
             box-shadow: inset 0 -2px 0 0 #3b82f6;
         }
 
@@ -432,10 +435,19 @@
                 transform: translateX(0);
             }
         }
+
         @keyframes hammer-hit {
-            0% { transform: rotate(45deg); }
-            50% { transform: rotate(-10deg); }
-            100% { transform: rotate(45deg); }
+            0% {
+                transform: rotate(45deg);
+            }
+
+            50% {
+                transform: rotate(-10deg);
+            }
+
+            100% {
+                transform: rotate(45deg);
+            }
         }
 
         .hammer-animate {
@@ -463,7 +475,8 @@
 
     <!-- Navigation -->
     <nav class="bg-white sticky top-0 z-10 shadow-sm border-b">
-        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 divide-x divide-y border-x border-t">
+        <div
+            class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 divide-x divide-y border-x border-t">
             <button onclick="showSection('fullstack')" id="tab-fullstack"
                 class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors active-tab">
                 1. 全端流程
@@ -503,10 +516,10 @@
         </div>
     </nav>
 
-            <main class="max-w-7xl mx-auto p-4 md:p-8">
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
 
-            <!-- SECTION 7: SQL & MySQL CRUD -->
-            <section id="sec-sql" class="concept-section hidden">
+        <!-- SECTION 7: SQL & MySQL CRUD -->
+        <section id="sec-sql" class="concept-section hidden">
             <div class="max-w-6xl mx-auto space-y-12">
                 <div class="text-center">
                     <h2 class="text-3xl font-bold text-indigo-900 mb-2">MySQL 基礎：CRUD 資料庫操作</h2>
@@ -517,22 +530,27 @@
                     <!-- Left Side: Control Panel & SQL Editor -->
                     <div class="space-y-6">
                         <div class="bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border-4 border-slate-800">
-                            <h3 class="text-white font-bold mb-6 flex items-center gap-2"><i data-lucide="database" class="text-emerald-400"></i> MySQL 指令控制台</h3>
+                            <h3 class="text-white font-bold mb-6 flex items-center gap-2"><i data-lucide="database"
+                                    class="text-emerald-400"></i> MySQL 指令控制台</h3>
 
                             <div class="grid grid-cols-2 gap-4 mb-8">
-                                <button onclick="simulateSql('INSERT')" class="bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                <button onclick="simulateSql('INSERT')"
+                                    class="bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
                                     <span class="text-[10px] opacity-70 mb-1">Create</span>
                                     <span>INSERT (新增)</span>
                                 </button>
-                                <button onclick="simulateSql('SELECT')" class="bg-sky-600 hover:bg-sky-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                <button onclick="simulateSql('SELECT')"
+                                    class="bg-sky-600 hover:bg-sky-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
                                     <span class="text-[10px] opacity-70 mb-1">Read</span>
                                     <span>SELECT (查詢)</span>
                                 </button>
-                                <button onclick="simulateSql('UPDATE')" class="bg-amber-600 hover:bg-amber-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                <button onclick="simulateSql('UPDATE')"
+                                    class="bg-amber-600 hover:bg-amber-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
                                     <span class="text-[10px] opacity-70 mb-1">Update</span>
                                     <span>UPDATE (修改)</span>
                                 </button>
-                                <button onclick="simulateSql('DELETE')" class="bg-rose-600 hover:bg-rose-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
+                                <button onclick="simulateSql('DELETE')"
+                                    class="bg-rose-600 hover:bg-rose-500 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 flex flex-col items-center">
                                     <span class="text-[10px] opacity-70 mb-1">Delete</span>
                                     <span>DELETE (刪除)</span>
                                 </button>
@@ -540,9 +558,13 @@
 
                             <!-- SQL Syntax Display -->
                             <div class="relative">
-                                <div class="absolute -top-3 left-4 bg-indigo-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black tracking-widest">SQL QUERY</div>
-                                <div id="sql-syntax-box" class="bg-black/80 rounded-2xl p-6 border border-slate-700 min-h-[120px] flex items-center justify-center">
-                                    <code id="sql-display-code" class="text-lg text-emerald-400 font-black italic drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
+                                <div
+                                    class="absolute -top-3 left-4 bg-indigo-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black tracking-widest">
+                                    SQL QUERY</div>
+                                <div id="sql-syntax-box"
+                                    class="bg-black/80 rounded-2xl p-6 border border-slate-700 min-h-[120px] flex items-center justify-center">
+                                    <code id="sql-display-code"
+                                        class="text-lg text-emerald-400 font-black italic drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
                                         -- 點擊上方按鈕執行 SQL
                                     </code>
                                 </div>
@@ -551,9 +573,10 @@
 
                         <!-- Tip Box -->
                         <div class="bg-indigo-50 p-6 rounded-3xl border-2 border-indigo-100">
-                            <h4 class="font-bold text-indigo-900 mb-2 flex items-center gap-2 text-sm"><i data-lucide="info" size="18"></i> 重點提示</h4>
+                            <h4 class="font-bold text-indigo-900 mb-2 flex items-center gap-2 text-sm"><i
+                                    data-lucide="info" size="18"></i> 重點提示</h4>
                             <p class="text-xs text-slate-600 leading-relaxed">
-                                <b>CRUD</b> 是資料庫操作的縮寫。在 MySQL 中，我們使用結構化查詢語言 (SQL) 來與資料溝通。 
+                                <b>CRUD</b> 是資料庫操作的縮寫。在 MySQL 中，我們使用結構化查詢語言 (SQL) 來與資料溝通。
                                 注意 <code>WHERE</code> 子句的重要性，如果 <code>UPDATE</code> 或 <code>DELETE</code> 沒加條件，可能會影響全表！
                             </p>
                         </div>
@@ -561,9 +584,11 @@
 
                     <!-- Right Side: Visual Table (Database) -->
                     <div class="space-y-6">
-                        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 min-h-[500px] flex flex-col">
+                        <div
+                            class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 min-h-[500px] flex flex-col">
                             <div class="flex items-center justify-between mb-6">
-                                <h3 class="font-bold text-slate-800 flex items-center gap-2"><i data-lucide="table-2" class="text-indigo-500"></i> 資料表：users</h3>
+                                <h3 class="font-bold text-slate-800 flex items-center gap-2"><i data-lucide="table-2"
+                                        class="text-indigo-500"></i> 資料表：users</h3>
                                 <div class="flex gap-2">
                                     <div class="w-3 h-3 rounded-full bg-slate-200"></div>
                                     <div class="w-3 h-3 rounded-full bg-slate-200"></div>
@@ -574,10 +599,18 @@
                                 <table class="w-full text-left border-collapse">
                                     <thead>
                                         <tr class="bg-slate-50 border-b border-slate-100">
-                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">ID</th>
-                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">Name</th>
-                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">Email</th>
-                                            <th class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">Status</th>
+                                            <th
+                                                class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">
+                                                ID</th>
+                                            <th
+                                                class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">
+                                                Name</th>
+                                            <th
+                                                class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">
+                                                Email</th>
+                                            <th
+                                                class="p-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">
+                                                Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="sql-table-body" class="text-sm font-medium">
@@ -590,8 +623,11 @@
                             </div>
 
                             <!-- DB Status Bar -->
-                            <div class="mt-6 flex items-center justify-between px-4 py-3 bg-slate-50 rounded-xl border border-slate-100">
-                                <div id="db-action-status" class="text-[10px] font-bold text-slate-400 italic tracking-wide">Database Connected (v8.0)</div>
+                            <div
+                                class="mt-6 flex items-center justify-between px-4 py-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div id="db-action-status"
+                                    class="text-[10px] font-bold text-slate-400 italic tracking-wide">Database Connected
+                                    (v8.0)</div>
                                 <div class="flex items-center gap-2">
                                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                     <span class="text-[10px] font-black text-slate-400">ONLINE</span>
@@ -601,40 +637,61 @@
                     </div>
                 </div>
             </div>
-            </section>
+        </section>
 
-            <!-- SECTION 2: WEB QUARTET (HTML, CSS, JavaScript, jQuery) -->
+        <!-- SECTION 2: WEB QUARTET (HTML, CSS, JavaScript, jQuery) -->
         <section id="sec-web-quartet" class="concept-section hidden">
             <div class="max-w-6xl mx-auto space-y-12">
                 <div class="text-center">
                     <h2 class="text-3xl font-bold text-indigo-900 mb-2">網頁前端四重奏：HTML, CSS, JavaScript(JS) & jQuery</h2>
                     <p class="text-slate-500">從結構、美學到靈魂，深入了解現代網頁的組成與演進</p>
-                    <div class="mt-4 inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-xs font-bold border border-amber-200">
+                    <div
+                        class="mt-4 inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-xs font-bold border border-amber-200">
                         ⚠️ 重要提醒：JavaScript(JS) 與 Java 是完全不同的程式語言，就像「雷神」與「雷神巧克力」的關係！
                     </div>
                 </div>
 
                 <!-- Intro Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-orange-500 hover:-translate-y-2 transition-transform">
-                        <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="layout"></i></div>
+                    <div
+                        class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-orange-500 hover:-translate-y-2 transition-transform">
+                        <div
+                            class="w-12 h-12 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="layout"></i>
+                        </div>
                         <h4 class="font-bold text-lg text-slate-800">HTML</h4>
-                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>骨架 (Structure)</b><br>定義網頁的內容與結構，如標題、段落、圖片。</p>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>骨架
+                                (Structure)</b><br>定義網頁的內容與結構，如標題、段落、圖片。</p>
                     </div>
-                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-blue-500 hover:-translate-y-2 transition-transform">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="palette"></i></div>
+                    <div
+                        class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-blue-500 hover:-translate-y-2 transition-transform">
+                        <div
+                            class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="palette"></i>
+                        </div>
                         <h4 class="font-bold text-lg text-slate-800">CSS</h4>
-                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>皮囊 (Style)</b><br>控制網頁的外觀，如顏色、字體、排版與動畫。</p>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>皮囊
+                                (Style)</b><br>控制網頁的外觀，如顏色、字體、排版與動畫。</p>
                     </div>
-                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-yellow-500 hover:-translate-y-2 transition-transform">
-                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="zap"></i></div>
+                    <div
+                        class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-yellow-500 hover:-translate-y-2 transition-transform">
+                        <div
+                            class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="zap"></i>
+                        </div>
                         <h4 class="font-bold text-lg text-slate-800">JavaScript(JS)</h4>
-                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>肌肉 (Action)</b><br>賦予網頁互動能力，處理資料與邏輯運算。</p>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>肌肉
+                                (Action)</b><br>賦予網頁互動能力，處理資料與邏輯運算。</p>
                     </div>
-                    <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-indigo-500 hover:-translate-y-2 transition-transform">
-                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="layers"></i></div>
+                    <div
+                        class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-indigo-500 hover:-translate-y-2 transition-transform">
+                        <div
+                            class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="layers"></i>
+                        </div>
                         <h4 class="font-bold text-lg text-slate-800">jQuery</h4>
-                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>增強裝甲 (Enhanced)</b><br>簡化 JavaScript 操作的函式庫，讓開發更快速、穩定。</p>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>增強裝甲 (Enhanced)</b><br>簡化
+                            JavaScript 操作的函式庫，讓開發更快速、穩定。</p>
                     </div>
                 </div>
 
@@ -643,28 +700,37 @@
                     <div class="flex flex-col lg:flex-row gap-8">
                         <!-- Editor Controls -->
                         <div class="lg:w-1/3 space-y-6">
-                            <h3 class="text-white font-bold flex items-center gap-2"><i data-lucide="flask-conical" class="text-pink-400"></i> 前端實驗室</h3>
-                            
+                            <h3 class="text-white font-bold flex items-center gap-2"><i data-lucide="flask-conical"
+                                    class="text-pink-400"></i> 前端實驗室</h3>
+
                             <!-- HTML Control -->
                             <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                                <label class="text-orange-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="code-2" size="14"></i> HTML: 修改文字內容</label>
-                                <input type="text" id="lab-html-input" value="Hello World!" oninput="updateLabPreview()" 
+                                <label class="text-orange-400 font-bold text-xs flex items-center gap-2 mb-2"><i
+                                        data-lucide="code-2" size="14"></i> HTML: 修改文字內容</label>
+                                <input type="text" id="lab-html-input" value="Hello World!" oninput="updateLabPreview()"
                                     class="w-full bg-slate-900 border border-slate-700 text-white p-2 rounded-lg text-sm focus:outline-none focus:border-orange-500 mb-2">
-                                <code id="lab-html-code" class="text-sm text-orange-400 font-black block bg-black/70 p-3 rounded-xl border border-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+                                <code id="lab-html-code"
+                                    class="text-sm text-orange-400 font-black block bg-black/70 p-3 rounded-xl border border-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
                                     &lt;h1 id="text"&gt;Hello World!&lt;/h1&gt;
                                 </code>
                             </div>
 
                             <!-- CSS Control -->
                             <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                                <label class="text-blue-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="swatch-book" size="14"></i> CSS: 調整外觀風格</label>
+                                <label class="text-blue-400 font-bold text-xs flex items-center gap-2 mb-2"><i
+                                        data-lucide="swatch-book" size="14"></i> CSS: 調整外觀風格</label>
                                 <div class="grid grid-cols-4 gap-2 mb-2">
-                                    <button onclick="setLabCss('bg-indigo-600', '#4f46e5')" class="bg-indigo-600 h-6 rounded-lg border border-white/20"></button>
-                                    <button onclick="setLabCss('bg-emerald-600', '#10b981')" class="bg-emerald-600 h-6 rounded-lg border border-white/20"></button>
-                                    <button onclick="setLabCss('bg-rose-600', '#e11d48')" class="bg-rose-600 h-6 rounded-lg border border-white/20"></button>
-                                    <button onclick="setLabCss('bg-amber-600', '#d97706')" class="bg-amber-600 h-6 rounded-lg border border-white/20"></button>
+                                    <button onclick="setLabCss('bg-indigo-600', '#4f46e5')"
+                                        class="bg-indigo-600 h-6 rounded-lg border border-white/20"></button>
+                                    <button onclick="setLabCss('bg-emerald-600', '#10b981')"
+                                        class="bg-emerald-600 h-6 rounded-lg border border-white/20"></button>
+                                    <button onclick="setLabCss('bg-rose-600', '#e11d48')"
+                                        class="bg-rose-600 h-6 rounded-lg border border-white/20"></button>
+                                    <button onclick="setLabCss('bg-amber-600', '#d97706')"
+                                        class="bg-amber-600 h-6 rounded-lg border border-white/20"></button>
                                 </div>
-                                <code id="lab-css-code" class="text-sm text-sky-400 font-black block bg-black/70 p-3 rounded-xl border border-sky-500/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]">
+                                <code id="lab-css-code"
+                                    class="text-sm text-sky-400 font-black block bg-black/70 p-3 rounded-xl border border-sky-500/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]">
                                     #text {<br>
                                     &nbsp;&nbsp;background-color: #4f46e5;<br>
                                     &nbsp;&nbsp;border-radius: 12px;<br>
@@ -674,30 +740,38 @@
 
                             <!-- JavaScript Control -->
                             <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                                <label class="text-yellow-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="mouse-pointer-2" size="14"></i> JavaScript(JS)/jQuery: 執行動作</label>
+                                <label class="text-yellow-400 font-bold text-xs flex items-center gap-2 mb-2"><i
+                                        data-lucide="mouse-pointer-2" size="14"></i> JavaScript(JS)/jQuery: 執行動作</label>
                                 <div class="grid grid-cols-2 gap-2 mb-2">
-                                    <button onclick="runLabJsAction()" class="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
+                                    <button onclick="runLabJsAction()"
+                                        class="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
                                         JavaScript 原生震動
                                     </button>
-                                    <button onclick="runLabJQueryAction()" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
+                                    <button onclick="runLabJQueryAction()"
+                                        class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
                                         jQuery 震動
                                     </button>
                                 </div>
-                                <code id="js-code-snippet" class="text-sm text-yellow-300 font-black block bg-black/70 p-3 rounded-xl border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.2)] min-h-[40px]">
+                                <code id="js-code-snippet"
+                                    class="text-sm text-yellow-300 font-black block bg-black/70 p-3 rounded-xl border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.2)] min-h-[40px]">
                                     // 點擊按鈕查看對應程式碼
                                 </code>
-                                <p id="lab-js-status" class="text-[10px] text-slate-400 mt-2 italic text-center">等待互動中...</p>
+                                <p id="lab-js-status" class="text-[10px] text-slate-400 mt-2 italic text-center">
+                                    等待互動中...</p>
                             </div>
                         </div>
 
                         <!-- Live Preview Display -->
-                        <div class="lg:w-2/3 bg-slate-100 rounded-[2rem] p-8 flex items-center justify-center min-h-[400px] relative overflow-hidden">
+                        <div
+                            class="lg:w-2/3 bg-slate-100 rounded-[2rem] p-8 flex items-center justify-center min-h-[400px] relative overflow-hidden">
                             <div class="absolute top-4 left-6 text-slate-400 font-bold text-xs flex items-center gap-2">
                                 <i data-lucide="eye" size="14"></i> 網頁渲染預覽 (Preview)
                             </div>
-                            
+
                             <!-- THE ELEMENT -->
-                            <div id="lab-element" class="bg-indigo-600 text-white px-12 py-6 shadow-xl transition-all duration-300 transform" style="border-radius: 12px;">
+                            <div id="lab-element"
+                                class="bg-indigo-600 text-white px-12 py-6 shadow-xl transition-all duration-300 transform"
+                                style="border-radius: 12px;">
                                 <h1 id="lab-text" class="text-4xl font-black">Hello World!</h1>
                             </div>
                         </div>
@@ -715,7 +789,9 @@
                         <!-- Vanilla JavaScript Card -->
                         <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-200">
                             <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-[10px]">JS</div>
+                                <div
+                                    class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-[10px]">
+                                    JS</div>
                                 <h4 class="font-bold text-slate-800">原生 JavaScript (Vanilla)</h4>
                             </div>
                             <div class="space-y-4">
@@ -740,7 +816,10 @@
                         <!-- jQuery Card -->
                         <div class="bg-indigo-900 rounded-[2rem] p-6 shadow-2xl border-4 border-indigo-700 text-white">
                             <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold"><i data-lucide="layers" size="18"></i></div>
+                                <div
+                                    class="w-10 h-10 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold">
+                                    <i data-lucide="layers" size="18"></i>
+                                </div>
                                 <h4 class="font-bold">jQuery (簡化版)</h4>
                             </div>
                             <div class="space-y-4">
@@ -758,7 +837,8 @@
                                     </code>
                                 </div>
                             </div>
-                            <div class="mt-6 p-4 bg-indigo-800/30 rounded-2xl border border-dashed border-indigo-400/30">
+                            <div
+                                class="mt-6 p-4 bg-indigo-800/30 rounded-2xl border border-dashed border-indigo-400/30">
                                 <p class="text-[10px] text-indigo-100 italic">
                                     <b>結論：</b>原生 JavaScript 效能高但開發慢；jQuery 用語義化語法（$）大幅縮短開發時間。
                                 </p>
@@ -766,15 +846,15 @@
                         </div>
                     </div>
                 </div>
-                            <div class="mt-6 p-4 bg-indigo-800/30 rounded-2xl border border-dashed border-indigo-400/30">
-                                <p class="text-[10px] text-indigo-100 italic">
-                                    <b>核心理念：Write Less, Do More.</b><br>
-                                    jQuery 會幫你處理不同瀏覽器的差異，並且用更直覺的連鎖式 (Chaining) 語法來開發。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-6 p-4 bg-indigo-800/30 rounded-2xl border border-dashed border-indigo-400/30">
+                    <p class="text-[10px] text-indigo-100 italic">
+                        <b>核心理念：Write Less, Do More.</b><br>
+                        jQuery 會幫你處理不同瀏覽器的差異，並且用更直覺的連鎖式 (Chaining) 語法來開發。
+                    </p>
                 </div>
+            </div>
+            </div>
+            </div>
             </div>
         </section>
 
@@ -994,53 +1074,78 @@
                             <h3 class="text-white font-bold mb-6 flex items-center gap-2">
                                 <i data-lucide="split" class="text-yellow-400"></i> Java 邏輯判斷
                             </h3>
-                            
+
                             <div class="flex flex-wrap gap-4 mb-8">
-                                <button onclick="simulateIfElse(10)" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡: 10 (普遍級)</button>
-                                <button onclick="simulateIfElse(15)" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡: 15 (輔導級)</button>
-                                <button onclick="simulateIfElse(20)" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡: 20 (限制級)</button>
+                                <button onclick="simulateIfElse(10)"
+                                    class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡:
+                                    10 (普遍級)</button>
+                                <button onclick="simulateIfElse(15)"
+                                    class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡:
+                                    15 (輔導級)</button>
+                                <button onclick="simulateIfElse(20)"
+                                    class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡:
+                                    20 (限制級)</button>
                             </div>
 
                             <!-- Code Block -->
-                            <div class="bg-black/50 rounded-2xl p-6 code-font text-[13px] leading-relaxed relative overflow-hidden">
-                                <div id="ie-line-1" class="text-white">int <span class="text-sky-300">age</span> <span class="text-yellow-400">=</span> <span id="ie-val-age" class="text-orange-400 font-bold">?</span>;</div>
-                                <div id="ie-line-2" class="text-white">String <span class="text-sky-300">movie</span>;</div>
+                            <div
+                                class="bg-black/50 rounded-2xl p-6 code-font text-[13px] leading-relaxed relative overflow-hidden">
+                                <div id="ie-line-1" class="text-white">int <span class="text-sky-300">age</span> <span
+                                        class="text-yellow-400">=</span> <span id="ie-val-age"
+                                        class="text-orange-400 font-bold">?</span>;</div>
+                                <div id="ie-line-2" class="text-white">String <span class="text-sky-300">movie</span>;
+                                </div>
                                 <div class="mt-2"></div>
                                 <div id="ie-path-1" class="transition-all duration-300 p-1 text-slate-300">
-                                    <span class="text-purple-400">if</span> (<span class="text-sky-300">age</span> <span class="text-yellow-400">>=</span> <span class="text-orange-400">18</span>) {
+                                    <span class="text-purple-400">if</span> (<span class="text-sky-300">age</span> <span
+                                        class="text-yellow-400">>=</span> <span class="text-orange-400">18</span>) {
                                 </div>
-                                <div id="ie-path-1-body" class="pl-8 text-slate-500 transition-all duration-300"><span class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span class="text-green-400">"限制級 (R)"</span>;</div>
+                                <div id="ie-path-1-body" class="pl-8 text-slate-500 transition-all duration-300"><span
+                                        class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span
+                                        class="text-green-400">"限制級 (R)"</span>;</div>
                                 <div id="ie-path-2" class="transition-all duration-300 p-1 text-slate-300">
-                                    } <span class="text-purple-400">else if</span> (<span class="text-sky-300">age</span> <span class="text-yellow-400">>=</span> <span class="text-orange-400">12</span>) {
+                                    } <span class="text-purple-400">else if</span> (<span
+                                        class="text-sky-300">age</span> <span class="text-yellow-400">>=</span> <span
+                                        class="text-orange-400">12</span>) {
                                 </div>
-                                <div id="ie-path-2-body" class="pl-8 text-slate-500 transition-all duration-300"><span class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span class="text-green-400">"輔導級 (PG-13)"</span>;</div>
+                                <div id="ie-path-2-body" class="pl-8 text-slate-500 transition-all duration-300"><span
+                                        class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span
+                                        class="text-green-400">"輔導級 (PG-13)"</span>;</div>
                                 <div id="ie-path-3" class="transition-all duration-300 p-1 text-slate-300">
                                     } <span class="text-purple-400">else</span> {
                                 </div>
-                                <div id="ie-path-3-body" class="pl-8 text-slate-500 transition-all duration-300"><span class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span class="text-green-400">"普遍級 (G)"</span>;</div>
+                                <div id="ie-path-3-body" class="pl-8 text-slate-500 transition-all duration-300"><span
+                                        class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span
+                                        class="text-green-400">"普遍級 (G)"</span>;</div>
                                 <div id="ie-path-end" class="transition-all duration-300 p-1 text-slate-300">}</div>
-                                <div class="mt-2 text-slate-400">System.out.println(<span class="text-sky-300">movie</span>);</div>
+                                <div class="mt-2 text-slate-400">System.out.println(<span
+                                        class="text-sky-300">movie</span>);</div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Right: Visual Feedback & Tips -->
                     <div class="flex flex-col space-y-6">
-                        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 flex-1 flex flex-col items-center justify-center text-center">
-                            <div id="ie-visual-gate" class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6 transition-all duration-500 shadow-inner">
+                        <div
+                            class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 flex-1 flex flex-col items-center justify-center text-center">
+                            <div id="ie-visual-gate"
+                                class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6 transition-all duration-500 shadow-inner">
                                 <i data-lucide="help-circle" size="48" class="text-slate-300"></i>
                             </div>
                             <h3 id="ie-visual-title" class="text-2xl font-bold text-slate-800 mb-2">準備進行判斷</h3>
-                            <p id="ie-visual-desc" class="text-slate-500 max-w-xs leading-relaxed text-sm">請點擊左側按鈕輸入年齡，觀察程式如何根據條件選擇執行的路徑。</p>
-                            
+                            <p id="ie-visual-desc" class="text-slate-500 max-w-xs leading-relaxed text-sm">
+                                請點擊左側按鈕輸入年齡，觀察程式如何根據條件選擇執行的路徑。</p>
+
                             <!-- Result Badge -->
-                            <div id="ie-result-badge" class="mt-8 px-8 py-4 rounded-2xl bg-slate-100 text-slate-400 font-black text-xl hidden transform">
+                            <div id="ie-result-badge"
+                                class="mt-8 px-8 py-4 rounded-2xl bg-slate-100 text-slate-400 font-black text-xl hidden transform">
                                 ---
                             </div>
                         </div>
 
                         <div class="bg-amber-50 p-6 rounded-3xl border-2 border-amber-200">
-                            <h4 class="font-bold text-amber-900 mb-2 flex items-center gap-2 text-sm"><i data-lucide="info" size="18"></i> 溫馨提示 (其他關鍵字)</h4>
+                            <h4 class="font-bold text-amber-900 mb-2 flex items-center gap-2 text-sm"><i
+                                    data-lucide="info" size="18"></i> 溫馨提示 (其他關鍵字)</h4>
                             <ul class="text-[11px] text-amber-800 space-y-2 list-disc pl-4 leading-relaxed">
                                 <li><code>if</code> 括號內必須是一個 <b>boolean</b> (true/false) 表達式。</li>
                                 <li><code>else if</code> 可以有多個，用來處理多重區間。</li>
@@ -1056,11 +1161,12 @@
                     <h4 class="font-bold text-indigo-900 mb-6 flex items-center gap-2 text-xl">
                         <i data-lucide="zap" class="text-amber-500"></i> 進階：三元運算子 (Short-hand If-Else)
                     </h4>
-                    
+
                     <div class="grid md:grid-cols-2 gap-8">
                         <!-- Standard If-Else -->
                         <div class="bg-white p-6 rounded-2xl border border-slate-200">
-                            <div class="text-[10px] text-slate-400 font-bold mb-2 uppercase tracking-widest">標準 If-Else 寫法</div>
+                            <div class="text-[10px] text-slate-400 font-bold mb-2 uppercase tracking-widest">標準 If-Else
+                                寫法</div>
                             <code class="text-[11px] text-slate-600 block leading-relaxed">
                                 String <span class="text-sky-600">result</span>;<br>
                                 <span class="text-purple-600">if</span> (age >= <span class="text-orange-600">18</span>) {<br>
@@ -1073,7 +1179,8 @@
                         <!-- Ternary -->
                         <div class="bg-indigo-900 p-6 rounded-2xl border border-indigo-700 shadow-lg flex items-center">
                             <div class="w-full">
-                                <div class="text-[10px] text-indigo-300 font-bold mb-2 uppercase tracking-widest">三元運算子 (精簡一行版)</div>
+                                <div class="text-[10px] text-indigo-300 font-bold mb-2 uppercase tracking-widest">三元運算子
+                                    (精簡一行版)</div>
                                 <code class="text-[12px] text-yellow-200 block leading-relaxed py-2">
                                     String <span class="text-sky-300">result</span> = (age >= <span class="text-orange-400">18</span>) ? <span class="text-emerald-400">"可以進入"</span> : <span class="text-rose-400">"禁止進入"</span>;
                                 </code>
@@ -1081,14 +1188,15 @@
                         </div>
                     </div>
 
-                    <p class="text-xs text-slate-600 mt-6 leading-relaxed bg-white/50 p-4 rounded-xl border border-indigo-100">
+                    <p
+                        class="text-xs text-slate-600 mt-6 leading-relaxed bg-white/50 p-4 rounded-xl border border-indigo-100">
                         <b>對比：</b>左側是傳統寫法，邏輯清晰但佔用多行；右側是三元運算子，適合簡單的「二選一」賦值。
                         <br>格式：<code>(條件) ? 真值 : 假值;</code>
                     </p>
                 </div>
             </div>
         </section>
-            </div>
+        </div>
         </section>
 
         <!-- SECTION 7: FOR LOOP (CAR PRODUCTION) -->
@@ -1106,29 +1214,34 @@
                             <h3 class="text-white font-bold mb-6 flex items-center gap-2">
                                 <i data-lucide="factory" class="text-emerald-400"></i> Java 迴圈語法
                             </h3>
-                            
+
                             <div class="mb-8">
-                                <button id="btn-run-for" onclick="simulateForLoop()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black shadow-lg transition-all active:scale-95 flex items-center justify-center gap-3">
+                                <button id="btn-run-for" onclick="simulateForLoop()"
+                                    class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black shadow-lg transition-all active:scale-95 flex items-center justify-center gap-3">
                                     <i data-lucide="play"></i> 啟動汽車生產線 (生產 10 輛車)
                                 </button>
                             </div>
 
                             <!-- Code Block -->
-                            <div class="bg-black/50 rounded-2xl p-8 code-font text-[14px] leading-relaxed relative overflow-hidden">
+                            <div id="for-loop-code-block"
+                                class="bg-black/50 rounded-2xl p-8 code-font text-[14px] leading-relaxed relative overflow-hidden">
                                 <div id="for-line-1" class="transition-all duration-300 p-1 text-slate-300">
                                     <span class="text-purple-400">for</span> (
-                                    <span id="for-part-init" class="text-sky-300">int i = 1</span>; 
-                                    <span id="for-part-cond" class="text-sky-300">i <= 10</span>; 
-                                    <span id="for-part-inc" class="text-sky-300">i++</span>
-                                    ) {
+                                    <span id="for-part-init" class="text-sky-300">int i = 1</span>;
+                                    <span id="for-part-cond" class="text-sky-300">i <= 10</span>;
+                                            <span id="for-part-inc" class="text-sky-300">i++</span>
+                                            ) {
                                 </div>
                                 <div id="for-line-body" class="pl-8 text-slate-500 transition-all duration-300">
-                                    System.out.println(<span class="text-green-400">"第 "</span> + <span class="text-sky-300 font-bold">i</span> + <span class="text-green-400">" 輛汽車生產完成！"</span>);
+                                    System.out.println(<span class="text-green-400">"第 "</span> + <span
+                                        class="text-sky-300 font-bold">i</span> + <span class="text-green-400">"
+                                        輛汽車生產完成！"</span>);
                                 </div>
                                 <div id="for-line-end" class="transition-all duration-300 p-1 text-slate-300">}</div>
-                                
+
                                 <!-- Tooltip Overlay -->
-                                <div id="for-tooltip" class="absolute top-2 right-4 bg-indigo-600 text-white text-[10px] px-3 py-1 rounded-full font-bold opacity-0 transition-opacity">
+                                <div id="for-tooltip"
+                                    class="absolute top-2 right-4 bg-indigo-600 text-white text-[10px] px-3 py-1 rounded-full font-bold opacity-0 transition-opacity">
                                     準備開始...
                                 </div>
                             </div>
@@ -1137,11 +1250,13 @@
 
                     <!-- Right: Visual Factory -->
                     <div class="flex flex-col space-y-6">
-                        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 flex-1 flex flex-col items-center justify-between">
+                        <div
+                            class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 flex-1 flex flex-col items-center justify-between">
                             <div class="w-full flex justify-between items-center mb-6">
                                 <div class="flex items-center gap-2">
                                     <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
-                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Car Production Line</span>
+                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Car
+                                        Production Line</span>
                                 </div>
                                 <div class="text-2xl font-black text-indigo-900 code-font">
                                     Cars: <span id="for-visual-count" class="text-emerald-600">0</span> / 10
@@ -1149,28 +1264,37 @@
                             </div>
 
                             <!-- Visual Area (Factory Floor) -->
-                            <div id="for-visual-container" class="relative w-full h-64 bg-slate-900 rounded-[2.5rem] border-4 border-slate-800 overflow-hidden flex items-center justify-center shadow-inner">
+                            <div id="for-visual-container"
+                                class="relative w-full h-64 bg-slate-900 rounded-[2.5rem] border-4 border-slate-800 overflow-hidden flex items-center justify-center shadow-inner">
                                 <!-- Background Industrial Grid -->
-                                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
-                                
+                                <div class="absolute inset-0 opacity-10"
+                                    style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;">
+                                </div>
+
                                 <!-- Large Factory Icon -->
                                 <div id="for-worker" class="relative z-10 transition-all duration-300 transform mb-12">
                                     <div class="relative">
-                                        <i data-lucide="factory" size="100" class="text-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.4)]"></i>
+                                        <i data-lucide="factory" size="100"
+                                            class="text-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.4)]"></i>
                                         <!-- Hammer Icon (Hidden by default) -->
-                                        <div id="for-hammer" class="absolute -top-10 -right-8 opacity-0 transition-opacity">
-                                            <i data-lucide="gavel" size="60" class="text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)]"></i>
+                                        <div id="for-hammer"
+                                            class="absolute -top-10 -right-8 opacity-0 transition-opacity">
+                                            <i data-lucide="gavel" size="60"
+                                                class="text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)]"></i>
                                         </div>
                                         <!-- Animated Smoke -->
-                                        <div id="factory-smoke" class="absolute -top-4 right-4 flex gap-1 opacity-0 transition-opacity">
+                                        <div id="factory-smoke"
+                                            class="absolute -top-4 right-4 flex gap-1 opacity-0 transition-opacity">
                                             <div class="w-3 h-3 bg-slate-400 rounded-full animate-ping"></div>
-                                            <div class="w-2 h-2 bg-slate-500 rounded-full animate-ping" style="animation-delay: 0.2s"></div>
+                                            <div class="w-2 h-2 bg-slate-500 rounded-full animate-ping"
+                                                style="animation-delay: 0.2s"></div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Conveyor Belt -->
-                                <div class="absolute bottom-0 w-full h-16 bg-slate-800 border-t-4 border-slate-700 flex items-center overflow-hidden">
+                                <div
+                                    class="absolute bottom-0 w-full h-16 bg-slate-800 border-t-4 border-slate-700 flex items-center overflow-hidden">
                                     <div id="conveyor-belt" class="flex gap-2 px-4 w-full justify-start items-center">
                                         <!-- Cars will move here, tightly spaced -->
                                     </div>
@@ -1194,8 +1318,10 @@
                                     <span>PRODUCTION PROGRESS</span>
                                     <span id="for-progress-percent">0%</span>
                                 </div>
-                                <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden border border-slate-200 shadow-inner">
-                                    <div id="for-progress-bar" class="h-full bg-emerald-500 transition-all duration-300 w-0"></div>
+                                <div
+                                    class="w-full h-4 bg-slate-100 rounded-full overflow-hidden border border-slate-200 shadow-inner">
+                                    <div id="for-progress-bar"
+                                        class="h-full bg-emerald-500 transition-all duration-300 w-0"></div>
                                 </div>
                             </div>
 
@@ -1291,10 +1417,17 @@
                                 <div class="text-slate-400 font-bold text-xs flex items-center gap-2">
                                     <i data-lucide="code"></i> JDoodle 編輯器 (原始狀態)
                                 </div>
-                                <div class="flex gap-1.5">
-                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                <div class="flex items-center gap-3">
+                                    <button onclick="copyEditorCode(this)"
+                                        class="text-slate-400 hover:text-white transition-colors flex items-center gap-1 text-[10px] font-bold bg-slate-800 px-3 py-1 rounded-full">
+                                        <i data-lucide="copy" size="12"></i>
+                                        <span>複製代碼</span>
+                                    </button>
+                                    <div class="flex gap-1.5">
+                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div id="editor-code-display"
@@ -1460,7 +1593,8 @@
                                 onclick="focusAnatomy('public')">public</span>&nbsp;<span id="word-class"
                                 class="clickable-word text-orange-400"
                                 onclick="focusAnatomy('class')">class</span>&nbsp;<span id="word-main_class"
-                                class="clickable-word text-white font-bold" onclick="focusAnatomy('main_class')">Main</span>
+                                class="clickable-word text-white font-bold"
+                                onclick="focusAnatomy('main_class')">Main</span>
                             <span id="word-class-braces-open" class="clickable-word text-slate-400"
                                 onclick="focusAnatomy('class-braces')">{</span>
                         </div>
@@ -1673,7 +1807,8 @@
                             <i data-lucide="file-text"></i> 設計圖 (Class Car)
                         </h3>
                         <div class="bg-slate-900 rounded-xl p-4 code-font text-[10px] text-slate-300 mb-4">
-                            <div><span class="text-blue-400">class</span> <span class="text-green-300">Car</span> {</div>
+                            <div><span class="text-blue-400">class</span> <span class="text-green-300">Car</span> {
+                            </div>
                             <div class="pl-4 text-slate-500">// 屬性</div>
                             <div class="pl-4"><span class="text-purple-400">String</span> name;</div>
                             <div class="pl-4"><span class="text-purple-400">String</span> color;</div>
@@ -1746,14 +1881,14 @@
                 'sql': 'sec-sql'
             };
             document.getElementById(map[sectionId]).classList.remove('hidden');
-            
+
             // Correctly reset and set active classes
             document.querySelectorAll('nav button').forEach(b => {
                 b.classList.remove('active-tab');
                 b.classList.add('text-slate-500'); // 回復預設灰
             });
             const activeBtn = document.getElementById('tab-' + sectionId);
-            if(activeBtn) {
+            if (activeBtn) {
                 activeBtn.classList.add('active-tab');
                 activeBtn.classList.remove('text-slate-500'); // 移除預設灰
             }
@@ -1779,6 +1914,7 @@
             const smoke = document.getElementById('factory-smoke');
             const conveyor = document.getElementById('conveyor-belt');
             const sparksContainer = document.getElementById('for-sparks-container');
+            const forCodeBlock = document.getElementById('for-loop-code-block');
 
             const partInit = document.getElementById('for-part-init');
             const partCond = document.getElementById('for-part-cond');
@@ -1787,7 +1923,7 @@
 
             btn.disabled = true;
             btn.classList.add('opacity-50');
-            
+
             // Reset
             countDisplay.innerText = "0";
             progBar.style.width = "0%";
@@ -1795,9 +1931,9 @@
             conveyor.innerHTML = '';
             statusMsg.innerText = "🏭 工廠生產線啟動中...";
             smoke.classList.remove('opacity-0');
-            
+
             const highlight = (el, tip, colorClass) => {
-                document.querySelectorAll('.code-font span, .code-font div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
+                forCodeBlock.querySelectorAll('span, div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
                 el.classList.add('bg-indigo-500/30', 'font-black', 'text-white');
                 tooltip.innerText = tip;
                 tooltip.style.opacity = '1';
@@ -1806,33 +1942,33 @@
 
             // Step 1: Initialization
             highlight(partInit, "1. 初始化: i = 1", "bg-sky-600");
-            await new Promise(r => setTimeout(r, 800));
+            await new Promise(r => setTimeout(r, 3500));
 
             for (let i = 1; i <= 10; i++) {
                 // Step 2: Condition
                 highlight(partCond, `2. 判斷: ${i} <= 10 ? (YES)`, "bg-emerald-600");
-                await new Promise(r => setTimeout(r, 400));
+                await new Promise(r => setTimeout(r, 3000));
 
                 // Step 3: Body (The Action)
                 highlight(lineBody, `3. 執行: 生產第 ${i} 輛汽車`, "bg-indigo-600");
                 statusMsg.innerText = `正在組裝第 ${i} 輛汽車...`;
-                
+
                 // Hammer & Spark Animation
                 hammer.classList.remove('opacity-0');
                 hammer.classList.add('hammer-animate');
-                
-                for(let s=0; s<8; s++) {
+
+                for (let s = 0; s < 8; s++) {
                     const spark = document.createElement('div');
                     spark.className = "absolute w-1 h-1 bg-yellow-400 rounded-full animate-ping";
-                    spark.style.left = `calc(50% + ${(Math.random()-0.5)*120}px)`;
-                    spark.style.top = `calc(50% + ${(Math.random()-0.5)*120}px)`;
+                    spark.style.left = `calc(50% + ${(Math.random() - 0.5) * 120}px)`;
+                    spark.style.top = `calc(50% + ${(Math.random() - 0.5) * 120}px)`;
                     sparksContainer.appendChild(spark);
                     setTimeout(() => spark.remove(), 400);
                 }
 
                 // Create Car on Conveyor (Smaller icons to fit 10)
                 const car = document.createElement('div');
-                car.className = "flex flex-col items-center transition-all duration-700 transform translate-x-[-50px] opacity-0";
+                car.className = "flex flex-col items-center transition-all duration-1000 transform translate-x-[-50px] opacity-0";
                 car.style.minWidth = "40px";
                 car.innerHTML = `
                     <i data-lucide="car" class="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" size="24"></i>
@@ -1840,13 +1976,13 @@
                 `;
                 conveyor.appendChild(car); // Use appendChild to stack them from left to right
                 lucide.createIcons();
-                
+
                 setTimeout(() => {
                     car.classList.remove('translate-x-[-50px]', 'opacity-0');
                     car.classList.add('translate-x-[0px]', 'opacity-100');
                 }, 50);
 
-                await new Promise(r => setTimeout(r, 600));
+                await new Promise(r => setTimeout(r, 3000));
                 hammer.classList.remove('hammer-animate');
                 hammer.classList.add('opacity-0');
 
@@ -1857,7 +1993,7 @@
 
                 // Step 4: Increment
                 highlight(partInc, `4. 執行次數: i 變 ${i + 1}`, "bg-amber-600");
-                await new Promise(r => setTimeout(r, 400));
+                await new Promise(r => setTimeout(r, 2500));
             }
 
             // End
@@ -1865,11 +2001,11 @@
             statusMsg.innerText = "✅ 訂單達成！10 輛汽車已完成交付。";
             tooltip.innerText = "迴圈結束";
             smoke.classList.add('opacity-0');
-            
+
             await new Promise(r => setTimeout(r, 1000));
             tooltip.style.opacity = '0';
-            document.querySelectorAll('.code-font span, .code-font div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
-            
+            forCodeBlock.querySelectorAll('span, div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
+
             btn.disabled = false;
             btn.classList.remove('opacity-50');
             isForRunning = false;
@@ -1884,7 +2020,7 @@
             const p2b = document.getElementById('ie-path-2-body');
             const p3 = document.getElementById('ie-path-3');
             const p3b = document.getElementById('ie-path-3-body');
-            
+
             const vGate = document.getElementById('ie-visual-gate');
             const vTitle = document.getElementById('ie-visual-title');
             const vDesc = document.getElementById('ie-visual-desc');
@@ -1893,7 +2029,7 @@
             // Reset Styles
             [p1, p1b, p2, p2b, p3, p3b].forEach(el => {
                 el.classList.remove('text-indigo-400', 'font-black', 'bg-indigo-500/20', 'rounded-lg', 'scale-105');
-                if(el.id.includes('body')) {
+                if (el.id.includes('body')) {
                     el.classList.add('text-slate-500');
                     el.classList.remove('text-emerald-400');
                 } else {
@@ -1902,7 +2038,7 @@
             });
 
             valAge.innerText = age;
-            
+
             let result = "";
             let color = "";
             let icon = "";
@@ -1981,7 +2117,7 @@
             const el = document.getElementById('lab-element');
             const status = document.getElementById('lab-js-status');
             const codeSnippet = document.getElementById('js-code-snippet');
-            
+
             if (!el || !status) return;
 
             codeSnippet.innerText = "for(let i=0; i<10; i++) {\n  el.style.transform = `translateX(${i%2?15:-15}px)`;\n}";
@@ -1991,7 +2127,7 @@
             const originalTransition = el.style.transition;
             el.style.transition = 'none';
 
-            for(let i=0; i<12; i++) {
+            for (let i = 0; i < 12; i++) {
                 const offset = (i % 2 === 0) ? '15px' : '-15px';
                 el.style.transform = `translateX(${offset})`;
                 await new Promise(r => setTimeout(r, 40));
@@ -2001,7 +2137,7 @@
 
             status.innerText = "原生 JavaScript 執行完成";
             status.classList.replace('text-yellow-400', 'text-emerald-400');
-            
+
             setTimeout(() => {
                 status.innerText = "等待互動中...";
                 status.classList.remove('text-emerald-400', 'font-bold');
@@ -2024,7 +2160,7 @@
                 const offset = count % 2 === 0 ? '15px' : '-15px';
                 $el.css('transform', `translateX(${offset})`);
                 count++;
-                
+
                 if (count > 25) { // 震動 25 次
                     clearInterval(interval);
                     $el.css('transform', 'translateX(0)');
@@ -2038,7 +2174,7 @@
         }
 
         // Helper for class replacement
-        $.fn.replaceClass = function(oldClass, newClass) {
+        $.fn.replaceClass = function (oldClass, newClass) {
             return this.removeClass(oldClass).addClass(newClass);
         };
 
@@ -2065,7 +2201,7 @@
                 dbData.forEach(row => {
                     const isTarget = targets.includes(row.id);
                     const tr = document.createElement('tr');
-                    
+
                     let highlightClass = '';
                     if (isTarget) {
                         highlightClass = isSelection ? 'bg-sky-100 border-sky-200' : 'bg-emerald-50';
@@ -2096,7 +2232,7 @@
             let highlightIds = [];
             let isSelection = false;
 
-            switch(action) {
+            switch (action) {
                 case 'INSERT':
                     const newName = ['Bob', 'Charlie', 'Diana', 'Eve'][Math.floor(Math.random() * 4)];
                     const newRow = { id: nextId++, name: newName, email: `${newName.toLowerCase()}@db.com`, status: 'Active' };
@@ -2145,7 +2281,7 @@
 
             displayCode.innerText = syntax;
             renderSqlTable(highlightIds, isSelection);
-            
+
             // Animation for syntax box
             const box = document.getElementById('sql-syntax-box');
             box.classList.add('border-emerald-500/50', 'bg-emerald-950/20');
@@ -2420,9 +2556,9 @@
             await runStep(1, 'lnode-client', null, async () => {
                 cardHttp.classList.add('highlight-card');
                 const url = 'http://edward.com/login';
-                for (let char of url) { 
-                    addrBar.innerText += char; 
-                    await new Promise(r => setTimeout(r, 80)); 
+                for (let char of url) {
+                    addrBar.innerText += char;
+                    await new Promise(r => setTimeout(r, 80));
                 }
             });
 
@@ -2566,12 +2702,12 @@
         function handleInstantiation(color, type) {
             carCounterGlobal++;
             const varName = 'c' + carCounterGlobal;
-            
+
             // Set attributes based on type
             const name = type === 'Sport' ? '紅跑車' : '藍貨車';
             const maxSpeed = type === 'Sport' ? 300 : 90;
             const maxLoad = type === 'Sport' ? 50 : 200;
-            
+
             // Generate Code
             const decLine = `
                 <div class="mb-1"><span class="text-green-300 font-bold">Car</span> <span class="text-white underline">${varName}</span> = <span class="text-yellow-400 font-bold">new</span> Car();</div>
@@ -2579,18 +2715,18 @@
                 <div class="mb-1 text-slate-400 text-[9px]">${varName}.maxSpeed = ${maxSpeed}; ${varName}.maxLoad = ${maxLoad};</div>
                 <div class="mb-2"><span class="text-sky-300 font-bold">${varName}.accelerate();</span> <span class="text-sky-300 font-bold">${varName}.loadCargo();</span></div>
             `;
-            
+
             const dynamicArea = document.getElementById('dynamic-declaration');
             if (carCounterGlobal === 1) dynamicArea.innerHTML = '';
             dynamicArea.innerHTML += decLine;
-            
+
             const floor = document.getElementById('factory-floor');
             if (floor.innerText.includes('物件將在此處生成')) floor.innerHTML = '';
-            
+
             const addr = '0x' + Math.random().toString(16).substr(2, 4).toUpperCase();
             const colorClass = color === 'red' ? 'text-red-500' : 'text-blue-500';
             const icon = type === 'Sport' ? 'zap' : 'truck';
-            
+
             const card = document.createElement('div');
             card.id = `obj-${varName}`;
             card.className = 'car-instance bg-white p-4 rounded-2xl shadow-md border-l-4 border-indigo-500 flex flex-col gap-3 transition-all hover:scale-[1.02]';
@@ -2624,9 +2760,9 @@
                 </div>
                 <div id="msg-${varName}" class="text-[9px] text-center font-black h-3 transition-all opacity-0"></div>
             `;
-            floor.prepend(card); 
+            floor.prepend(card);
             lucide.createIcons();
-            
+
             const codeBox = document.getElementById('main-code-display');
             codeBox.scrollTop = codeBox.scrollHeight;
         }
@@ -2634,7 +2770,7 @@
         async function triggerObjectAction(varName, actionType, speed, load) {
             const iconWrap = document.getElementById(`icon-${varName}`);
             const msg = document.getElementById(`msg-${varName}`);
-            
+
             let actionText = "";
             let textColor = "";
 
@@ -2647,14 +2783,14 @@
                 textColor = "text-blue-500";
                 iconWrap.style.transform = 'translateY(8px)';
             }
-            
+
             // UI Update
             iconWrap.classList.add('scale-125', 'bg-slate-100');
             msg.innerText = actionText;
             msg.className = `text-[9px] text-center font-black h-3 transition-all opacity-100 \${textColor}`;
-            
+
             await new Promise(r => setTimeout(r, 1200));
-            
+
             iconWrap.classList.remove('scale-125', 'bg-slate-100', 'animate-bounce');
             iconWrap.style.transform = 'none';
             msg.classList.add('opacity-0');
@@ -2677,7 +2813,7 @@
                 const span = btn.querySelector('span');
                 const icon = btn.querySelector('i');
                 const originalText = span.innerText;
-                
+
                 btn.classList.add('success');
                 span.innerText = '已複製！';
                 icon.setAttribute('data-lucide', 'check');
@@ -2688,6 +2824,55 @@
                     span.innerText = originalText;
                     icon.setAttribute('data-lucide', 'copy');
                     lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        function copyEditorCode(btn) {
+            const editor = document.getElementById('editor-code-display');
+            const lines = [];
+
+            // Extract code lines and preserve indentation based on padding classes
+            Array.from(editor.children).forEach(child => {
+                if (child.tagName === 'DIV') {
+                    let text = child.innerText.trim();
+                    if (!text && child.children.length === 0) {
+                        lines.push("");
+                        return;
+                    }
+
+                    let indent = 0;
+                    child.classList.forEach(cls => {
+                        if (cls.startsWith('pl-')) {
+                            const val = parseInt(cls.split('-')[1]);
+                            indent = val;
+                        }
+                    });
+                    lines.push(' '.repeat(indent) + text);
+                }
+            });
+
+            const code = (lines.length > 0) ? lines.join('\n') : editor.innerText.trim();
+
+            navigator.clipboard.writeText(code).then(() => {
+                const span = btn.querySelector('span');
+                const icon = btn.querySelector('i');
+                const originalText = span ? span.innerText : "";
+
+                btn.classList.add('text-emerald-400');
+                if (span) span.innerText = '已複製！';
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'check');
+                    lucide.createIcons();
+                }
+
+                setTimeout(() => {
+                    btn.classList.remove('text-emerald-400');
+                    if (span) span.innerText = originalText;
+                    if (icon) {
+                        icon.setAttribute('data-lucide', 'copy');
+                        lucide.createIcons();
+                    }
                 }, 2000);
             });
         }
