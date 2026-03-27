@@ -41,8 +41,10 @@
         }
 
         .active-tab {
-            border-bottom: 4px solid #3b82f6;
-            color: #1e40af;
+            background-color: #eff6ff; /* 淺藍背景 */
+            color: #1d4ed8 !important; /* 深藍文字 */
+            border-bottom: 4px solid #3b82f6 !important; /* 加粗底條 */
+            box-shadow: inset 0 -2px 0 0 #3b82f6;
         }
 
         .line-active {
@@ -452,37 +454,41 @@
 
     <!-- Navigation -->
     <nav class="bg-white sticky top-0 z-10 shadow-sm border-b">
-        <div class="max-w-6xl mx-auto flex overflow-x-auto">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 divide-x divide-y border-x border-t">
             <button onclick="showSection('fullstack')" id="tab-fullstack"
-                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap active-tab">
-                1. 全端連線與 SSL 加密
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors active-tab">
+                1. 全端連線 SSL
             </button>
             <button onclick="showSection('web-quartet')" id="tab-web-quartet"
-                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                2. 網頁前端四重奏
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                2. 前端四重奏
             </button>
             <button onclick="showSection('entry')" id="tab-entry"
-                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                3. 程式進入點 (Main)
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                3. Main 進入點
             </button>
             <button onclick="showSection('var-mem')" id="tab-var-mem"
-                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
                 4. 變數與記憶體
             </button>
             <button onclick="showSection('object')" id="tab-object"
-                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
                 5. 類別與物件
             </button>
+            <button onclick="showSection('ifelse')" id="tab-ifelse"
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                6. 流程控制 (If)
+            </button>
             <button onclick="showSection('ai-magic')" id="tab-ai-magic"
-                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                6. AI 魔法提示
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                7. AI 魔法提示
             </button>
             <button onclick="showSection('sql')" id="tab-sql"
-                class="flex-1 py-4 px-4 font-medium text-slate-500 hover:bg-slate-50 transition-colors whitespace-nowrap">
-                7. SQL 基礎 (MySQL)
+                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                8. SQL 基礎
             </button>
-            </div>
-            </nav>
+        </div>
+    </nav>
 
             <main class="max-w-7xl mx-auto p-4 md:p-8">
 
@@ -953,6 +959,119 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: IF-ELSE CONTROL FLOW -->
+        <section id="sec-ifelse" class="concept-section hidden">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">流程控制：If-Else 決策中心</h2>
+                    <p class="text-slate-500">讓程式具備判斷能力，根據不同條件執行不同路徑</p>
+                </div>
+
+                <!-- Balanced Columns Grid -->
+                <div class="grid lg:grid-cols-2 gap-8 items-stretch">
+                    <!-- Left: Control & Code -->
+                    <div class="flex flex-col space-y-6">
+                        <div class="bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border-4 border-slate-800 flex-1">
+                            <h3 class="text-white font-bold mb-6 flex items-center gap-2">
+                                <i data-lucide="split" class="text-yellow-400"></i> Java 邏輯判斷
+                            </h3>
+                            
+                            <div class="flex flex-wrap gap-4 mb-8">
+                                <button onclick="simulateIfElse(10)" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡: 10 (普遍級)</button>
+                                <button onclick="simulateIfElse(15)" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡: 15 (輔導級)</button>
+                                <button onclick="simulateIfElse(20)" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95">年齡: 20 (限制級)</button>
+                            </div>
+
+                            <!-- Code Block -->
+                            <div class="bg-black/50 rounded-2xl p-6 code-font text-[13px] leading-relaxed relative overflow-hidden">
+                                <div id="ie-line-1" class="text-white">int <span class="text-sky-300">age</span> <span class="text-yellow-400">=</span> <span id="ie-val-age" class="text-orange-400 font-bold">?</span>;</div>
+                                <div id="ie-line-2" class="text-white">String <span class="text-sky-300">movie</span>;</div>
+                                <div class="mt-2"></div>
+                                <div id="ie-path-1" class="transition-all duration-300 p-1 text-slate-300">
+                                    <span class="text-purple-400">if</span> (<span class="text-sky-300">age</span> <span class="text-yellow-400">>=</span> <span class="text-orange-400">18</span>) {
+                                </div>
+                                <div id="ie-path-1-body" class="pl-8 text-slate-500 transition-all duration-300"><span class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span class="text-green-400">"限制級 (R)"</span>;</div>
+                                <div id="ie-path-2" class="transition-all duration-300 p-1 text-slate-300">
+                                    } <span class="text-purple-400">else if</span> (<span class="text-sky-300">age</span> <span class="text-yellow-400">>=</span> <span class="text-orange-400">12</span>) {
+                                </div>
+                                <div id="ie-path-2-body" class="pl-8 text-slate-500 transition-all duration-300"><span class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span class="text-green-400">"輔導級 (PG-13)"</span>;</div>
+                                <div id="ie-path-3" class="transition-all duration-300 p-1 text-slate-300">
+                                    } <span class="text-purple-400">else</span> {
+                                </div>
+                                <div id="ie-path-3-body" class="pl-8 text-slate-500 transition-all duration-300"><span class="text-sky-300">movie</span> <span class="text-yellow-400">=</span> <span class="text-green-400">"普遍級 (G)"</span>;</div>
+                                <div id="ie-path-end" class="transition-all duration-300 p-1 text-slate-300">}</div>
+                                <div class="mt-2 text-slate-400">System.out.println(<span class="text-sky-300">movie</span>);</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Visual Feedback & Tips -->
+                    <div class="flex flex-col space-y-6">
+                        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 flex-1 flex flex-col items-center justify-center text-center">
+                            <div id="ie-visual-gate" class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6 transition-all duration-500 shadow-inner">
+                                <i data-lucide="help-circle" size="48" class="text-slate-300"></i>
+                            </div>
+                            <h3 id="ie-visual-title" class="text-2xl font-bold text-slate-800 mb-2">準備進行判斷</h3>
+                            <p id="ie-visual-desc" class="text-slate-500 max-w-xs leading-relaxed text-sm">請點擊左側按鈕輸入年齡，觀察程式如何根據條件選擇執行的路徑。</p>
+                            
+                            <!-- Result Badge -->
+                            <div id="ie-result-badge" class="mt-8 px-8 py-4 rounded-2xl bg-slate-100 text-slate-400 font-black text-xl hidden transform">
+                                ---
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 p-6 rounded-3xl border-2 border-amber-200">
+                            <h4 class="font-bold text-amber-900 mb-2 flex items-center gap-2 text-sm"><i data-lucide="info" size="18"></i> 溫馨提示 (其他關鍵字)</h4>
+                            <ul class="text-[11px] text-amber-800 space-y-2 list-disc pl-4 leading-relaxed">
+                                <li><code>if</code> 括號內必須是一個 <b>boolean</b> (true/false) 表達式。</li>
+                                <li><code>else if</code> 可以有多個，用來處理多重區間。</li>
+                                <li><code>else</code> 是最後的保底，當前面的條件都不成立時執行。</li>
+                                <li><b>Switch:</b> 當判斷的是「特定數值」(如 1, 2, 3) 而非範圍時，推薦使用 <code>switch-case</code> 語法。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FULL WIDTH TERNARY SECTION -->
+                <div class="bg-indigo-50 p-8 rounded-[3rem] border-2 border-indigo-100 shadow-sm">
+                    <h4 class="font-bold text-indigo-900 mb-6 flex items-center gap-2 text-xl">
+                        <i data-lucide="zap" class="text-amber-500"></i> 進階：三元運算子 (Short-hand If-Else)
+                    </h4>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Standard If-Else -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                            <div class="text-[10px] text-slate-400 font-bold mb-2 uppercase tracking-widest">標準 If-Else 寫法</div>
+                            <code class="text-[11px] text-slate-600 block leading-relaxed">
+                                String <span class="text-sky-600">result</span>;<br>
+                                <span class="text-purple-600">if</span> (age >= <span class="text-orange-600">18</span>) {<br>
+                                &nbsp;&nbsp;<span class="text-sky-600">result</span> = <span class="text-green-600">"可以進入"</span>;<br>
+                                } <span class="text-purple-600">else</span> {<br>
+                                &nbsp;&nbsp;<span class="text-sky-600">result</span> = <span class="text-green-600">"禁止進入"</span>;<br>
+                                }
+                            </code>
+                        </div>
+                        <!-- Ternary -->
+                        <div class="bg-indigo-900 p-6 rounded-2xl border border-indigo-700 shadow-lg flex items-center">
+                            <div class="w-full">
+                                <div class="text-[10px] text-indigo-300 font-bold mb-2 uppercase tracking-widest">三元運算子 (精簡一行版)</div>
+                                <code class="text-[12px] text-yellow-200 block leading-relaxed py-2">
+                                    String <span class="text-sky-300">result</span> = (age >= <span class="text-orange-400">18</span>) ? <span class="text-emerald-400">"可以進入"</span> : <span class="text-rose-400">"禁止進入"</span>;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-600 mt-6 leading-relaxed bg-white/50 p-4 rounded-xl border border-indigo-100">
+                        <b>對比：</b>左側是傳統寫法，邏輯清晰但佔用多行；右側是三元運算子，適合簡單的「二選一」賦值。
+                        <br>格式：<code>(條件) ? 真值 : 假值;</code>
+                    </p>
+                </div>
+            </div>
+        </section>
             </div>
         </section>
 
@@ -1467,14 +1586,92 @@
                 'entry': 'sec-entry',
                 'var-mem': 'sec-var-mem',
                 'object': 'tab-object-sec',
+                'ifelse': 'sec-ifelse',
                 'ai-magic': 'sec-ai-magic',
                 'sql': 'sec-sql'
             };
             document.getElementById(map[sectionId]).classList.remove('hidden');
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
-            document.getElementById('tab-' + sectionId).classList.add('active-tab');
+            
+            // Correctly reset and set active classes
+            document.querySelectorAll('nav button').forEach(b => {
+                b.classList.remove('active-tab');
+                b.classList.add('text-slate-500'); // 回復預設灰
+            });
+            const activeBtn = document.getElementById('tab-' + sectionId);
+            if(activeBtn) {
+                activeBtn.classList.add('active-tab');
+                activeBtn.classList.remove('text-slate-500'); // 移除預設灰
+            }
+
             lucide.createIcons();
             if (sectionId === 'fullstack') setTimeout(syncPaths, 100);
+        }
+
+        // --- IF-ELSE SIMULATION LOGIC ---
+        function simulateIfElse(age) {
+            const valAge = document.getElementById('ie-val-age');
+            const p1 = document.getElementById('ie-path-1');
+            const p1b = document.getElementById('ie-path-1-body');
+            const p2 = document.getElementById('ie-path-2');
+            const p2b = document.getElementById('ie-path-2-body');
+            const p3 = document.getElementById('ie-path-3');
+            const p3b = document.getElementById('ie-path-3-body');
+            
+            const vGate = document.getElementById('ie-visual-gate');
+            const vTitle = document.getElementById('ie-visual-title');
+            const vDesc = document.getElementById('ie-visual-desc');
+            const vBadge = document.getElementById('ie-result-badge');
+
+            // Reset Styles
+            [p1, p1b, p2, p2b, p3, p3b].forEach(el => {
+                el.classList.remove('text-indigo-400', 'font-black', 'bg-indigo-500/20', 'rounded-lg', 'scale-105');
+                if(el.id.includes('body')) {
+                    el.classList.add('text-slate-500');
+                    el.classList.remove('text-emerald-400');
+                } else {
+                    el.classList.add('text-slate-400');
+                }
+            });
+
+            valAge.innerText = age;
+            
+            let result = "";
+            let color = "";
+            let icon = "";
+
+            if (age >= 18) {
+                p1.classList.add('text-indigo-400', 'font-black', 'bg-indigo-500/20', 'rounded-lg', 'scale-105');
+                p1b.classList.remove('text-slate-500');
+                p1b.classList.add('text-emerald-400', 'font-black');
+                result = "限制級 (R)";
+                color = "bg-rose-600";
+                icon = "shield-alert";
+            } else if (age >= 12) {
+                p2.classList.add('text-indigo-400', 'font-black', 'bg-indigo-500/20', 'rounded-lg', 'scale-105');
+                p2b.classList.remove('text-slate-500');
+                p2b.classList.add('text-emerald-400', 'font-black');
+                result = "輔導級 (PG-13)";
+                color = "bg-amber-500";
+                icon = "info";
+            } else {
+                p3.classList.add('text-indigo-400', 'font-black', 'bg-indigo-500/20', 'rounded-lg', 'scale-105');
+                p3b.classList.remove('text-slate-500');
+                p3b.classList.add('text-emerald-400', 'font-black');
+                result = "普遍級 (G)";
+                color = "bg-emerald-500";
+                icon = "check-circle";
+            }
+
+            // Visual Update
+            vGate.className = `w-24 h-24 ${color} rounded-full flex items-center justify-center mb-6 transition-all duration-500 shadow-lg transform scale-110`;
+            vGate.innerHTML = `<i data-lucide="${icon}" size="48" class="text-white"></i>`;
+            vTitle.innerText = `判定結果：${result}`;
+            vDesc.innerText = `年齡 ${age} 歲符合條件，程式進入了對應的代碼區塊並執行。`;
+            vBadge.innerText = result;
+            vBadge.className = `mt-8 px-8 py-4 rounded-2xl ${color} text-white font-black text-xl shadow-xl animate-bounce`;
+            vBadge.classList.remove('hidden');
+
+            lucide.createIcons();
         }
 
         // --- WEB QUARTET LAB LOGIC ---
