@@ -432,6 +432,15 @@
                 transform: translateX(0);
             }
         }
+        @keyframes hammer-hit {
+            0% { transform: rotate(45deg); }
+            50% { transform: rotate(-10deg); }
+            100% { transform: rotate(45deg); }
+        }
+
+        .hammer-animate {
+            animation: hammer-hit 0.3s ease-in-out infinite;
+        }
     </style>
 </head>
 
@@ -442,7 +451,7 @@
         <div class="max-w-5xl mx-auto flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold flex items-center gap-3">
-                    <i data-lucide="coffee"></i> Java 核心基礎入門教學
+                    <i data-lucide="coffee"></i> Java 全端互動實驗室
                 </h1>
                 <p class="mt-2 text-indigo-200">全端應用架構、加密通訊與 Java 核心入門</p>
             </div>
@@ -454,38 +463,42 @@
 
     <!-- Navigation -->
     <nav class="bg-white sticky top-0 z-10 shadow-sm border-b">
-        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 divide-x divide-y border-x border-t">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 divide-x divide-y border-x border-t">
             <button onclick="showSection('fullstack')" id="tab-fullstack"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors active-tab">
-                1. 全端連線 SSL
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors active-tab">
+                1. 全端流程
             </button>
             <button onclick="showSection('web-quartet')" id="tab-web-quartet"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
                 2. 前端四重奏
             </button>
             <button onclick="showSection('entry')" id="tab-entry"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
-                3. Main 進入點
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                3. 後端新手村
             </button>
             <button onclick="showSection('var-mem')" id="tab-var-mem"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
                 4. 變數與記憶體
             </button>
             <button onclick="showSection('object')" id="tab-object"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
                 5. 類別與物件
             </button>
             <button onclick="showSection('ifelse')" id="tab-ifelse"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
                 6. 流程控制 (If)
             </button>
+            <button onclick="showSection('forloop')" id="tab-forloop"
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                7. 重工處理 (For)
+            </button>
             <button onclick="showSection('ai-magic')" id="tab-ai-magic"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
-                7. AI 魔法提示
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                8. AI 魔法提示
             </button>
             <button onclick="showSection('sql')" id="tab-sql"
-                class="py-3 px-2 text-xs md:text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors">
-                8. SQL 基礎
+                class="py-3 px-2 text-[10px] md:text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                9. SQL 基礎
             </button>
         </div>
     </nav>
@@ -590,12 +603,15 @@
             </div>
             </section>
 
-            <!-- SECTION 2: WEB QUARTET (HTML, CSS, JS, jQuery) -->
+            <!-- SECTION 2: WEB QUARTET (HTML, CSS, JavaScript, jQuery) -->
         <section id="sec-web-quartet" class="concept-section hidden">
             <div class="max-w-6xl mx-auto space-y-12">
                 <div class="text-center">
-                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">網頁前端四重奏：HTML, CSS, JS & jQuery</h2>
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">網頁前端四重奏：HTML, CSS, JavaScript(JS) & jQuery</h2>
                     <p class="text-slate-500">從結構、美學到靈魂，深入了解現代網頁的組成與演進</p>
+                    <div class="mt-4 inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-xs font-bold border border-amber-200">
+                        ⚠️ 重要提醒：JavaScript(JS) 與 Java 是完全不同的程式語言，就像「雷神」與「雷神巧克力」的關係！
+                    </div>
                 </div>
 
                 <!-- Intro Cards -->
@@ -612,13 +628,13 @@
                     </div>
                     <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-yellow-500 hover:-translate-y-2 transition-transform">
                         <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="zap"></i></div>
-                        <h4 class="font-bold text-lg text-slate-800">JS</h4>
+                        <h4 class="font-bold text-lg text-slate-800">JavaScript(JS)</h4>
                         <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>肌肉 (Action)</b><br>賦予網頁互動能力，處理資料與邏輯運算。</p>
                     </div>
                     <div class="bg-white p-6 rounded-3xl shadow-lg border-b-8 border-indigo-500 hover:-translate-y-2 transition-transform">
                         <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="layers"></i></div>
                         <h4 class="font-bold text-lg text-slate-800">jQuery</h4>
-                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>增強裝甲 (Enhanced)</b><br>簡化 JS 操作的函式庫，讓開發更快速、跨瀏覽器更穩定。</p>
+                        <p class="text-slate-500 text-[11px] mt-2 leading-relaxed"><b>增強裝甲 (Enhanced)</b><br>簡化 JavaScript 操作的函式庫，讓開發更快速、穩定。</p>
                     </div>
                 </div>
 
@@ -656,12 +672,12 @@
                                 </code>
                             </div>
 
-                            <!-- JS Control -->
+                            <!-- JavaScript Control -->
                             <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                                <label class="text-yellow-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="mouse-pointer-2" size="14"></i> JS/jQuery: 執行動作</label>
+                                <label class="text-yellow-400 font-bold text-xs flex items-center gap-2 mb-2"><i data-lucide="mouse-pointer-2" size="14"></i> JavaScript(JS)/jQuery: 執行動作</label>
                                 <div class="grid grid-cols-2 gap-2 mb-2">
                                     <button onclick="runLabJsAction()" class="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
-                                        JS 原生震動
+                                        JavaScript 原生震動
                                     </button>
                                     <button onclick="runLabJQueryAction()" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1.5 rounded-lg text-[10px] transition-all active:scale-95">
                                         jQuery 震動
@@ -688,18 +704,18 @@
                     </div>
                 </div>
 
-                <!-- Comparison: JS vs jQuery -->
+                <!-- Comparison: JavaScript vs jQuery -->
                 <div class="space-y-6">
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold text-indigo-900">進階：JS vs jQuery 語法差異</h3>
+                        <h3 class="text-2xl font-bold text-indigo-900">進階：JavaScript(JS) vs jQuery 語法差異</h3>
                         <p class="text-slate-500">只需兩招，看懂兩者的本質不同</p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-8">
-                        <!-- Vanilla JS Card -->
+                        <!-- Vanilla JavaScript Card -->
                         <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-200">
                             <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold">JS</div>
+                                <div class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-[10px]">JS</div>
                                 <h4 class="font-bold text-slate-800">原生 JavaScript (Vanilla)</h4>
                             </div>
                             <div class="space-y-4">
@@ -744,7 +760,7 @@
                             </div>
                             <div class="mt-6 p-4 bg-indigo-800/30 rounded-2xl border border-dashed border-indigo-400/30">
                                 <p class="text-[10px] text-indigo-100 italic">
-                                    <b>結論：</b>原生 JS 效能高但開發慢；jQuery 用語義化語法（$）大幅縮短開發時間。
+                                    <b>結論：</b>原生 JavaScript 效能高但開發慢；jQuery 用語義化語法（$）大幅縮短開發時間。
                                 </p>
                             </div>
                         </div>
@@ -1075,7 +1091,145 @@
             </div>
         </section>
 
-        <!-- SECTION 5: AI MAGIC PROMPT -->
+        <!-- SECTION 7: FOR LOOP (CAR PRODUCTION) -->
+        <section id="sec-forloop" class="concept-section hidden">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-2">迴圈控制：For Loop 汽車生產線</h2>
+                    <p class="text-slate-500">當需要重複執行相同動作時，For 迴圈是自動化生產的最佳助手</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8 items-stretch">
+                    <!-- Left: Control & Code -->
+                    <div class="flex flex-col space-y-6">
+                        <div class="bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border-4 border-slate-800 flex-1">
+                            <h3 class="text-white font-bold mb-6 flex items-center gap-2">
+                                <i data-lucide="factory" class="text-emerald-400"></i> Java 迴圈語法
+                            </h3>
+                            
+                            <div class="mb-8">
+                                <button id="btn-run-for" onclick="simulateForLoop()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black shadow-lg transition-all active:scale-95 flex items-center justify-center gap-3">
+                                    <i data-lucide="play"></i> 啟動汽車生產線 (生產 10 輛車)
+                                </button>
+                            </div>
+
+                            <!-- Code Block -->
+                            <div class="bg-black/50 rounded-2xl p-8 code-font text-[14px] leading-relaxed relative overflow-hidden">
+                                <div id="for-line-1" class="transition-all duration-300 p-1 text-slate-300">
+                                    <span class="text-purple-400">for</span> (
+                                    <span id="for-part-init" class="text-sky-300">int i = 1</span>; 
+                                    <span id="for-part-cond" class="text-sky-300">i <= 10</span>; 
+                                    <span id="for-part-inc" class="text-sky-300">i++</span>
+                                    ) {
+                                </div>
+                                <div id="for-line-body" class="pl-8 text-slate-500 transition-all duration-300">
+                                    System.out.println(<span class="text-green-400">"第 "</span> + <span class="text-sky-300 font-bold">i</span> + <span class="text-green-400">" 輛汽車生產完成！"</span>);
+                                </div>
+                                <div id="for-line-end" class="transition-all duration-300 p-1 text-slate-300">}</div>
+                                
+                                <!-- Tooltip Overlay -->
+                                <div id="for-tooltip" class="absolute top-2 right-4 bg-indigo-600 text-white text-[10px] px-3 py-1 rounded-full font-bold opacity-0 transition-opacity">
+                                    準備開始...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Visual Factory -->
+                    <div class="flex flex-col space-y-6">
+                        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 flex-1 flex flex-col items-center justify-between">
+                            <div class="w-full flex justify-between items-center mb-6">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Car Production Line</span>
+                                </div>
+                                <div class="text-2xl font-black text-indigo-900 code-font">
+                                    Cars: <span id="for-visual-count" class="text-emerald-600">0</span> / 10
+                                </div>
+                            </div>
+
+                            <!-- Visual Area (Factory Floor) -->
+                            <div id="for-visual-container" class="relative w-full h-64 bg-slate-900 rounded-[2.5rem] border-4 border-slate-800 overflow-hidden flex items-center justify-center shadow-inner">
+                                <!-- Background Industrial Grid -->
+                                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                                
+                                <!-- Large Factory Icon -->
+                                <div id="for-worker" class="relative z-10 transition-all duration-300 transform mb-12">
+                                    <div class="relative">
+                                        <i data-lucide="factory" size="100" class="text-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.4)]"></i>
+                                        <!-- Hammer Icon (Hidden by default) -->
+                                        <div id="for-hammer" class="absolute -top-10 -right-8 opacity-0 transition-opacity">
+                                            <i data-lucide="gavel" size="60" class="text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)]"></i>
+                                        </div>
+                                        <!-- Animated Smoke -->
+                                        <div id="factory-smoke" class="absolute -top-4 right-4 flex gap-1 opacity-0 transition-opacity">
+                                            <div class="w-3 h-3 bg-slate-400 rounded-full animate-ping"></div>
+                                            <div class="w-2 h-2 bg-slate-500 rounded-full animate-ping" style="animation-delay: 0.2s"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Conveyor Belt -->
+                                <div class="absolute bottom-0 w-full h-16 bg-slate-800 border-t-4 border-slate-700 flex items-center overflow-hidden">
+                                    <div id="conveyor-belt" class="flex gap-2 px-4 w-full justify-start items-center">
+                                        <!-- Cars will move here, tightly spaced -->
+                                    </div>
+                                    <!-- Belt Rollers -->
+                                    <div class="absolute bottom-1 w-full flex justify-around opacity-20">
+                                        <div class="w-3 h-3 rounded-full border border-slate-500 animate-spin"></div>
+                                        <div class="w-3 h-3 rounded-full border border-slate-500 animate-spin"></div>
+                                        <div class="w-3 h-3 rounded-full border border-slate-500 animate-spin"></div>
+                                        <div class="w-3 h-3 rounded-full border border-slate-500 animate-spin"></div>
+                                        <div class="w-3 h-3 rounded-full border border-slate-500 animate-spin"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Sparks Container -->
+                                <div id="for-sparks-container" class="absolute inset-0 pointer-events-none z-20"></div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="w-full mt-6 space-y-2">
+                                <div class="flex justify-between text-[10px] font-bold text-slate-400">
+                                    <span>PRODUCTION PROGRESS</span>
+                                    <span id="for-progress-percent">0%</span>
+                                </div>
+                                <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden border border-slate-200 shadow-inner">
+                                    <div id="for-progress-bar" class="h-full bg-emerald-500 transition-all duration-300 w-0"></div>
+                                </div>
+                            </div>
+
+                            <div id="for-status-msg" class="mt-4 text-sm font-medium text-slate-400 italic">
+                                生產線待機中...
+                            </div>
+                        </div>
+
+                        <!-- Analysis Box -->
+                        <div class="bg-indigo-900 rounded-3xl p-6 text-white shadow-xl">
+                            <h4 class="font-bold mb-3 flex items-center gap-2 text-sm text-indigo-200">
+                                <i data-lucide="info" size="18"></i> For 迴圈三部曲
+                            </h4>
+                            <div class="grid grid-cols-3 gap-2 text-[10px]">
+                                <div class="bg-indigo-800/50 p-2 rounded-xl border border-indigo-700">
+                                    <span class="text-sky-300 block mb-1">1. 初始化</span>
+                                    設定起點 (i=1)
+                                </div>
+                                <div class="bg-indigo-800/50 p-2 rounded-xl border border-indigo-700">
+                                    <span class="text-emerald-300 block mb-1">2. 判斷式</span>
+                                    檢查是否繼續
+                                </div>
+                                <div class="bg-indigo-800/50 p-2 rounded-xl border border-indigo-700">
+                                    <span class="text-amber-300 block mb-1">3. 執行次數</span>
+                                    更新數值 (i++)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: AI MAGIC PROMPT -->
         <section id="sec-ai-magic" class="concept-section hidden">
             <div class="max-w-6xl mx-auto space-y-12">
                 <div class="text-center">
@@ -1587,6 +1741,7 @@
                 'var-mem': 'sec-var-mem',
                 'object': 'tab-object-sec',
                 'ifelse': 'sec-ifelse',
+                'forloop': 'sec-forloop',
                 'ai-magic': 'sec-ai-magic',
                 'sql': 'sec-sql'
             };
@@ -1605,6 +1760,119 @@
 
             lucide.createIcons();
             if (sectionId === 'fullstack') setTimeout(syncPaths, 100);
+        }
+
+        // --- FOR LOOP SIMULATION LOGIC ---
+        let isForRunning = false;
+        async function simulateForLoop() {
+            if (isForRunning) return;
+            isForRunning = true;
+
+            const btn = document.getElementById('btn-run-for');
+            const countDisplay = document.getElementById('for-visual-count');
+            const progBar = document.getElementById('for-progress-bar');
+            const progPercent = document.getElementById('for-progress-percent');
+            const statusMsg = document.getElementById('for-status-msg');
+            const tooltip = document.getElementById('for-tooltip');
+            const worker = document.getElementById('for-worker');
+            const hammer = document.getElementById('for-hammer');
+            const smoke = document.getElementById('factory-smoke');
+            const conveyor = document.getElementById('conveyor-belt');
+            const sparksContainer = document.getElementById('for-sparks-container');
+
+            const partInit = document.getElementById('for-part-init');
+            const partCond = document.getElementById('for-part-cond');
+            const partInc = document.getElementById('for-part-inc');
+            const lineBody = document.getElementById('for-line-body');
+
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+            
+            // Reset
+            countDisplay.innerText = "0";
+            progBar.style.width = "0%";
+            progPercent.innerText = "0%";
+            conveyor.innerHTML = '';
+            statusMsg.innerText = "🏭 工廠生產線啟動中...";
+            smoke.classList.remove('opacity-0');
+            
+            const highlight = (el, tip, colorClass) => {
+                document.querySelectorAll('.code-font span, .code-font div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
+                el.classList.add('bg-indigo-500/30', 'font-black', 'text-white');
+                tooltip.innerText = tip;
+                tooltip.style.opacity = '1';
+                tooltip.className = `absolute top-2 right-4 text-white text-[10px] px-3 py-1 rounded-full font-bold transition-all ${colorClass}`;
+            };
+
+            // Step 1: Initialization
+            highlight(partInit, "1. 初始化: i = 1", "bg-sky-600");
+            await new Promise(r => setTimeout(r, 800));
+
+            for (let i = 1; i <= 10; i++) {
+                // Step 2: Condition
+                highlight(partCond, `2. 判斷: ${i} <= 10 ? (YES)`, "bg-emerald-600");
+                await new Promise(r => setTimeout(r, 400));
+
+                // Step 3: Body (The Action)
+                highlight(lineBody, `3. 執行: 生產第 ${i} 輛汽車`, "bg-indigo-600");
+                statusMsg.innerText = `正在組裝第 ${i} 輛汽車...`;
+                
+                // Hammer & Spark Animation
+                hammer.classList.remove('opacity-0');
+                hammer.classList.add('hammer-animate');
+                
+                for(let s=0; s<8; s++) {
+                    const spark = document.createElement('div');
+                    spark.className = "absolute w-1 h-1 bg-yellow-400 rounded-full animate-ping";
+                    spark.style.left = `calc(50% + ${(Math.random()-0.5)*120}px)`;
+                    spark.style.top = `calc(50% + ${(Math.random()-0.5)*120}px)`;
+                    sparksContainer.appendChild(spark);
+                    setTimeout(() => spark.remove(), 400);
+                }
+
+                // Create Car on Conveyor (Smaller icons to fit 10)
+                const car = document.createElement('div');
+                car.className = "flex flex-col items-center transition-all duration-700 transform translate-x-[-50px] opacity-0";
+                car.style.minWidth = "40px";
+                car.innerHTML = `
+                    <i data-lucide="car" class="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" size="24"></i>
+                    <span class="text-[7px] font-black text-indigo-300 mt-0.5">#${i}</span>
+                `;
+                conveyor.appendChild(car); // Use appendChild to stack them from left to right
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    car.classList.remove('translate-x-[-50px]', 'opacity-0');
+                    car.classList.add('translate-x-[0px]', 'opacity-100');
+                }, 50);
+
+                await new Promise(r => setTimeout(r, 600));
+                hammer.classList.remove('hammer-animate');
+                hammer.classList.add('opacity-0');
+
+                // Update UI
+                countDisplay.innerText = i;
+                progBar.style.width = `${i * 10}%`;
+                progPercent.innerText = `${i * 10}%`;
+
+                // Step 4: Increment
+                highlight(partInc, `4. 執行次數: i 變 ${i + 1}`, "bg-amber-600");
+                await new Promise(r => setTimeout(r, 400));
+            }
+
+            // End
+            highlight(partCond, "結束: 11 <= 10 ? (NO)", "bg-rose-600");
+            statusMsg.innerText = "✅ 訂單達成！10 輛汽車已完成交付。";
+            tooltip.innerText = "迴圈結束";
+            smoke.classList.add('opacity-0');
+            
+            await new Promise(r => setTimeout(r, 1000));
+            tooltip.style.opacity = '0';
+            document.querySelectorAll('.code-font span, .code-font div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
+            
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+            isForRunning = false;
         }
 
         // --- IF-ELSE SIMULATION LOGIC ---
@@ -1717,7 +1985,7 @@
             if (!el || !status) return;
 
             codeSnippet.innerText = "for(let i=0; i<10; i++) {\n  el.style.transform = `translateX(${i%2?15:-15}px)`;\n}";
-            status.innerText = "原生 JS 震動中...";
+            status.innerText = "原生 JavaScript 震動中...";
             status.classList.add('text-yellow-400', 'font-bold');
 
             const originalTransition = el.style.transition;
@@ -1731,7 +1999,7 @@
             el.style.transform = `translateX(0)`;
             el.style.transition = originalTransition;
 
-            status.innerText = "原生 JS 執行完成";
+            status.innerText = "原生 JavaScript 執行完成";
             status.classList.replace('text-yellow-400', 'text-emerald-400');
             
             setTimeout(() => {
