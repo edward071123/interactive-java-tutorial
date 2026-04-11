@@ -11,6 +11,13 @@ const SECTION_MAP = {
 };
 const SECTION_STORAGE_KEY = 'java-lab-active-section';
 const SECTION_ANIMATION_MS = 650;
+const FOR_LOOP_SPEED_STORAGE_KEY = 'java-lab-for-speed';
+const FOR_LOOP_SPEED_PRESETS = {
+    slow: { label: '慢速', multiplier: 1.45 },
+    normal: { label: '標準', multiplier: 1 },
+    fast: { label: '快速', multiplier: 0.7 }
+};
+let currentForLoopSpeed = 'normal';
 
 function refreshIcons() {
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
@@ -43,6 +50,50 @@ function restoreActiveSection() {
     } catch (_) {
         // Ignore storage failures
     }
+}
+
+function getForLoopSpeedProfile() {
+    return FOR_LOOP_SPEED_PRESETS[currentForLoopSpeed] || FOR_LOOP_SPEED_PRESETS.normal;
+}
+
+function applyForLoopSpeedUI() {
+    Object.keys(FOR_LOOP_SPEED_PRESETS).forEach(mode => {
+        const button = document.getElementById(`for-speed-${mode}`);
+        if (!button) return;
+        const isActive = currentForLoopSpeed === mode;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+}
+
+function setForLoopSpeed(mode) {
+    if (!FOR_LOOP_SPEED_PRESETS[mode]) return;
+    currentForLoopSpeed = mode;
+    applyForLoopSpeedUI();
+    try {
+        localStorage.setItem(FOR_LOOP_SPEED_STORAGE_KEY, mode);
+    } catch (_) {
+        // Ignore storage failures
+    }
+}
+
+function restoreForLoopSpeed() {
+    try {
+        const saved = localStorage.getItem(FOR_LOOP_SPEED_STORAGE_KEY);
+        if (saved && FOR_LOOP_SPEED_PRESETS[saved]) {
+            currentForLoopSpeed = saved;
+        }
+    } catch (_) {
+        // Ignore storage failures
+    }
+    applyForLoopSpeedUI();
+}
+
+function setForLoopSpeedControlsDisabled(disabled) {
+    document.querySelectorAll('#for-speed-controls .for-speed-btn').forEach(button => {
+        button.disabled = disabled;
+        button.classList.toggle('is-disabled', disabled);
+    });
 }
 
 function setupTabKeyboardNavigation() {
@@ -118,27 +169,76 @@ async function simulateForLoop() {
     const hammer = document.getElementById('for-hammer');
     const smoke = document.getElementById('factory-smoke');
     const conveyor = document.getElementById('conveyor-belt');
+    const conveyorTrack = document.getElementById('for-conveyor-track');
     const sparksContainer = document.getElementById('for-sparks-container');
     const forCodeBlock = document.getElementById('for-loop-code-block');
+    const visualContainer = document.getElementById('for-visual-container');
 
     const partInit = document.getElementById('for-part-init');
     const partCond = document.getElementById('for-part-cond');
     const partInc = document.getElementById('for-part-inc');
     const lineBody = document.getElementById('for-line-body');
+    const totalCars = 10;
+
+    if (!btn || !countDisplay || !progBar || !progPercent || !statusMsg || !tooltip || !worker || !hammer || !smoke || !conveyor || !conveyorTrack || !sparksContainer || !forCodeBlock || !partInit || !partCond || !partInc || !lineBody) {
+        isForRunning = false;
+        return;
+    }
+
+    const speedProfile = getForLoopSpeedProfile();
+    const pace = speedProfile.multiplier;
+    const speedLabel = speedProfile.label;
+    const t = (ms) => Math.max(120, Math.round(ms * pace));
+
+    const timing = {
+        init: t(850),
+        condition: t(600),
+        assembly: t(720),
+        increment: t(420),
+        finish: t(700)
+    };
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const clearCodeHighlight = () => {
+        forCodeBlock.querySelectorAll('span, div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
+    };
+    const animateProgressTo = (targetPercent, duration = t(520)) => new Promise(resolve => {
+        const startPercent = Number.parseFloat(progBar.style.width) || 0;
+        const startAt = performance.now();
+        const step = (now) => {
+            const raw = Math.min((now - startAt) / duration, 1);
+            const eased = 1 - Math.pow(1 - raw, 3);
+            const current = startPercent + (targetPercent - startPercent) * eased;
+            const rounded = Math.round(current);
+            progBar.style.width = `${current}%`;
+            progPercent.innerText = `${rounded}%`;
+            if (raw < 1) {
+                window.requestAnimationFrame(step);
+                return;
+            }
+            progBar.style.width = `${targetPercent}%`;
+            progPercent.innerText = `${Math.round(targetPercent)}%`;
+            resolve();
+        };
+        window.requestAnimationFrame(step);
+    });
 
     btn.disabled = true;
     btn.classList.add('opacity-50');
+    setForLoopSpeedControlsDisabled(true);
 
     // Reset
     countDisplay.innerText = "0";
     progBar.style.width = "0%";
     progPercent.innerText = "0%";
     conveyor.innerHTML = '';
-    statusMsg.innerText = "🏭 工廠生產線啟動中...";
+    statusMsg.innerText = `🏭 工廠生產線啟動中...（${speedLabel}）`;
     smoke.classList.remove('opacity-0');
+    worker.classList.add('factory-worker-busy');
+    conveyorTrack.classList.add('conveyor-running');
+    visualContainer?.classList.add('for-visual-active');
 
     const highlight = (el, tip, colorClass) => {
-        forCodeBlock.querySelectorAll('span, div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
+        clearCodeHighlight();
         el.classList.add('bg-indigo-500/30', 'font-black', 'text-white');
         tooltip.innerText = tip;
         tooltip.style.opacity = '1';
@@ -147,12 +247,12 @@ async function simulateForLoop() {
 
     // Step 1: Initialization
     highlight(partInit, "1. 初始化: i = 1", "bg-sky-600");
-    await new Promise(r => setTimeout(r, 3500));
+    await sleep(timing.init);
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= totalCars; i++) {
         // Step 2: Condition
-        highlight(partCond, `2. 判斷: ${i} <= 10 ? (YES)`, "bg-emerald-600");
-        await new Promise(r => setTimeout(r, 3000));
+        highlight(partCond, `2. 判斷: ${i} <= ${totalCars} ? (YES)`, "bg-emerald-600");
+        await sleep(timing.condition);
 
         // Step 3: Body (The Action)
         highlight(lineBody, `3. 執行: 生產第 ${i} 輛汽車`, "bg-indigo-600");
@@ -162,7 +262,7 @@ async function simulateForLoop() {
         hammer.classList.remove('opacity-0');
         hammer.classList.add('hammer-animate');
 
-        for (let s = 0; s < 8; s++) {
+        for (let s = 0; s < 6; s++) {
             const spark = document.createElement('div');
             spark.className = "absolute w-1 h-1 bg-yellow-400 rounded-full animate-ping";
             spark.style.left = `calc(50% + ${(Math.random() - 0.5) * 120}px)`;
@@ -173,46 +273,51 @@ async function simulateForLoop() {
 
         // Create Car on Conveyor (Smaller icons to fit 10)
         const car = document.createElement('div');
-        car.className = "flex flex-col items-center transition-all duration-1000 transform translate-x-[-50px] opacity-0";
+        car.className = "flex flex-col items-center transition-all duration-500 transform translate-y-4 scale-95 opacity-0";
         car.style.minWidth = "40px";
         car.innerHTML = `
             <i data-lucide="car" class="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" size="24"></i>
             <span class="text-[7px] font-black text-indigo-300 mt-0.5">#${i}</span>
         `;
-        conveyor.appendChild(car); // Use appendChild to stack them from left to right
+        conveyor.appendChild(car);
         refreshIcons();
+        requestAnimationFrame(() => {
+            car.classList.remove('translate-y-4', 'scale-95', 'opacity-0');
+            car.classList.add('translate-y-0', 'scale-100', 'opacity-100');
+        });
 
-        setTimeout(() => {
-            car.classList.remove('translate-x-[-50px]', 'opacity-0');
-            car.classList.add('translate-x-[0px]', 'opacity-100');
-        }, 50);
+        countDisplay.innerText = String(i);
+        const targetPercent = (i / totalCars) * 100;
+        statusMsg.innerText = `正在組裝第 ${i} 輛汽車... (${Math.round(targetPercent)}%)`;
+        await Promise.all([
+            animateProgressTo(targetPercent),
+            sleep(timing.assembly)
+        ]);
 
-        await new Promise(r => setTimeout(r, 3000));
         hammer.classList.remove('hammer-animate');
         hammer.classList.add('opacity-0');
 
-        // Update UI
-        countDisplay.innerText = i;
-        progBar.style.width = `${i * 10}%`;
-        progPercent.innerText = `${i * 10}%`;
-
         // Step 4: Increment
         highlight(partInc, `4. 執行次數: i 變 ${i + 1}`, "bg-amber-600");
-        await new Promise(r => setTimeout(r, 2500));
+        await sleep(timing.increment);
     }
 
     // End
-    highlight(partCond, "結束: 11 <= 10 ? (NO)", "bg-rose-600");
+    highlight(partCond, `結束: ${totalCars + 1} <= ${totalCars} ? (NO)`, "bg-rose-600");
     statusMsg.innerText = "✅ 訂單達成！10 輛汽車已完成交付。";
     tooltip.innerText = "迴圈結束";
     smoke.classList.add('opacity-0');
+    worker.classList.remove('factory-worker-busy');
+    conveyorTrack.classList.remove('conveyor-running');
+    visualContainer?.classList.remove('for-visual-active');
 
-    await new Promise(r => setTimeout(r, 1000));
+    await sleep(timing.finish);
     tooltip.style.opacity = '0';
-    forCodeBlock.querySelectorAll('span, div').forEach(e => e.classList.remove('bg-indigo-500/30', 'font-black', 'text-white'));
+    clearCodeHighlight();
 
     btn.disabled = false;
     btn.classList.remove('opacity-50');
+    setForLoopSpeedControlsDisabled(false);
     isForRunning = false;
 }
 
@@ -902,6 +1007,7 @@ window.addEventListener('DOMContentLoaded', () => {
     renderSqlTable();
     setupTabKeyboardNavigation();
     restoreActiveSection();
+    restoreForLoopSpeed();
     updateLabPreview();
     refreshIcons();
     setTimeout(syncPaths, 100);

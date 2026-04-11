@@ -777,6 +777,23 @@
                                     class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black shadow-lg transition-all active:scale-95 flex items-center justify-center gap-3">
                                     <i data-lucide="play"></i> 啟動汽車生產線 (生產 10 輛車)
                                 </button>
+                                <div class="mt-4">
+                                    <div class="text-[10px] text-slate-400 font-bold tracking-widest mb-2">生產速度</div>
+                                    <div class="grid grid-cols-3 gap-2" id="for-speed-controls">
+                                        <button id="for-speed-slow" onclick="setForLoopSpeed('slow')" type="button"
+                                            class="for-speed-btn text-[11px] py-2 rounded-xl font-black transition-all">
+                                            慢速
+                                        </button>
+                                        <button id="for-speed-normal" onclick="setForLoopSpeed('normal')" type="button"
+                                            class="for-speed-btn text-[11px] py-2 rounded-xl font-black transition-all">
+                                            標準
+                                        </button>
+                                        <button id="for-speed-fast" onclick="setForLoopSpeed('fast')" type="button"
+                                            class="for-speed-btn text-[11px] py-2 rounded-xl font-black transition-all">
+                                            快速
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Code Block -->
@@ -792,7 +809,7 @@
                                 <div id="for-line-body" class="pl-8 text-slate-500 transition-all duration-300">
                                     System.out.println(<span class="text-green-400">"第 "</span> + <span
                                         class="text-sky-300 font-bold">i</span> + <span class="text-green-400">"
-                                        輛汽車生產完成！"</span>);
+                                        輛汽車已完成"</span>);
                                 </div>
                                 <div id="for-line-end" class="transition-all duration-300 p-1 text-slate-300">}</div>
 
@@ -831,8 +848,12 @@
                                 <!-- Large Factory Icon -->
                                 <div id="for-worker" class="relative z-10 transition-all duration-300 transform mb-12">
                                     <div class="relative">
-                                        <i data-lucide="factory" size="100"
-                                            class="text-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.4)]"></i>
+                                        <i data-lucide="car" size="108"
+                                            class="text-emerald-400 drop-shadow-[0_0_20px_rgba(16,185,129,0.42)]"></i>
+                                        <div class="absolute -bottom-2 -right-5">
+                                            <i data-lucide="cog" size="34"
+                                                class="text-amber-300 drop-shadow-[0_0_10px_rgba(251,191,36,0.42)]"></i>
+                                        </div>
                                         <!-- Hammer Icon (Hidden by default) -->
                                         <div id="for-hammer"
                                             class="absolute -top-10 -right-8 opacity-0 transition-opacity">
@@ -850,8 +871,8 @@
                                 </div>
 
                                 <!-- Conveyor Belt -->
-                                <div
-                                    class="absolute bottom-0 w-full h-16 bg-slate-800 border-t-4 border-slate-700 flex items-center overflow-hidden">
+                                <div id="for-conveyor-track"
+                                    class="for-conveyor-track absolute bottom-0 w-full h-16 bg-slate-800 border-t-4 border-slate-700 flex items-center overflow-hidden">
                                     <div id="conveyor-belt" class="flex gap-2 px-4 w-full justify-start items-center">
                                         <!-- Cars will move here, tightly spaced -->
                                     </div>
