@@ -450,6 +450,15 @@
                             class="bg-red-600 hover:bg-red-500 text-white px-6 py-4 rounded-full font-bold shadow-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
                             <i data-lucide="shield-alert"></i> 模擬帳密有誤, 無法登入
                         </button>
+                        <button onclick="toggleDetailedFlowPause()" id="btn-pause-resume-sim" disabled
+                            class="bg-slate-700 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
+                            <i id="flow-pause-icon" data-lucide="pause"></i>
+                            <span id="flow-pause-label">暫停流程</span>
+                        </button>
+                        <div id="flow-play-state"
+                            class="text-[11px] text-slate-400 font-bold italic tracking-wide text-center">
+                            待機中
+                        </div>
                     </div>
                 </div>
 

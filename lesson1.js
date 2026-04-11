@@ -799,10 +799,82 @@ async function runAiMagicSimulation() {
 
 // --- DETAILED FLOW LOGIC ---
 let isFlowing = false;
+let isFlowPaused = false;
+let flowPauseResolvers = [];
+
+function refreshFlowPauseUI() {
+    const pauseBtn = document.getElementById('btn-pause-resume-sim');
+    const pauseLabel = document.getElementById('flow-pause-label');
+    const pauseIcon = document.getElementById('flow-pause-icon');
+    const playState = document.getElementById('flow-play-state');
+    if (!pauseBtn || !pauseLabel || !pauseIcon || !playState) return;
+
+    if (!isFlowing) {
+        pauseBtn.disabled = true;
+        pauseBtn.className = 'bg-slate-700 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed';
+        pauseLabel.innerText = '暫停流程';
+        pauseIcon.setAttribute('data-lucide', 'pause');
+        playState.innerText = '待機中';
+        playState.className = 'text-[11px] text-slate-400 font-bold italic tracking-wide text-center';
+        refreshIcons();
+        return;
+    }
+
+    pauseBtn.disabled = false;
+    pauseBtn.className = 'text-white px-6 py-3 rounded-full font-bold shadow-lg transition-all flex items-center justify-center gap-2 active:scale-95';
+    if (isFlowPaused) {
+        pauseBtn.classList.add('bg-amber-600', 'hover:bg-amber-500');
+        pauseLabel.innerText = '繼續流程';
+        pauseIcon.setAttribute('data-lucide', 'play');
+        playState.innerText = '已暫停';
+        playState.className = 'text-[11px] text-amber-500 font-bold italic tracking-wide text-center';
+    } else {
+        pauseBtn.classList.add('bg-slate-700', 'hover:bg-slate-600');
+        pauseLabel.innerText = '暫停流程';
+        pauseIcon.setAttribute('data-lucide', 'pause');
+        playState.innerText = '播放中';
+        playState.className = 'text-[11px] text-emerald-500 font-bold italic tracking-wide text-center';
+    }
+    refreshIcons();
+}
+
+function setDetailedFlowPaused(paused) {
+    if (!isFlowing) return;
+    isFlowPaused = paused;
+    if (!isFlowPaused && flowPauseResolvers.length) {
+        flowPauseResolvers.forEach(resolve => resolve());
+        flowPauseResolvers = [];
+    }
+    refreshFlowPauseUI();
+}
+
+function toggleDetailedFlowPause() {
+    if (!isFlowing) return;
+    setDetailedFlowPaused(!isFlowPaused);
+}
+
+async function waitForDetailedFlowResume() {
+    while (isFlowPaused) {
+        await new Promise(resolve => flowPauseResolvers.push(resolve));
+    }
+}
+
+async function detailedFlowDelay(ms) {
+    let remaining = ms;
+    const tick = 60;
+    while (remaining > 0) {
+        await waitForDetailedFlowResume();
+        const slice = Math.min(tick, remaining);
+        await new Promise(resolve => setTimeout(resolve, slice));
+        remaining -= slice;
+    }
+}
 
 async function startDetailedFlow(isSuccess) {
     if (isFlowing) return;
     isFlowing = true;
+    isFlowPaused = false;
+    refreshFlowPauseUI();
 
     const btnS = document.getElementById('btn-success-sim');
     const btnF = document.getElementById('btn-fail-sim');
@@ -814,6 +886,7 @@ async function startDetailedFlow(isSuccess) {
     const uiFail = document.getElementById('ui-page-fail');
     const inputUser = document.getElementById('input-user');
     const inputPass = document.getElementById('input-pass');
+    const fakeLoginBtn = document.getElementById('fake-login-btn');
 
     const sSSL = document.getElementById('s-step-ssl');
     const sStatic = document.getElementById('s-step-static');
@@ -832,6 +905,11 @@ async function startDetailedFlow(isSuccess) {
     uiInitial.classList.remove('hidden');
     uiLogin.classList.add('hidden'); uiSuccess.classList.add('hidden'); uiFail.classList.add('hidden');
     inputUser.innerText = ''; inputPass.innerText = '';
+    if (fakeLoginBtn) {
+        fakeLoginBtn.classList.add('opacity-50');
+        fakeLoginBtn.classList.remove('login-btn-clicking');
+        fakeLoginBtn.innerText = 'Submit';
+    }
     packet.classList.remove('encrypted');
     cardHttp.classList.remove('highlight-card');
     cardHttps.classList.remove('highlight-card');
@@ -839,6 +917,7 @@ async function startDetailedFlow(isSuccess) {
     [sSSL, sStatic, sCompare, sResp].forEach(el => el.classList.remove('server-step-active'));
 
     const runStep = async (stepNum, node, path = null, callback = null, duration = 5000) => {
+        await waitForDetailedFlowResume();
         document.querySelectorAll('.step-item').forEach(s => s.classList.remove('step-highlight'));
         const currentStep = document.getElementById(`step-${stepNum}`);
         if (currentStep) {
@@ -849,95 +928,121 @@ async function startDetailedFlow(isSuccess) {
         document.querySelectorAll('.web-node').forEach(n => n.classList.remove('active'));
         if (node) document.getElementById(node).classList.add('active');
         if (callback) await callback();
+        await waitForDetailedFlowResume();
         if (path) {
             packet.style.display = 'block';
             await animatePacketAlongPath('login-packet', path, duration);
         } else {
-            await new Promise(r => setTimeout(r, 6000));
+            await detailedFlowDelay(duration);
         }
     };
 
-    // 1. Enter URL
-    await runStep(1, 'lnode-client', null, async () => {
-        cardHttp.classList.add('highlight-card');
-        const url = 'http://edward.com/login';
-        for (let char of url) {
-            addrBar.innerText += char;
-            await new Promise(r => setTimeout(r, 80));
+    try {
+        // 1. Enter URL
+        await runStep(1, 'lnode-client', null, async () => {
+            cardHttp.classList.add('highlight-card');
+            const url = 'http://edward.com/login';
+            for (let char of url) {
+                await waitForDetailedFlowResume();
+                addrBar.innerText += char;
+                await detailedFlowDelay(80);
+            }
+        }, 900);
+
+        // 2. DNS
+        await runStep(2, 'lnode-dns', 'lpath-dns-in');
+        await runStep(3, 'lnode-dns', 'lpath-dns-out', () => {
+            addrBar.innerText = '104.26.10.22/login';
+        });
+
+        // 4. SSL Handshake
+        await runStep(4, 'lnode-client', 'lpath-req');
+        await runStep(5, 'lnode-server', 'lpath-res', () => {
+            sSSL.classList.add('server-step-active');
+        });
+
+        // 6. HTTPS Transition
+        await runStep(6, 'lnode-client', null, () => {
+            sSSL.classList.remove('server-step-active');
+            cardHttp.classList.remove('highlight-card');
+            cardHttps.classList.add('highlight-card');
+            addrBar.innerHTML = '<span class="text-emerald-600">🔒 https://edward.com/login</span>';
+            addrBar.className = 'bg-white flex-1 rounded px-1 truncate text-emerald-600 font-bold';
+            packet.classList.add('encrypted');
+        }, 900);
+
+        // 7. Request Static
+        await runStep(7, 'lnode-client', 'lpath-req');
+        await runStep(8, 'lnode-server', 'lpath-res', () => {
+            sStatic.classList.add('server-step-active');
+        });
+
+        // 9. Interaction
+        await runStep(9, 'lnode-client', null, () => {
+            sStatic.classList.remove('server-step-active');
+            uiInitial.classList.add('hidden'); uiLogin.classList.remove('hidden');
+        });
+
+        // 10. Typing
+        await runStep(10, 'lnode-client', null, async () => {
+            const user = "Edward";
+            for (let char of user) {
+                await waitForDetailedFlowResume();
+                inputUser.innerHTML += char;
+                await detailedFlowDelay(250);
+            }
+            await detailedFlowDelay(800);
+            const pass = isSuccess ? "1234" : "wrong";
+            for (let char of pass) {
+                await waitForDetailedFlowResume();
+                inputPass.innerHTML += char;
+                await detailedFlowDelay(250);
+            }
+            if (fakeLoginBtn) {
+                fakeLoginBtn.classList.remove('opacity-50');
+                await detailedFlowDelay(150);
+                fakeLoginBtn.innerText = 'Submitting...';
+                fakeLoginBtn.classList.add('login-btn-clicking');
+                await detailedFlowDelay(320);
+                fakeLoginBtn.classList.remove('login-btn-clicking');
+                fakeLoginBtn.innerText = 'Submit';
+            }
+        }, 380);
+
+        // 11. Submit
+        await runStep(11, 'lnode-client', 'lpath-req');
+
+        // 12. Java Logic Start
+        await runStep(12, 'lnode-server', 'lpath-db-in', () => {
+            sCompare.classList.add('server-step-active');
+        });
+        await runStep(13, 'lnode-db', 'lpath-db-out');
+
+        // 14. Branching & Packaging
+        await runStep(14, 'lnode-server', 'lpath-res', () => {
+            sCompare.classList.remove('server-step-active');
+            sResp.classList.add('server-step-active');
+        });
+
+        // 15. Final Render
+        await runStep(15, 'lnode-client', null, () => {
+            sResp.classList.remove('server-step-active');
+            uiLogin.classList.add('hidden');
+            if (isSuccess) uiSuccess.classList.remove('hidden'); else uiFail.classList.remove('hidden');
+            refreshIcons();
+        }, 0);
+    } finally {
+        packet.style.display = 'none';
+        btnS.disabled = btnF.disabled = false;
+        btnS.classList.remove('opacity-50'); btnF.classList.remove('opacity-50');
+        isFlowing = false;
+        isFlowPaused = false;
+        if (flowPauseResolvers.length) {
+            flowPauseResolvers.forEach(resolve => resolve());
+            flowPauseResolvers = [];
         }
-    });
-
-    // 2. DNS
-    await runStep(2, 'lnode-dns', 'lpath-dns-in');
-    await runStep(3, 'lnode-dns', 'lpath-dns-out', () => {
-        addrBar.innerText = '104.26.10.22/login';
-    });
-
-    // 4. SSL Handshake
-    await runStep(4, 'lnode-client', 'lpath-req');
-    await runStep(5, 'lnode-server', 'lpath-res', () => {
-        sSSL.classList.add('server-step-active');
-    });
-
-    // 6. HTTPS Transition
-    await runStep(6, 'lnode-client', null, () => {
-        sSSL.classList.remove('server-step-active');
-        cardHttp.classList.remove('highlight-card');
-        cardHttps.classList.add('highlight-card');
-        addrBar.innerHTML = '<span class="text-emerald-600">🔒 https://edward.com/login</span>';
-        addrBar.className = 'bg-white flex-1 rounded px-1 truncate text-emerald-600 font-bold';
-        packet.classList.add('encrypted');
-    });
-
-    // 7. Request Static
-    await runStep(7, 'lnode-client', 'lpath-req');
-    await runStep(8, 'lnode-server', 'lpath-res', () => {
-        sStatic.classList.add('server-step-active');
-    });
-
-    // 9. Interaction
-    await runStep(9, 'lnode-client', null, () => {
-        sStatic.classList.remove('server-step-active');
-        uiInitial.classList.add('hidden'); uiLogin.classList.remove('hidden');
-    });
-
-    // 10. Typing
-    await runStep(10, 'lnode-client', null, async () => {
-        const user = "Edward";
-        for (let char of user) { inputUser.innerHTML += char; await new Promise(r => setTimeout(r, 250)); }
-        await new Promise(r => setTimeout(r, 800));
-        const pass = isSuccess ? "1234" : "wrong";
-        for (let char of pass) { inputPass.innerHTML += char; await new Promise(r => setTimeout(r, 250)); }
-        document.getElementById('fake-login-btn').classList.remove('opacity-50');
-    });
-
-    // 11. Submit
-    await runStep(11, 'lnode-client', 'lpath-req');
-
-    // 12. Java Logic Start
-    await runStep(12, 'lnode-server', 'lpath-db-in', () => {
-        sCompare.classList.add('server-step-active');
-    });
-    await runStep(13, 'lnode-db', 'lpath-db-out');
-
-    // 14. Branching & Packaging
-    await runStep(14, 'lnode-server', 'lpath-res', () => {
-        sCompare.classList.remove('server-step-active');
-        sResp.classList.add('server-step-active');
-    });
-
-    // 15. Final Render
-    await runStep(15, 'lnode-client', null, () => {
-        sResp.classList.remove('server-step-active');
-        uiLogin.classList.add('hidden');
-        if (isSuccess) uiSuccess.classList.remove('hidden'); else uiFail.classList.remove('hidden');
-        refreshIcons();
-    });
-
-    packet.style.display = 'none';
-    btnS.disabled = btnF.disabled = false;
-    btnS.classList.remove('opacity-50'); btnF.classList.remove('opacity-50');
-    isFlowing = false;
+        refreshFlowPauseUI();
+    }
 }
 
 function animatePacketAlongPath(packetId, pathId, duration = 4500) {
@@ -945,15 +1050,36 @@ function animatePacketAlongPath(packetId, pathId, duration = 4500) {
     return new Promise(resolve => {
         const path = document.getElementById(pathId);
         const p = document.getElementById(packetId);
+        if (!path || !p) {
+            resolve();
+            return;
+        }
         const len = path.getTotalLength();
-        let start = null;
+        const velocity = len / Math.max(duration, 1);
+        let moved = 0;
+        let last = null;
+
         function step(timestamp) {
-            if (!start) start = timestamp;
-            const progress = timestamp - start;
-            const r = Math.min(progress / duration, 1);
-            const pt = path.getPointAtLength(r * len);
+            if (!isFlowing) {
+                resolve();
+                return;
+            }
+            if (last === null) last = timestamp;
+            if (isFlowPaused) {
+                last = timestamp;
+                window.requestAnimationFrame(step);
+                return;
+            }
+            const delta = timestamp - last;
+            last = timestamp;
+            moved = Math.min(len, moved + velocity * delta);
+            const pt = path.getPointAtLength(moved);
             p.setAttribute('cx', pt.x); p.setAttribute('cy', pt.y);
-            if (r < 1) window.requestAnimationFrame(step); else resolve();
+            if (moved < len) {
+                window.requestAnimationFrame(step);
+            } else {
+                resolve();
+            }
         }
         window.requestAnimationFrame(step);
     });
@@ -1008,6 +1134,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupTabKeyboardNavigation();
     restoreActiveSection();
     restoreForLoopSpeed();
+    refreshFlowPauseUI();
     updateLabPreview();
     refreshIcons();
     setTimeout(syncPaths, 100);

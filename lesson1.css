@@ -330,6 +330,13 @@ nav button.active-tab::after {
     margin-top: 4px;
     display: inline-block;
     cursor: pointer;
+    transition: transform 0.16s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-btn-clicking {
+    transform: translateY(1px) scale(0.96);
+    background: #4338ca;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.3), 0 0 0 1px rgba(79, 70, 229, 0.32);
 }
 
 .success-badge {
