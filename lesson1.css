@@ -101,9 +101,12 @@ nav button::after {
     transition: transform 0.28s ease;
 }
 
-nav button:hover::after,
-nav button.active-tab::after {
+nav button:not(.active-tab):hover::after {
     transform: scaleX(1);
+}
+
+nav button.active-tab::after {
+    transform: scaleX(0);
 }
 
 .code-font {
@@ -598,6 +601,7 @@ button:focus-visible,
         left: 28%;
         right: 28%;
     }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
