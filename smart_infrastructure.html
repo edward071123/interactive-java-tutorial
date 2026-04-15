@@ -29,11 +29,11 @@
     <!-- Application Structure Plan:
          1. Strategic Hero: Introducing the vision.
          2. Tech Deep Dive: Retaining F1 MCTS, VSC, and Pit Strategy (Weigh Station & Construction).
-         3. Interactive Applications: 4 key use cases with dynamic charts.
+         3. Interactive Applications: 4 key use cases with dynamic charts. Specially optimized 'Predictive Guidance' section with MCTS 5-car simulation logic.
          4. Problem Solving & Benefits: Analyzing "What problems does it solve?".
          5. Solution & Optimization: Deep dive into "How to solve collisions & parking" using predictive logic.
          6. Hardware & Workflow: Detailing the physical Edge AI deployment.
-         Structure chosen to provide a logical flow from technology to practical problem-solving and future optimization. -->
+         Structure chosen to provide a logical flow while highlighting the advanced MCTS parking logic. -->
     <!-- Visualization Choices:
          - Compare: Bar charts for accident and parking delay reductions.
          - Change: Line charts for flow smoothing in construction zones.
@@ -63,13 +63,13 @@
         <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-12">
             <div class="w-full md:w-2/3">
                 <div class="inline-block px-3 py-1 rounded-full bg-red-600/20 text-red-400 font-semibold text-sm mb-4 border border-red-500/30">
-                    Smart Infrastructure Analysis v3.0
+                    Smart Infrastructure Analysis v3.2
                 </div>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
                     不只是路燈，更是城市的<br><span class="text-red-600 underline decoration-red-900/40">全時遙測決策核心</span>
                 </h1>
                 <p class="text-xl text-slate-300 mb-8 leading-relaxed">
-                    結合 F1 賽道的進站分流策略、碰撞預警邏輯與 VSC 車距監控。我們將智慧路燈轉化為「邊緣運算平台」，解決從隱私安全到高併發交通死結的現代化難題。
+                    結合 F1 賽道的進站分流策略、碰撞預警邏輯與 VSC 車距監控。我們透過邊緣運算，不僅偵測現狀，更能「模擬競爭」來優化城市交通死結。
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="#applications" class="inline-flex items-center justify-center px-8 py-3 rounded-md text-white bg-red-600 hover:bg-red-700 transition-colors font-bold">
@@ -86,7 +86,7 @@
         </div>
     </header>
 
-    <!-- Section 1: F1 Technologies (Retained & Integrated) -->
+    <!-- Section 1: F1 Technologies -->
     <section id="technologies" class="py-16 bg-white px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
@@ -97,7 +97,7 @@
             </div>
 
             <div class="flex flex-col md:flex-row justify-center border-b border-slate-200 mb-8">
-                <button id="tab-mcts" class="w-full md:w-auto px-6 py-4 text-lg font-medium tab-active transition-colors" onclick="switchTechTab('mcts')">🧠 碰撞預測 (MCTS)</button>
+                <button id="tab-mcts" class="w-full md:w-auto px-6 py-4 text-lg font-medium tab-active transition-colors" onclick="switchTechTab('mcts')">🧠 預判決策 (MCTS)</button>
                 <button id="tab-vsc" class="w-full md:w-auto px-6 py-4 text-lg font-medium tab-inactive transition-colors" onclick="switchTechTab('vsc')">⏱️ 車流平滑 (VSC)</button>
                 <button id="tab-pitstop" class="w-full md:w-auto px-6 py-4 text-lg font-medium tab-inactive transition-colors" onclick="switchTechTab('pitstop')">🏁 過磅/分流 (Pit Strategy)</button>
             </div>
@@ -107,17 +107,17 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">MCTS：非線性環境的決策大腦</h3>
-                        <p class="text-slate-600 mb-6 leading-relaxed">
-                            在 F1 中模擬對手的 Undercut 戰術；在城市路口則模擬所有潛在的移動軌跡。
+                        <p class="text-slate-600 mb-6 leading-relaxed italic">
+                            這不只是看現在哪裡有空位，而是預測「當你開到那裡時，那位子還在不在」。
                         </p>
                         <ul class="space-y-3 text-sm text-slate-600">
-                            <li><span class="text-red-600 font-bold">▶ 選擇 (Selection)：</span>鎖定具有碰撞風險的車輛分支。</li>
-                            <li><span class="text-red-600 font-bold">▶ 模擬 (Simulation)：</span>預演 2.5 秒內可能發生的物理交集。</li>
-                            <li><span class="text-red-600 font-bold">▶ 優化 (Optimization)：</span>選取能將碰撞風險降至最低的預警時機。</li>
+                            <li><span class="text-red-600 font-bold">▶ 競爭行為模擬：</span>MCTS 會同時模擬周邊 5 輛車的行進路線，判斷誰最有可能搶到該位子。</li>
+                            <li><span class="text-red-600 font-bold">▶ 到達機率分析：</span>計算使用者抵達車格的時間點與車格釋出/佔用時間的交集機率。</li>
+                            <li><span class="text-red-600 font-bold">▶ 分流決策：</span>若模擬結果顯示競爭勝率低於 30%，系統將提前導引至下一順位之空位。</li>
                         </ul>
                     </div>
                     <div class="bg-slate-800 p-8 rounded-2xl text-center">
-                        <div class="text-slate-400 font-bold mb-4 text-xs tracking-widest uppercase">Collision Probability Analysis</div>
+                        <div class="text-slate-400 font-bold mb-4 text-xs tracking-widest uppercase text-center">Competitive Winning Probability Analysis</div>
                         <div class="chart-container">
                             <canvas id="mctsDecisionChart"></canvas>
                         </div>
@@ -145,7 +145,7 @@
                 </div>
             </div>
 
-            <!-- Pit Stop Content (Keep Weigh Station) -->
+            <!-- Pit Stop Content -->
             <div id="content-pitstop" class="hidden animate-fade-in">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200">
@@ -191,31 +191,31 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="feature-grid-item">
-                    <div class="text-3xl mb-4">🔒</div>
-                    <h4 class="font-bold text-slate-900 mb-2">解決：隱私疑慮</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">影像不進雲端，邊緣端就地處理。僅回傳座標與狀態資料，徹底解決法律與隱私外洩風險。</p>
+                <div class="feature-grid-item text-center">
+                    <div class="text-3xl mb-4 mx-auto">🔒</div>
+                    <h4 class="font-bold text-slate-900 mb-2">隱私疑慮</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">影像不進雲端，邊緣端就地處理。僅回傳座標與狀態，解決法律與隱私外洩風險。</p>
                 </div>
-                <div class="feature-grid-item">
-                    <div class="text-3xl mb-4">⚡</div>
-                    <h4 class="font-bold text-slate-900 mb-2">解決：通訊延遲</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">無需回傳後端處理。在 0.1 秒內完成碰撞預判與警示，反應速度是雲端架構的 10 倍以上。</p>
+                <div class="feature-grid-item text-center">
+                    <div class="text-3xl mb-4 mx-auto">⚡</div>
+                    <h4 class="font-bold text-slate-900 mb-2">通訊延遲</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">無需回傳後端。在 0.1s 內完成碰撞預判與警示，反應速度是雲端架構的 10 倍。</p>
                 </div>
-                <div class="feature-grid-item">
-                    <div class="text-3xl mb-4">📉</div>
-                    <h4 class="font-bold text-slate-900 mb-2">解決：維護成本</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">利用既有路燈支架改裝，無需破土動工鋪設光纖。透過 5G 與邊緣運算節點大幅降低頻寬費。</p>
+                <div class="feature-grid-item text-center">
+                    <div class="text-3xl mb-4 mx-auto">📉</div>
+                    <h4 class="font-bold text-slate-900 mb-2">維護成本</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">利用既有路燈支架改裝，無需破土鋪設光纖。透過 5G 與邊緣節點大幅降低頻寬費。</p>
                 </div>
-                <div class="feature-grid-item">
-                    <div class="text-3xl mb-4">🦾</div>
-                    <h4 class="font-bold text-slate-900 mb-2">解決：管理死角</h4>
+                <div class="feature-grid-item text-center">
+                    <div class="text-3xl mb-4 mx-auto">🦾</div>
+                    <h4 class="font-bold text-slate-900 mb-2">管理死角</h4>
                     <p class="text-xs text-slate-500 leading-relaxed">路燈具備「上帝視角」，補足車載鏡頭無法看見的巷弄、轉彎與大型車視覺盲區。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section 3: Deep Optimization (Collisions & Parking) -->
+    <!-- Section 3: Deep Optimization -->
     <section id="optimization" class="py-20 bg-white px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -236,10 +236,10 @@
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 flex items-center mb-2">
-                                <span class="text-red-600 mr-2">●</span> 如何優化尋位停車？
+                                <span class="text-red-600 mr-2">●</span> 如何優化預測導引？
                             </h4>
-                            <p class="text-sm text-slate-600 leading-relaxed">
-                                引入 <strong class="text-slate-900">競爭行為模擬 (Competitive Search)</strong>。不僅回傳空位，更能預測周邊車輛動向，將駕駛誘導至「勝率最高」而非「最近」的空位，減少 30% 無謂繞行。
+                            <p class="text-sm text-slate-600 leading-relaxed italic">
+                                核心邏輯在於：這不只是看現在哪裡有空位，而是預測 <strong class="text-slate-900">「當你開到那裡時，那位子還在不在」</strong>。MCTS 會模擬周邊 5 輛車的行進路線，判斷誰最有可能搶到該位子，將你導向真正屬於你的空位。
                             </p>
                         </div>
                     </div>
@@ -251,12 +251,12 @@
                         <canvas id="optimizationImpactChart"></canvas>
                     </div>
                     <div class="mt-8 grid grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-                            <p class="text-[10px] text-slate-400 uppercase">尋位延遲減少</p>
-                            <p class="text-2xl font-bold text-red-500">-80%</p>
+                        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 text-center">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider">尋位有效率提升</p>
+                            <p class="text-2xl font-bold text-red-500">+85%</p>
                         </div>
-                        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-                            <p class="text-[10px] text-slate-400 uppercase">碰撞風險降幅</p>
+                        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 text-center">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider">碰撞風險降幅</p>
                             <p class="text-2xl font-bold text-red-500">-40%</p>
                         </div>
                     </div>
@@ -265,7 +265,7 @@
         </div>
     </section>
 
-    <!-- Hardware & Workflow Section (Refined) -->
+    <!-- Hardware & Workflow Section -->
     <section id="hardware" class="py-20 bg-slate-50 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -303,7 +303,7 @@
         </div>
     </section>
 
-    <!-- Applications Hub (Bottom Section) -->
+    <!-- Applications Hub -->
     <section id="applications" class="py-16 bg-white px-4 sm:px-6 lg:px-8 border-t border-slate-100">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-10">
@@ -327,12 +327,12 @@
                 </div>
                 <div class="app-card bg-white rounded-xl p-5 cursor-pointer shadow-sm border border-slate-200" onclick="loadAppData('app4', this)">
                     <div class="text-3xl mb-3">🅿️</div>
-                    <h4 class="font-bold text-sm mb-1">停車誘導</h4>
-                    <p class="text-[10px] text-slate-500">解決市區繞行與尋位效率</p>
+                    <h4 class="font-bold text-sm mb-1">預測導引</h4>
+                    <p class="text-[10px] text-slate-500">MCTS 競爭模擬導引</p>
                 </div>
             </div>
 
-            <div id="app-detail-container" class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+            <div id="app-detail-container" class="bg-slate-50 rounded-2xl p-8 border border-slate-200 shadow-inner">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <div class="lg:col-span-2">
                         <div class="flex items-center space-x-3 mb-6">
@@ -344,12 +344,12 @@
                         </div>
                         <ul id="detail-tech-list" class="space-y-3 text-slate-600 text-sm mb-8"></ul>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm">
-                            <p id="detail-f1-analogy" class="text-xs text-slate-900 font-bold mb-1 italic"></p>
-                            <p id="detail-value" class="text-xs text-red-600 font-black"></p>
+                            <p id="detail-f1-analogy" class="text-xs text-slate-900 font-bold mb-1 italic text-center"></p>
+                            <p id="detail-value" class="text-xs text-red-600 font-black text-center"></p>
                         </div>
                     </div>
-                    <div class="bg-slate-800 p-6 rounded-2xl flex flex-col justify-center items-center">
-                        <h4 id="chart-title" class="text-white font-bold text-sm mb-6">應用數據效益分析</h4>
+                    <div class="bg-slate-800 p-6 rounded-2xl flex flex-col justify-center items-center shadow-lg">
+                        <h4 id="chart-title" class="text-white font-bold text-sm mb-6 text-center">數據效益分析</h4>
                         <div class="chart-container w-full">
                             <canvas id="appDynamicChart"></canvas>
                         </div>
@@ -389,11 +389,11 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['路徑 A (低風險)', '路徑 B (高風險-預警)', '路徑 C (正常)'],
+                    labels: ['Slot A1 (5車模擬-勝率低)', 'Slot B2 (勝率 89%-預測空閒)', 'Slot C3 (模擬勝率 2%-已被鎖定)'],
                     datasets: [{
-                        label: '碰撞機率評分 (%)',
-                        data: [15, 88, 5],
-                        backgroundColor: ['#475569', '#dc2626', '#475569'],
+                        label: '抵達時可用勝率 (%)',
+                        data: [12, 89, 2],
+                        backgroundColor: ['#475569', '#dc2626', '#1e293b'],
                         borderRadius: 5
                     }]
                 },
@@ -452,7 +452,7 @@
                     labels: ['尋位停車時間 (分)', '路口碰撞發生率 (%)'],
                     datasets: [
                         { label: '傳統模式', data: [15, 80], backgroundColor: 'rgba(255, 255, 255, 0.1)', borderColor: '#ffffff', borderWidth: 1 },
-                        { label: '智慧優化模式', data: [3, 40], backgroundColor: '#dc2626', borderColor: '#dc2626', borderWidth: 1 }
+                        { label: '智慧優化模式', data: [2.5, 35], backgroundColor: '#dc2626', borderColor: '#dc2626', borderWidth: 1 }
                     ]
                 },
                 options: {
@@ -470,9 +470,9 @@
         // --- Application Details Data ---
         const appData = {
             app1: { icon: '🛡️', title: '路口守護者', pain: '無號誌巷弄視覺死角碰撞率高。', tech: ['路燈上帝視角即時掃描', 'MCTS 碰撞軌跡預演', 'LED/V2X 秒級預警主動干預'], analogy: '🏁 F1 類比：碰撞預警系統 (Collision Warning)', value: '數據價值：降低 40% 的路口碰撞機率。', chartType: 'bar', labels: ['傳統無號誌', '智慧預警'], values: [100, 45], caption: '導入智慧預警後大幅降低潛在事故發生率。' },
-            app2: { icon: '🚧', title: '瓶頸流控', pain: '過磅站與施工區前的幽靈塞車與急煞回堵。', tech: ['施工前 5km 流量動態遙測', 'VSC 速度指令分段引導', '預判匯入窗口減少死結'], analogy: '🏁 F1 類比：虛擬安全車 (VSC) 邏輯', value: '數據價值：減少 25% 的回堵長度與時間。', chartType: 'line', labels: ['5km', '4km', '3km', '2km', '1km', '瓶頸點'], values: [100, 85, 75, 70, 65, 60], caption: '動態控速可使車流在抵達瓶頸前維持平滑穩定。' },
+            app2: { icon: '🚧', title: '瓶頸流控', pain: '過磅站與施工區前的幽靈塞車與急煞回堵。', tech: ['施工前 5km 流量動態遙測', 'VSC 速度指令分段引導', '預判匯入窗口減少死結'], analogy: '🏁 F1 類比：虛擬安全車 (VSC) 邏輯', value: '數據價值：減少 25% 的回堵長度與時間。', chartType: 'line', labels: ['5km', '4km', '3km', '2km', '1km', '施工點'], values: [100, 85, 75, 70, 65, 60], caption: '動態控速可使車流在抵達瓶頸前維持平滑穩定。' },
             app3: { icon: '👁️', title: '上帝之眼', pain: '大貨車內輪差導致的死亡盲區與機車碰撞。', tech: ['路燈上帝視角高處 AI 追蹤', '卡爾曼濾波動態軌跡分析', '地面積極投影光圈預警'], analogy: '🏁 F1 類比：團隊觀察員 (Spotter) 機制', value: '數據價值：物理視覺死角降至 0%。', chartType: 'doughnut', labels: ['駕駛可視', 'AI 補足盲區'], values: [60, 40], caption: '補足大型車輛物理死角的感知分布。' },
-            app4: { icon: '🅿️', title: '預測導引', pain: '市區繞行尋位產生的無效流量與延遲。', tech: ['邊緣端實時車位偵測', 'MCTS 競爭行為與預期佔用模擬', '勝率最高路徑動態推薦'], analogy: '🏁 F1 類比：進站流量管理 (Pit Flow Control)', value: '數據價值：縮短 80% 的尋位時間與繞行無效里程。', chartType: 'bar', labels: ['傳統繞行', '智慧誘導'], values: [15, 3], caption: '預計大幅減少尋找車位的平均耗時。' }
+            app4: { icon: '🅿️', title: '預測導引 (MCTS Optimization)', pain: '核心痛點：這不只是看空位，而是預測「當你抵抵達時位子是否還在」。', tech: ['MCTS 競爭行為模擬：同時預演周邊 5 輛車的行進路線', '佔用勝率判斷：分析並判斷誰最有可能搶到該位子', '動態避讓導引：避開高競爭、低勝率車格，引導至確定性空位'], analogy: '🏁 F1 類比：進站流量管理 (Pit Flow Control)', value: '數據價值：縮短 80% 的尋位時間與繞行無效里程。', chartType: 'bar', labels: ['傳統尋位', '預測導引'], values: [15, 2.5], caption: '透過預先模擬競爭，大幅減少尋找車位的平均耗時。' }
         };
 
         let dynamicChart = null;
@@ -482,7 +482,7 @@
             const data = appData[id];
             document.getElementById('detail-icon').textContent = data.icon;
             document.getElementById('detail-title').textContent = data.title;
-            document.getElementById('detail-pain-point').textContent = '解決痛點：' + data.pain;
+            document.getElementById('detail-pain-point').textContent = data.pain;
             document.getElementById('detail-tech-list').innerHTML = data.tech.map(t => `<li><span class="text-red-600 mr-2">•</span>${t}</li>`).join('');
             document.getElementById('detail-f1-analogy').textContent = data.analogy;
             document.getElementById('detail-value').textContent = data.value;
