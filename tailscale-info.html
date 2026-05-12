@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailscale 運作原理：全面解析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .step-active { border-color: #3b82f6; background-color: #eff6ff; }
+        .line-animate { stroke-dasharray: 8; animation: dash 1s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -16; } }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tech-card:hover { border-color: #3b82f6; transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15); }
+        .headscale-gradient { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-slate-800 mb-4 tracking-tight">Tailscale 運作原理全面解析</h1>
+            <p class="text-slate-600 max-w-2xl mx-auto">整合身分驗證與點對點加密，讓虛擬內網穿透防火牆，像是在同一個區域網路般運作。</p>
+        </header>
+
+        <!-- Section 1: Interactive Stepper (The Flow) -->
+        <div class="grid lg:grid-cols-12 gap-8 mb-20">
+            <!-- Left: Stepper Interface -->
+            <div class="lg:col-span-4 space-y-3">
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <i data-lucide="play-circle" class="text-blue-600"></i> 連線步驟演示
+                </h2>
+                <button onclick="showStep(1)" id="btn-1" class="step-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white transition-all step-active">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-sm">1</span>
+                        <h3 class="font-bold text-slate-800">身分認證與金鑰</h3>
+                    </div>
+                </button>
+
+                <button onclick="showStep(2)" id="btn-2" class="step-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-sm">2</span>
+                        <h3 class="font-bold text-slate-800">向中央主機報到</h3>
+                    </div>
+                </button>
+
+                <button onclick="showStep(3)" id="btn-3" class="step-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-sm">3</span>
+                        <h3 class="font-bold text-slate-800">獲取網路地圖</h3>
+                    </div>
+                </button>
+
+                <button onclick="showStep(4)" id="btn-4" class="step-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-sm">4</span>
+                        <h3 class="font-bold text-slate-800">嘗試打洞連線</h3>
+                    </div>
+                </button>
+
+                <button onclick="showStep(5)" id="btn-5" class="step-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-sm">5</span>
+                        <h3 class="font-bold text-slate-800">成功建立直連</h3>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Right: Interactive Diagram -->
+            <div class="lg:col-span-8 bg-slate-900 rounded-3xl p-6 md:p-10 text-white relative min-h-[550px] flex flex-col shadow-2xl overflow-hidden">
+                <!-- Row 1: Server -->
+                <div id="central-host" class="w-full text-center mb-4 transition-all duration-500">
+                    <div class="w-16 h-16 bg-blue-600/20 backdrop-blur-md border-2 border-blue-500 rounded-full flex items-center justify-center mx-auto mb-2 shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                        <i data-lucide="cloud-lightning" class="w-8 h-8 text-blue-400"></i>
+                    </div>
+                    <div class="font-bold text-blue-400 text-sm tracking-widest uppercase">Coordination Server</div>
+                </div>
+
+                <!-- Row 2: SVG Lines Area -->
+                <div class="relative w-full h-40">
+                    <svg width="100%" height="100%" viewBox="0 0 400 200" preserveAspectRatio="none" class="overflow-visible">
+                        <!-- Control Paths (To Server) -->
+                        <path id="ctrl-a" d="M 60 180 Q 80 50 200 20" stroke="transparent" stroke-width="2" stroke-dasharray="4" fill="none" class="line-animate" />
+                        <path id="ctrl-b" d="M 340 180 Q 320 50 200 20" stroke="transparent" stroke-width="2" stroke-dasharray="4" fill="none" class="line-animate" />
+                    </svg>
+                </div>
+
+                <!-- Row 3: Nodes & P2P Line -->
+                <div class="w-full relative px-10">
+                    <div class="flex justify-between items-center relative z-20">
+                        <!-- Node A -->
+                        <div id="dev-a" class="text-center">
+                            <div class="w-16 h-16 bg-slate-800 border-2 border-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-2 transition-all duration-500" id="icon-a">
+                                <i data-lucide="laptop" class="w-8 h-8 text-slate-400"></i>
+                            </div>
+                            <div class="text-[10px] uppercase text-slate-500 font-bold">Node A</div>
+                        </div>
+
+                        <!-- Data Path (P2P) -->
+                        <div class="flex-1 px-4 relative">
+                            <svg width="100%" height="20" class="overflow-visible">
+                                <line id="data-line" x1="0" y1="10" x2="100%" y2="10" stroke="transparent" stroke-width="3" class="line-animate" />
+                            </svg>
+                        </div>
+
+                        <!-- Node B -->
+                        <div id="dev-b" class="text-center">
+                            <div class="w-16 h-16 bg-slate-800 border-2 border-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-2 transition-all duration-500" id="icon-b">
+                                <i data-lucide="server" class="w-8 h-8 text-slate-400"></i>
+                            </div>
+                            <div class="text-[10px] uppercase text-slate-500 font-bold">Node B</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 4: Description Box -->
+                <div id="desc-card" class="mt-10 w-full bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-inner">
+                    <h4 id="desc-title" class="text-blue-400 font-bold mb-2 text-lg">載入中...</h4>
+                    <p id="desc-text" class="text-sm text-slate-300 leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Core Technical Principles -->
+        <div id="technical-principles" class="mb-20 border-t border-slate-200 pt-16">
+            <h2 class="text-3xl font-bold mb-10 text-center flex items-center justify-center gap-3 text-slate-800">
+                <i data-lucide="cpu" class="text-blue-600"></i> 三大核心技術原理
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- WireGuard -->
+                <div class="tech-card bg-white p-8 rounded-3xl border border-slate-200 transition-all">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="shield-check" class="text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">WireGuard® 協定</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Tailscale 的數據傳輸完全基於 WireGuard。它比 OpenVPN 更精簡（僅約 4000 行代碼），使用現代化的加密技術。
+                        其特點是**無狀態連接**：裝置只需知道對方的公鑰與端點即可通訊。
+                    </p>
+                </div>
+
+                <!-- Separation -->
+                <div class="tech-card bg-white p-8 rounded-3xl border border-slate-200 transition-all">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="split" class="text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">控制與數據平面分離</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        這是 Tailscale 成功的關鍵架構。**控制平面**負責身分驗證與分發「網路地圖」；**數據平面**則是裝置間真正的加密流量。
+                        中央伺服器只管「通訊錄」，不碰你的「內容」。
+                    </p>
+                </div>
+
+                <!-- STUN/Hole Punching -->
+                <div class="tech-card bg-white p-8 rounded-3xl border border-slate-200 transition-all">
+                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="drill" class="text-amber-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">STUN 與 UDP 打洞</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        為了解決 NAT 導致無法直連的問題，Tailscale 使用 **STUN** 技術探測端點，並嘗試 **UDP 打洞**。
+                        它會誘導防火牆認為這是一個「由內而外」的請求，穿透防火牆達成直連。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Pros/Cons Analysis -->
+        <div id="details" class="mb-20">
+            <h2 class="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-2">
+                <i data-lucide="scale" class="text-blue-600"></i> 優缺點分析
+            </h2>
+            <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm max-w-4xl mx-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-4 font-bold text-slate-700 w-1/2">優點 (Pros)</th>
+                            <th class="px-6 py-4 font-bold text-slate-700 w-1/2">缺點 (Cons)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-6 py-4 text-slate-600">極簡設定：無需設定路由器。</td>
+                            <td class="px-6 py-4 text-slate-600 font-semibold text-amber-700 bg-amber-50/30">依賴外部：必須依賴官方伺服器。</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-slate-600">低延遲：優先嘗試 P2P 直連。</td>
+                            <td class="px-6 py-4 text-slate-600 font-semibold text-amber-700 bg-amber-50/30">隱私疑慮：官方知道裝置列表。</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-slate-600">安全性：整合 SSO 登入。</td>
+                            <td class="px-6 py-4 text-slate-600 font-semibold text-amber-700 bg-amber-50/30">限制：免費版有裝置數量限制。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 4: Solution - Headscale -->
+        <div class="headscale-gradient rounded-3xl p-8 md:p-12 text-white mb-20 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-8 opacity-10">
+                <i data-lucide="server" class="w-64 h-64"></i>
+            </div>
+            
+            <div class="relative z-10">
+                <div class="inline-block px-4 py-1 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-400 text-xs font-bold mb-4 uppercase tracking-widest">
+                    進階方案：徹底私有化
+                </div>
+                <h2 class="text-3xl font-bold mb-6 text-white">Headscale — 終極解決方案</h2>
+                <p class="text-slate-300 mb-8 max-w-3xl leading-relaxed">
+                    Headscale 是 Tailscale 控制平面的開源實現。它讓你自行架設中央協調伺服器，從而消除對官方的依賴。
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-10 text-white">
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <i data-lucide="database" class="text-blue-400 mb-4"></i>
+                        <h4 class="font-bold mb-2 text-blue-200">100% 資料私有</h4>
+                        <p class="text-xs text-slate-400">所有裝置資訊、公鑰與連線地圖都儲存在你自己的 VPS 中。</p>
+                    </div>
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <i data-lucide="infinity" class="text-blue-400 mb-4"></i>
+                        <h4 class="font-bold mb-2 text-blue-200">無上限節點</h4>
+                        <p class="text-xs text-slate-400">不再受官方免費版數量的限制，資源由你自行掌控。</p>
+                    </div>
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <i data-lucide="unlock" class="text-blue-400 mb-4"></i>
+                        <h4 class="font-bold mb-2 text-blue-200">完整開源控制</h4>
+                        <p class="text-xs text-slate-400">你可以審核每一行代碼，確保沒有任何隱藏的追蹤。</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-600/20 border border-blue-500/30 p-6 rounded-2xl">
+                    <h5 class="font-bold mb-4 flex items-center gap-2 text-blue-300">
+                        <i data-lucide="terminal" class="w-5 h-5"></i> 快速部署流程
+                    </h5>
+                    <ol class="text-sm space-y-4 text-slate-300">
+                        <li class="flex gap-4">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs">1</span>
+                            <span>**架設主機**：在伺服器安裝 Headscale (建議使用 Docker)。</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs">2</span>
+                            <span>**反向代理**：配置域名與 SSL 憑證 (如 Caddy 或 Nginx)。</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs">3</span>
+                            <span>**裝置連線**：使用 `--login-server` 指向你的域名即可接入。</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Summary -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-emerald-50 border border-emerald-200 p-8 rounded-3xl shadow-sm">
+                <h3 class="text-xl font-bold text-emerald-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="check-circle-2"></i> 官方版適用對象
+                </h3>
+                <ul class="text-sm text-emerald-700 space-y-4">
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="zap" class="w-4 h-4 mt-0.5 text-emerald-600"></i>
+                        <span>重視穩定性，不希望自行維護伺服器。</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="user-check" class="w-4 h-4 mt-0.5 text-emerald-600"></i>
+                        <span>裝置數量較少的個人用戶或小團隊。</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 p-8 rounded-3xl shadow-sm">
+                <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="help-circle"></i> Headscale 適用對象
+                </h3>
+                <ul class="text-sm text-blue-700 space-y-4">
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="settings" class="w-4 h-4 mt-0.5 text-blue-600"></i>
+                        <span>喜歡掌控一切細節的技術愛好者。</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="eye-off" class="w-4 h-4 mt-0.5 text-blue-600"></i>
+                        <span>對數據隱私有絕對要求，不信任第三方伺服器。</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const steps = {
+            1: {
+                title: "第 1 步：身分認證與金鑰",
+                text: "你在兩台裝置上登入。裝置會各自產生加密金鑰對。此時裝置之間完全不知道對方的存在，僅完成身分確認。",
+                colorA: "#3b82f6", colorB: "#3b82f6",
+                ctrlA: "transparent", ctrlB: "transparent", data: "transparent",
+                highlightServer: false
+            },
+            2: {
+                title: "第 2 步：向中央主機報到",
+                text: "裝置將「公鑰」和「目前的 IP 位址」上傳給協調伺服器。伺服器就像是一個存放資訊的保險箱。",
+                colorA: "#3b82f6", colorB: "#3b82f6",
+                ctrlA: "#64748b", ctrlB: "#64748b", data: "transparent",
+                highlightServer: true
+            },
+            3: {
+                title: "第 3 步：獲取網路地圖",
+                text: "協調伺服器將裝置 B 的位置告知裝置 A。這一步是整個網路建立的「關鍵情報交換」。",
+                colorA: "#3b82f6", colorB: "#3b82f6",
+                ctrlA: "#3b82f6", ctrlB: "#3b82f6", data: "transparent",
+                highlightServer: true
+            },
+            4: {
+                title: "第 4 步：嘗試打洞連線",
+                text: "裝置 A 與 B 拿到對方 IP 後，直接朝對方的防火牆發送 UDP 包。嘗試建立 P2P 加密隧道。",
+                colorA: "#fbbf24", colorB: "#fbbf24",
+                ctrlA: "transparent", ctrlB: "transparent", data: "#fbbf24",
+                highlightServer: false
+            },
+            5: {
+                title: "第 5 步：成功建立直連",
+                text: "連線成功！流量現在在裝置間直接透過 WireGuard 加密傳輸。中央主機不再參與後續處理。",
+                colorA: "#10b981", colorB: "#10b981",
+                ctrlA: "transparent", ctrlB: "transparent", data: "#10b981",
+                highlightServer: false
+            }
+        };
+
+        function showStep(num) {
+            document.querySelectorAll('.step-btn').forEach(btn => btn.classList.remove('step-active'));
+            document.getElementById(`btn-${num}`).classList.add('step-active');
+
+            const step = steps[num];
+            const card = document.getElementById('desc-card');
+            card.classList.remove('fade-in');
+            void card.offsetWidth; 
+            card.classList.add('fade-in');
+            
+            document.getElementById('desc-title').innerText = step.title;
+            document.getElementById('desc-text').innerText = step.text;
+
+            const iconA = document.getElementById('icon-a');
+            const iconB = document.getElementById('icon-b');
+            const server = document.getElementById('central-host');
+            const ctrlA = document.getElementById('ctrl-a');
+            const ctrlB = document.getElementById('ctrl-b');
+            const dataLine = document.getElementById('data-line');
+
+            iconA.style.borderColor = step.colorA;
+            iconB.style.borderColor = step.colorB;
+            iconA.querySelector('svg').style.color = step.colorA;
+            iconB.querySelector('svg').style.color = step.colorB;
+
+            server.style.opacity = step.highlightServer ? "1" : "0.3";
+            server.style.transform = step.highlightServer ? "scale(1.1)" : "scale(1)";
+            
+            ctrlA.setAttribute('stroke', step.ctrlA);
+            ctrlB.setAttribute('stroke', step.ctrlB);
+            dataLine.setAttribute('stroke', step.data);
+        }
+
+        window.onload = () => showStep(1);
+    </script>
+</body>
+</html>
